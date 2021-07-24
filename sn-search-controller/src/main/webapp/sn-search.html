@@ -1,0 +1,1187 @@
+<meta http-equiv="X-UA-Compatible" content="IE=8" xmlns:list-style="http://www.w3.org/1999/xhtml"
+      xmlns:list-style="http://www.w3.org/1999/xhtml"/>
+
+
+
+<!--[if lt IE 9]><script r='m'>document.createElement("section")</script><![endif]-->
+<script type="text/javascript">
+    /*
+     * 判断是否在手机中查看
+     */
+    var ua = navigator.userAgent;
+    var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+        isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+        isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+        isMobile = isIphone || isAndroid;
+    if (isMobile) {
+        var url = "www.suining.gov.cn:9100";
+        location.href = url;
+    }
+</script>
+
+<script src="plugins/jquery/jquery-1.11.0.min.js"></script>
+<script src="plugins/jquery/jquery-ui.min.js"></script>
+<script src="plugins/jquery/jquery-ui-timepicker-addon.min.js"></script>
+<script src="plugins/jquery/jquery.pagination.js"></script>
+
+<script type="text/javascript" src="plugins/jquery/plugin.js"></script>
+<style>
+
+
+    ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+
+    ul.pagination li {
+        display: inline;
+    }
+
+    ul.pagination li a {
+        color: black;
+        float: left;
+
+        text-decoration: none;
+    }
+
+    ul.pagination li a:hover:not(.active) {
+        background-color: #f44236
+    }
+
+    .classA {
+
+        background: #f44236;
+    }
+
+    .shu {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        text-align: left;
+        font-size: 14px;
+        color: #323232;
+        letter-spacing: 1px;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+    }
+    .testDiv {
+        width: 70%;
+        height: auto;
+        word-wrap: break-word;
+        word-break: break-all;
+        overflow: hidden;
+    }
+
+    .boss{
+        width: 1108px;margin: auto;  overflow: hidden;
+    }
+    .boss div a{
+        width: 199px ;float: left; margin-left: 5px;
+
+    }
+    .boss div a img{
+        display: block;
+        width: 199px;
+        height: 144px;
+        float: left;
+    }
+
+
+
+</style>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>遂宁市政府门户网站智能搜索系统</title>
+
+    <link rel="stylesheet" href="css/base.css"/>
+    <link rel="stylesheet" href="css/skin.css"/>
+    <link rel="stylesheet" type="text/css" href="css/pages-list.css"/>
+    <link rel="stylesheet" href="css/pagination.css"/>
+    <link rel="stylesheet" href="css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="css/head.css"/>
+    <link rel="stylesheet" href="css/detail.css"/>
+
+    <script type="text/javascript" src="js/angularjs/angular.js"></script>
+
+
+    <script src="js/sn_search.js"></script>
+    <script type="text/javascript" src="js/service/searchService.js"></script>
+    <script type="text/javascript" src="js/controller/searchController.js"></script>
+
+</head>
+
+<body ng-app="snSearch" ng-controller="searchController" ng-init="loadkeywords(); shuju(searchMap.groupId);quanbu()">
+<div class="wrapper">
+    <div id="com-head" class="com-head posr">
+        <div class="head-box clearfix">
+            <!--logo-->
+            <a target="_blank" href="http://www.suining.gov.cn/web/guest/welcome" class="logo fl">
+
+                <img src="imges/sn-logo.png" alt="logo"/>
+
+            </a>
+            <!--center-->
+            <div class="center-box fl">
+                <!--搜索框-->
+                <div class="search-box clearfix">
+                    <form method="get" class="form clearfix fl">
+                        <input type="hidden" name="siteCode" value="62" id="siteCode"/>
+                        <input type="hidden" name="database" value="news" id="database"/>
+
+                        <input type="hidden"/>
+                        <div class="search-top clearfix">
+
+
+                            <input id="qt" type="text" class="search-txt fl"  ng-model="searchMap.keywords;"
+                                   autocomplete="off" ng-keyup="enterEvent($event)"/>
+
+                            <input id="search-btn" type="button" class="search-btn fl"
+                                   ng-click="searchMap.pageNo=1;SNSearch(1); "/>
+                        </div>
+
+
+                        <ul id="search-ul">
+                        </ul>
+                    </form>
+
+                    <div class="advanced fl on" style="">
+                        <p class="advanced_tip"><a href="javascript:void(0);">高级</a>
+                        </p>
+                    </div>
+
+
+                </div>
+
+                <!--热搜词-->
+                <div style="display:block; ">
+                    <span class="hot-search font12 clearfix hot-start fl hot-word " style="display:block;margin:10px">
+                       热搜词:
+                    </span>
+
+                    <a href="#" ng-click="show0($event)" class="hot-search font12 clearfix hot-start fl hot-word "
+                       style="display:block; margin:10px">
+                        贷款
+                    </a>
+                    <a href="#" ng-click="show0($event)" class="hot-search font12 clearfix hot-start fl hot-word "
+                       style="display:block;margin:10px">
+                        户口
+                    </a>
+                    <a href="#" ng-click="show0($event)" class="hot-search font12 clearfix hot-start fl hot-word "
+                       style="display:block;margin:10px">
+                        房价
+                    </a>
+                    <a href="#" ng-click="show0($event)" class="hot-search font12 clearfix hot-start fl hot-word "
+                       style="display:block;margin:10px">
+                        居住证
+                    </a>
+                </div>
+
+                <!--发证机关等等信息框开始-->
+                <div class="office clearfix" id="office2" style="display:none">
+                    <div class="org">
+                        <span class="main_info fl">发文机关：</span>
+                        <input class="jiguan_sel fl posr" type="text" id="docpubname" value=""/>
+                    </div>
+                    <div class="nub">
+                        <span class="main_info fl">发文字号：</span>
+                        <!--下面是文种两种情况-->
+
+                        <div class="org fl posr" id="docwz_wrap">
+                            <span id="docwz_time" class="text posa">文种</span>
+                            <input class="one1 org fl posr" type="text" id="docwz" value=""/>
+                        </div>
+
+                        <div class="org fl posr" id="docnf_wrap">
+                            <span id="docnf_time" class="text posa">2017</span>
+                            <input class="one1 org fl posa" type="text" id="docnf" value=""/>
+                        </div>
+                        <input class="one1 org fl posr" type="text" id="docjtwh" value=""/>
+                        <span class="line-height">号</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="help posa">
+
+        </div>
+        <!--nav开始-->
+        <div class="nav posr" id="nav">
+            <div class="center w1000 clearfix">
+
+                <a href="" class="fl  checked" id="all_tip" ng-click="quanbu()">全部</a>
+
+                <a href="" class="fl " ng-click="government($event)">政务公开</a>
+
+                <a href="#" class="fl" ng-click="government($event)">政务服务</a>
+                <a href="#" class="fl" ng-click="government($event)">政民互动</a>
+
+
+                <a href="#" class="fl" ng-click="governme($event)">图片</a>
+
+            </div>
+        </div>
+        <!--nav结束-->
+    </div>
+    <div id="head-copy" style="display:none;"></div>
+
+    <div class="piece whole clearfix" >
+        <!--普通列表页开始-->
+        <div class="content_left fl posr">
+            <!--搜索工具开始-->
+            <div id="search-tools" class="tool_box posr bkf" >
+
+                <div class="bottom cd_bot" style="display:none;opacity:0;margin-top: 10px;left:0;" >
+                    <div class="search_tool clearfix">
+                        <div class="paixu_part"><b class="txt_color"
+                                                   style="padding-left:27px;padding-right:5px;">排序：</b>
+
+                            <a href="#" class="Sort" style="color: #666" ng-class="{'Sort':focusIndex==0}"
+                               ng-click="sortSearch('','');titleClick(0)">
+                                按相关度
+                            </a>
+
+
+                            <a href="#" style="color: #666" class="paixu"
+                               ng-click="sortSearch('createdate','DESC');titleClick(1)"
+                               ng-class="{'Sort':focusIndex==1}">按时间</a>
+
+                        </div>
+                        <div class="location_part"><b class="txt_color" style="padding-right:12px;">搜索位置:</b>
+
+                            <a href="#" style="color: #666" class="keyplace" ng-class="{'keyplace':focusIndex01==0}"
+                               ng-click="searchTitle('1');titleClick01(0)">全文</a>
+
+
+                            <a href="#" style="color: #666" class="location" ng-class="{'keyplace':focusIndex01==1}"
+                               ng-click="searchTitle('2');titleClick01(1)">标题</a>
+
+
+                        </div>
+
+
+                        <div class="time_part" >
+                              <span class="times defaul_option" id="time">
+                                  <div class="time_select">
+                                  <span>时间选项:</span>
+                                  </div>
+
+                                  <div >
+                                      <span class="location"><a style="color: #666" href="#"  ng-class="{'keyplace':focusInde==0}" ng-click="selectTime($event);titleCli(0)">不限</a></span>
+                                      <span class="location"><a style="color: #666" href="#"  ng-class="{'keyplace':focusInde==1}"  ng-click="selectTime($event);titleCli(1)">一周内</a></span>
+                                      <span class="location"><a style="color: #666" href="#"  ng-class="{'keyplace':focusInde==2}" ng-click="selectTime($event);titleCli(2)">一月内</a></span>
+                                      <span class="location"><a style="color: #666" href="#"  ng-class="{'keyplace':focusInde==3}" ng-click="selectTime($event);titleCli(3)">一年内</a></span>
+
+                                  </div>
+
+                              </span>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="nnn" style="  color: #898989;font-size:14px;margin-top:15px;" >
+
+            </div>
+
+            <div class="no_result w535" ng-if="resultMap.rows==''&& resultMap.row=='' && resultMap.su=='' && resultMap.hp==''" >
+
+                <p>
+                <p style="font-size:14px;line-height:180%"><strong>很抱歉！未能搜索到您想要的内容<br>建议您：<br>&nbsp;&nbsp;&nbsp;&nbsp;1、看看输入的文字是否有错误<br>&nbsp;&nbsp;&nbsp;&nbsp;2、去掉可能不必要的词或条件<br></strong>
+
+
+
+            </div>
+            <!--搜索工具结束-->
+            <!--来访地区开始-->
+
+            <!--来访地区结束-->
+            <!--拼音搜索开始-->
+            <div class="pinyin" id="pinyinword" style="display: none;"></div>
+            <!--拼音搜索结束-->
+            <!--纠错搜索开始-->
+            <div class="pinyin" id="debugword" style="display: none;"></div>
+            <!--纠错搜索结束-->
+            <!--左侧结果开始-->
+            <div class="total">
+
+                <div class="news classify"  style="display: none;">
+                    <!--最新消息开始-->
+                    <div class="msg lastest-news" id="lastest_news" style="display: none;"></div>
+                    <!--最新消息结束-->
+                    <!--大众词搜索开始-->
+                    <div class="msg lastest-news" id="popularword" style="display: none;"></div>
+                    <!--大众词搜索结束-->
+                </div>
+
+
+                <div class="image classify" >
+                    <!-- 图片搜索开始 -->
+
+
+                    <!-- 图片搜索结束-->
+                    <!-- 视频搜索开始 -->
+                    <div class="msg dream" id="videoResults" style="display:none"></div>
+                    <!-- 视频搜索结束 -->
+                </div>
+
+                <div class="top classify">
+                    <!--框计算开始-->
+                    <div class="top_img msg" id="frame" style="display: none;"></div>
+                    <!--框计算结束-->
+                    <!--置顶开始-->
+                    <div class="top_img msg" id="top" style="overflow: hidden;"><p></p>
+                        <style type="text/css">body, div, ol, ul, h1, h2, h3, h4, h5, h6, p, th, td, dl, dd, form, iframe, input, textarea, select, label, article, aside, footer, header, menu, nav, section, time, audio, video {
+                            margin: 0;
+                            padding: 0;
+                            font-weight: normal;
+                        }
+
+                        body, div, p, span, ul, li, h1, h2, h3, h4, ol, dl, dt, dd, img, a, input, textarea {
+                            padding: 0;
+                            margin: 0;
+                            list-style: none;
+                            border: 0;
+                        }
+
+                        body {
+                            font-family: "微软雅黑", "Arial", "宋体";
+                            font-size: 12px;
+                        }
+
+                        article, aside, footer, header, hgroup, nav, section, audio, canvas, video, img {
+                            display: block;
+                        }
+
+                        div, form, img, ul, ol, li, dl, dt, dd {
+                            margin: 0;
+                            padding: 0;
+                            border: 0;
+                            list-style: none;
+                        }
+
+                        i, em {
+                            font-style: normal;
+                        }
+
+                        a:link {
+                            text-decoration: none;
+                        }
+
+                        a:visited {
+                            text-decoration: none;
+                        }
+
+                        a:hover {
+                            color: #ff9900;
+                            text-decoration: none;
+                        }
+
+                        a:active {
+                            color: #333;
+                        }
+
+                        input {
+                            border: 0;
+                            outline: none;
+                            font-family: "微软雅黑", "Arial", "宋体";
+                        }
+
+                        input::-webkit-input-placeholder {
+                            color: #999;
+                            -webkit-transition: color .5s;
+                        }
+
+                        .clear {
+                            clear: both;
+                        }
+
+                        .clearfix:after {
+                            visibility: hidden;
+                            display: block;
+                            font-size: 0;
+                            content: " ";
+                            clear: both;
+                            height: 0;
+                        }
+
+                        .fl {
+                            float: left;
+                        }
+
+                        </style>
+                        <p></p>
+                        <style>body {
+                            font-family: 'Microsoft Yahei';
+                        }
+
+                        .Character_profile {
+                            padding-bottom: 29px;
+                            __border-bottom: 1px solid #e5e5e5;
+                            width: 550px;
+                            height: 90px;
+                        }
+
+                        .Character_profile p {
+                            margin: 0;
+                            line-height: 20px;
+                            font-size: 13px;
+                            color: #333;
+                        }
+
+                        .leader_name {
+                            font-size: 17px;
+                            __color: #c00;
+                            margin-bottom: 10px;
+                        }
+
+                        .lead_infor_left {
+                            margin-right: 18px;
+                        }
+
+                        .lead_infor_right {
+                            width: 395px;
+                        }
+
+                        .content_left p {
+                            line-height: 20px;
+                            font-size: 13px;
+                            color: #333;
+                        }
+
+                        .blue_underline {
+                            color: #0000cc;
+                            text-decoration: underline;
+                        }
+
+                        .lead_infor_right .blue_underline {
+                            margin-right: 10px;
+                        }
+
+                        .under_c00 {
+                            text-decoration: underline #c00;
+                        }
+
+                        .icon_down {
+                            width: 8px;
+                            height: 4px;
+                            display: inline-block;
+                            background: no-repeat center center;
+                            cursor: pointer;
+                        }
+
+                        .colo-008000 {
+                            color: #008000;
+                        }
+
+                        .colo-c00 {
+                            color: #c00;
+                        }
+
+                        .clearfix:after {
+                            display: block;
+                            content: "";
+                            clear: both;
+                        }
+
+                        .clearfix {
+                            zoom: 1;
+                        }
+
+                        .fr {
+                            float: right;
+                        }
+
+                        .fl {
+                            float: left;
+                        }</style>
+                        <p></p>
+                        <div ng-repeat="lead in resultMap.leader">
+                            <div class="Character_profile">
+                                <div class="lead_infor clearfix">
+                                    <div class="lead_infor_left fl"><p><br>
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+                                        <p><a href="{{lead.qalUrl}}"
+                                              target="_blank"> <img src="{{lead.qalImg}}"
+                                                                    width="115" hidden="1408"         ></a>
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>&nbsp; &nbsp; &nbsp; &nbsp;
+                                    </div>
+                                    <div class="lead_infor_right fl"><p><span class="colo-c00"><span
+                                            style="font-family: Simsun; font-weight: bold; white-space: normal;"><br></span></span>
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+                                        <p><span class="colo-c00"><span
+                                                style="font-family: Simsun; font-weight: bold; white-space: normal;"><span
+                                                style="font-size: 18px;"><a href="{{lead.qalUrl}}"
+                                                                            target="_blank"><span style="color:#ff0000;">{{lead.qalName}}</span></a></span><span
+                                                style="font-size: 14px; color: rgb(255, 0, 0);">&nbsp;&nbsp;</span></span></span><span
+                                                style="font-family: '????'; font-size: 12px; line-height: 18px;"><span
+                                                style="font-family: '????'; font-size: 12px; line-height: 18px; white-space: normal;">{{lead.qalResign}}</span></span>
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+                                        <p><span style="font-family: '????'; font-size: 12px; line-height: 18px;"><span
+                                                style="font-family: '????'; font-size: 12px; line-height: 18px; white-space: normal;"><br></span></span>
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+                                        <p>&nbsp; &nbsp;<span id="_baidu_bookmark_start_8"
+                                                              style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_start_10"
+                                                style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_start_4"
+                                                style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_start_6"
+                                                style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_start_0"
+                                                style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_start_2"
+                                                style="display: none; line-height: 0px;">‍</span> <span
+                                                id="_baidu_bookmark_start_12"
+                                                style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_start_14"
+                                                style="display: none; line-height: 0px;">‍</span>{{lead.qalSynopsis}}<span
+                                                id="_baidu_bookmark_end_15"
+                                                style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_end_13"
+                                                style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_end_11"
+                                                style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_end_9" style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_end_7" style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_end_5" style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_end_3" style="display: none; line-height: 0px;">‍</span><span
+                                                id="_baidu_bookmark_end_1" style="display: none; line-height: 0px;">‍</span>
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+
+                                        <p><span
+                                                style="font-family: '????'; font-size: 12px; line-height: 18px; white-space: normal;"><a
+                                                href="{{lead.qalUrl}}"
+                                                target="_blank"><span
+                                                style="font-family: '????'; font-size: 12px; line-height: 23px; white-space: normal;">{{lead.qalUrl}}</span></a></span>
+                                        </p></div>
+                                </div>
+                            </div>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;</p></div>
+                        <!--置顶息结束-->
+                    </div>
+                    <!--置顶息结束-->
+                </div>
+                <!-- 搜索结果列表开始 -->
+
+
+                <div class="classify project" id="zhengwu" ng-repeat="sn in resultMap.rows">
+
+                    <div class="msg discuss">
+                        <li style="list-style:none;margin-top: 1px ">
+
+
+                            <div class="titleP">
+                                <span class="project_title fl">{{sn.username}}</span>
+
+
+                                <a id="testDiv" class="fl txt_color testDiv"
+                                   ng-bind-html="sn.title | highlight:searchMap.keywords" target="_blank"
+                                   href="{{sn.url}}">
+
+
+                                </a>
+
+                            </div>
+                            <div>
+
+                                <p id="shu" class="content shu"
+                                   ng-bind-html="sn.content|trustHtml">
+
+                                </p>
+
+                            </div>
+
+                            <div>
+                                <a target="_blank" class="link" href="http://www.suining.gov.cn/web/guest/welcome">
+                                    中国遂宁
+                                </a>
+
+                                <i class="kuaizhao_line"></i>
+                                <span class="colo-666"
+                                      style="font-size:12px;">{{sn.createdate}} </span>
+
+                            </div>
+                            <br>
+                        </li>
+                    </div>
+
+
+                </div>
+                <div class="classify project"   ng-repeat="search in resultMap.row">
+
+                    <div class="msg discuss" id="fuwu">
+                        <li style="list-style:none;margin-top: 1px ">
+
+
+                            <div class="titleP">
+                                <span class="project_title fl">{{search.gatype}}</span>
+
+
+                                <a id="testDiv1" class="fl txt_color testDiv"
+                                   ng-bind-html="search.title | highlight:searchMap.keywords" target="_blank"
+                                   href="{{search.url}}">
+
+
+                                </a>
+
+                            </div>
+                            <div>
+
+                                <p id="shu1" class="content shu"
+                                   ng-bind-html="search.title|trustHtml">
+
+                                </p>
+
+                            </div>
+
+                            <div>
+                                <a target="_blank" class="link" href="http://www.suining.gov.cn/web/guest/welcome">
+                                    中国遂宁
+                                </a>
+
+                                <i class="kuaizhao_line"></i>
+
+                            </div>
+                            <br>
+                        </li>
+                    </div>
+
+
+                </div>
+                <div class="classify project"   ng-repeat="hw in resultMap.su">
+
+                    <div class="msg discuss" >
+                        <li style="list-style:none;margin-top: 1px ">
+
+
+                            <div class="titleP">
+                                <span class="project_title fl">意见征集</span>
+
+
+                                <a  class="fl txt_color testDiv"
+                                    ng-bind-html="hw.title | highlight:searchMap.keywords" target="_blank"
+                                    href="{{hw.url}}">
+
+
+                                </a>
+
+                            </div>
+                            <div>
+
+                                <p  class="content shu"
+                                    ng-bind-html="hw.content|trustHtml">
+
+                                </p>
+
+                            </div>
+
+                            <div>
+                                <a target="_blank" class="link" href="http://www.suining.gov.cn/web/guest/welcome">
+                                    中国遂宁
+                                </a>
+
+                                <i class="kuaizhao_line"></i>
+                                <span class="colo-666"
+                                      style="font-size:12px;">{{hw.time|date:"yyyy-MM-dd HH:mm:ss"}} </span>
+
+
+                            </div>
+                            <br>
+                        </li>
+                    </div>
+
+
+                </div>
+                <div class="classify project"   ng-repeat="mox in resultMap.ma">
+
+                    <div class="msg discuss" >
+                        <li style="list-style:none;margin-top: 1px ">
+
+
+                            <div class="titleP">
+                                <span class="project_title fl">领导信箱</span>
+
+
+                                <a  class="fl txt_color testDiv"
+                                    ng-bind-html="mox.title | highlight:searchMap.keywords" target="_blank"
+                                    href="">
+
+
+                                </a>
+
+                            </div>
+                            <div>
+
+                                <p  class="content shu"
+                                    ng-bind-html="mox.content|trustHtml">
+
+                                </p>
+
+                            </div>
+
+                            <div>
+                                <a target="_blank" class="link" href="http://www.suining.gov.cn/web/guest/welcome">
+                                    中国遂宁
+                                </a>
+
+                                <i class="kuaizhao_line"></i>
+                                <span class="colo-666"
+                                      style="font-size:12px;">{{mox.msgdate}} </span>
+
+
+                            </div>
+                            <br>
+                        </li>
+                    </div>
+
+
+                </div>
+                <div class="classify project" ng-repeat="polls in resultMap.hp">
+
+                    <div class="msg discuss">
+                        <li style="list-style:none;margin-top: 1px ">
+
+
+                            <div class="titleP">
+                                <span class="project_title fl">网上调查</span>
+
+
+                                <a class="fl txt_color testDiv"
+                                   ng-bind-html="polls.name |trustHtml" target="_blank"
+                                   href="{{polls.url}}">
+
+
+                                </a>
+
+                            </div>
+                            <div>
+
+                                <p class="content shu"
+                                   ng-bind-html="polls.name |trustHtml">
+
+                                </p>
+
+                            </div>
+
+                            <div>
+                                <a target="_blank" class="link" href="http://www.suining.gov.cn/web/guest/welcome">
+                                    中国遂宁
+                                </a>
+
+
+                                <i class="kuaizhao_line"></i>
+                                <span class="colo-666"
+                                      style="font-size:12px;">{{polls.starttime}} </span>
+
+                            </div>
+                            <br>
+                        </li>
+                    </div>
+
+
+                </div>
+                <div id="tu" >
+                    <div class=" boss" id="picList"   >
+                    <div  ng-repeat="tu in resultMap.tu">
+                        <div ng-if="tu.imgUrl!=null&&tu.imgUrl!=''" >
+                                <a style="margin: 5px" title="{{tu.title}}" target="_blank" href="{{tu.url}}">
+                                    <img src="{{tu.imgUrl}}" >
+                                </a>
+                        </div>
+
+                    </div>
+                    </div>
+                </div>
+
+
+                <nav aria-label="Page navigation" >
+                    <ul class="pagination">
+                        <li style="float:left; text-align: center ">
+                            <a href="#" aria-label="Previous" style="float:left;" ng-click="queryByPage(searchMap.pageNo-1)">
+                                &laquo;
+                            </a>
+                        </li>
+
+
+                        <li ng-repeat="p in pageLabel">
+                            <a href="#" ng-class="{classA:p==searchMap.pageNo}" style="float:left;  text-align: center"
+                               ng-click="queryByPage(p);pageNo=p">{{p}}</a>
+                        </li>
+
+
+                        <li>
+                            <a href="#" aria-label="Next" ng-click="queryByPage(searchMap.pageNo+1)" aria-hidden="true"
+                               style=" text-align: center">
+                                &raquo;
+                            </a>
+                        </li>
+                        <li
+                        ><span>&nbsp;共{{resultMap.totalPages}}页&nbsp;</span></li>
+                    </ul>
+
+                </nav>
+
+                <!-- 搜索结果列表结束 -->
+                <!-- 搜索工具 --- 搜索结果列表开始 -->
+                <div class="classify project" style="display: none;" id="contentlist-tool"></div>
+                <!-- 搜索工具 --- 搜索结果列表结束 -->
+            </div>
+            <!--左侧结果结束-->
+        </div>
+        <!--右侧推荐开始-->
+        <div class="content_right fl">
+            <!-- 统计字段开始 -->
+            <!--<div id="keywords" class="part keywords" style="display: none;"></div>-->
+            <!--  &lt;!&ndash; 统计字段结束 &ndash;&gt;
+              <div class="map knowledge_map part" style="display: none;">
+                  <div class="title txt_color">知识图谱</div>
+                  <div class="content" id="querySummaryImg">
+                  </div>
+              </div>-->
+
+
+
+            <!-- 智能推荐结束 -->
+
+            <!-- 右侧相关推荐开始 -->
+
+
+
+            <!-- 智能推荐结束 -->
+            <div class="rec" id="tuijian1">
+                <div ng-if=" resultMap.row!=null&&resultMap.row!=''">
+                <div class="rec_title" style="" >
+            		<span class="color-red" id="tuijian">
+
+                        {{searchMap.keywords}}
+            		</span>的智能推荐
+                </div>
+                <div class="part online_servers" >
+                    <div>
+                        <div class="title posr txt_color">
+                            <span class="disib name" id="ge">政务服务</span>
+                        </div>
+                        <div ng-repeat="ge in resultMap.row">
+                            <div class="content">
+                                <div class="default_part keyword rightUl  " style="display:inline" ><a
+                                        style="color: #898989;font-size:14px;margin-top:12px;" class="disb"
+                                        target="_blank" href={{ge.url}} ng-bind-html="ge.title|trustHtml" > </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="online_servers" class="part online_servers" style="display: none;"></div>
+                </div>
+                </div>
+                <!-- 智能推荐结束 -->
+                <!-- 感兴趣信息开始 -->
+                <!-- 感兴趣信息结束 -->
+                <!-- 右侧相关推荐开始 -->
+                <div id="person" class="part person" style="display: none;"></div>
+                <div id="relatedWord" class="part tax" style="display: none;"></div>
+                <!-- 右侧相关推荐结束 -->
+                <!-- 搜索历史开始 -->
+
+                <div class="part history">
+                    <ul class="title posr txt_color">搜索历史</ul>
+                </div>
+
+
+                <div ng-repeat="item in searchItems track by $index" ng-hide="searchItems[$index] == searchItems[$index+1]"
+                     class="hot-search">
+                    <a href="#" style="color: #a0a0a0" ng-click="show0($event)">{{item}}</a>
+
+                </div>
+                <div class="clearbox"><span class="disib textC cursor" ng-click="delSearch()">清空搜索历史</span></div>
+
+                <!-- 搜索历史结束 -->
+            </div>
+
+        </div>
+        <!--右侧推荐结束-->
+        <div class="clear"></div>
+        <!--底部相关搜索词开始-->
+        <div id="relatedBottomWord" class="rs" style="display: none;"></div>
+
+
+        <!--底部相关搜索词结束-->
+
+        <!-- 分页开始 -->
+        <!--<div id="Pagination" class="fl textC"></div>-->
+        <!-- 分页结束 -->
+
+
+
+    </div>
+
+
+    <!--普通列表页结束-->
+
+
+    <!--无结果页面开始-->
+
+    <!--无结果页面结束-->
+
+
+    <!--页面尾部开始-->
+    <div class="footer clearfix" style="display:block;bottom:0;left:0;width:100%;box-sizing:border-box;">
+        <div class="container">
+            <!-- <div class="img fl"></div> -->
+
+            <span class="fl">主办：遂宁市人民政府 Copyright 2019 www.suining.gov.cn All Rights Reserved</span>
+
+        </div>
+    </div>
+    <!--页面尾部结束-->
+
+    <div class="layer" id="hei" style="display: none"></div>
+    <!--高级搜索开始-->
+    <div class="advanced_search_box bkf" id="gaoji" style="display: none;">
+        <div class="title posr">
+            高级搜索<span class="posa close cursor"></span>
+        </div>
+        <div class="condition_top">
+            <div class="content pl325">
+                <div class="level1 level">
+                    <span class="fir disib">搜索结果：</span>
+                    <span class="sec disib">包含以下全部的关键词</span>
+                    <input id="q1" type="text"/>
+                    <span class="prompt">搜索结果中，单个信息里同时包含所有输入的关键词</span>
+                </div>
+                <div class="level">
+                    <span class="sec disib">包含以下的完整关键词</span>
+                    <input id="q2" type="text"  />
+                    <span class="prompt">搜索结果中，单个信息里包含输入的完整的关键词</span>
+                </div>
+                <div class="level">
+                    <span class="sec disib">包含以下任意一个关键词</span>
+                    <input id="q3" type="text" />
+                    <span class="prompt">搜索结果中，单个信息里包含输入的关键词中的任意一个关键词</span>
+                </div>
+                <div class="level">
+                    <span class="sec disib">不包含以下关键词</span>
+                    <input id="q4" type="text" />
+                    <span class="prompt">搜索结果中，不包含输入的关键词，本功能不可单独使用，需配合上面三个功能中的任意一个同时使用</span>
+                </div>
+            </div>
+        </div>
+        <div class="condition_bottom">
+            <div class="content pl325">
+                <div class="level1 level">
+                    <span class="fir disib">时间：</span>
+                    <span class="sec disib">限定要搜索的网页的时间是</span>
+                    <select id="days" name="days" class="time_select">
+                        <option value="" >全部时间</option>
+                        <option value="7"  >一周内</option>
+                        <option value="30" >一月内</option>
+                        <option value="365">一年内</option>
+                    </select>
+                    <span class="advanced_time" style="display:none;">
+                        <span class="">从</span>
+                        <input id="sDateAdv" type="text" class="datepicker_start2 rr"/>
+                        <span class="">至</span>
+                        <input id="eDateAdv" type="text" class="datepicker_end2 rr"/>
+                    </span>
+                </div>
+
+                <div class="level1 level">
+                    <span class="fir disib">排序方式：</span>
+                    <span class="sec disib">搜索排序方式是</span>
+                    <select class="sort" id="sortAdv">
+                        <option value="" ng-click="sortSearch('','')">按相关度排序</option>
+                        <option value="dateDesc" ng-click="sortSearch('createdate','DESC')">按时间排序</option>
+                    </select>
+                </div>
+                <div class="level1 level">
+                    <span class="fir disib">关键词位置：</span>
+                    <span class="sec disib">查询关键词位于</span>
+                    <label for="anywhere">
+                        <input class="posr" type="radio" value="0" id="anywhere" name="keyplace" checked="checked"/>
+                        网页的任何地方
+                    </label>
+                    <label for="only_title">
+                        <input class="posr" type="radio" value="1" id="only_title" name="keyplace"/>
+                        仅网页的标题中
+                    </label>
+                    <!-- <label for="only_url">
+                        <input class="posr" type="radio" value="2" id="only_url" name="keyplace"/>
+                        仅在网页的URL中
+                    </label> -->
+                </div>
+                <!-- <div class="level1 level">
+                    <span class="fir disib">站内搜索：</span>
+                    <span class="sec disib">限定要搜索指定的网站是</span>
+                    <input type="text" id="domain" name="domain" /><span class="example">例如：gov.cn</span>
+                </div> -->
+                <input id="advanced_btn"  class="cursor bk0cbbef" type="button" value="高级搜索" ng-click="senior(0,'createdate','DESC');" >
+                <span class="btn_prompt">请至少填写一个包含的关键词</span>
+            </div>
+        </div>
+    </div>
+    <!--高级搜索结束-->
+    <!--反馈开始-->
+    <div class="back posr bkf" style="display:none">
+        <h5 class="feedback cursor">我要反馈</h5>
+        <i class="back_close posa cursor"></i>
+        <div class="feedback_form_box">
+            <form action="http://www.suining.gov.cn/search/s_2.htm">
+                <input type='hidden' name='realPathId' id='realPathId' value='http://www.suining.gov.cn:80/search/'/>
+                <textarea id="content" name="content" maxlength="500" placeholder="最多输入500个字"></textarea>
+                <input type="text" id="email" name="email" placeholder="请输入您的电子邮箱"/>
+                <div style="margin-top: 12px;">
+                    验证码：<input type="text" name="verCode" onkeyup="verCodeText(this)" oninput="verCodeText(this)"
+                               maxlength="4" style="width: 50px;height:25px;"/>
+                    <img id="verCodeId" src="VarCodeServlet" alt="" title="看不清换一张" style="vertical-align:middle;"/>
+                    <span id="isvercodeimg"></span>
+                </div>
+                <input type="button" value="提交" onclick="postFeedInfo()" class="feedback_submit cursor"/>
+            </form>
+        </div>
+    </div>
+    <!--反馈结束-->
+    <!--回到顶部开始-->
+    <div id="backtop" class="backTop cursor" title="回到顶部"></div>
+
+    <span id="autoSearchMode" style="display: none;">2</span>
+
+    <!--回到顶部结束-->
+    <script src="plugins/jquery/search_box.js"></script>
+    <script src="plugins/jquery/detail.js"></script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+
+
+    <script type="text/javascript">
+
+        //导航条样式切换
+        $(".nav a ").on("click",function(){
+            $(".nav a ").removeClass("checked");
+            $(this).addClass("checked");
+
+            if (text == '政务服务') {
+
+            }
+        });
+
+
+
+
+        //选择时间后，突出显示
+        function timeShow() {
+            var search = window.location.search;
+            var reg = /days=(\d{1,3})&/;
+            var match = search.match(reg);
+
+            var days;
+            if (match instanceof Array && match.length > 1) {
+                days = match[1];
+            }
+
+            switch (days) {
+                case "7":
+                    $("#week").css("color", "#666");
+                    $("#week").css("font-weight", "bold");
+                    $("#week").css("text-decoration", "none");
+                    break;
+                case "30":
+                    $("#month").css("color", "#666");
+                    $("#month").css("font-weight", "bold");
+                    $("#month").css("text-decoration", "none");
+                    break;
+                case "365":
+                    $("#year").css("color", "#666");
+                    $("#year").css("font-weight", "bold");
+                    $("#year").css("text-decoration", "none");
+                    break;
+                default:
+                    $("#nolimit").css("color", "#666");
+                    $("#nolimit").css("font-weight", "bold");
+                    $("#nolimit").css("text-decoration", "none");
+                    break;
+            }
+
+        }
+
+        //选择文件类型后，突出显示
+        function fileShow() {
+            var search = window.location.search;
+            var reg = /fileType=([\s\S]*?)&/;
+            var match = search.match(reg);
+
+            var fileType;
+            if (match instanceof Array && match.length > 1) {
+                fileType = match[1];
+            }
+            switch (fileType) {
+                case ".DOC,.DOCX":
+                    $("#word").css("color", "#666");
+                    $("#word").css("font-weight", "bold");
+                    $("#word").css("text-decoration", "none");
+                    break;
+                case ".PPT,.PPTX":
+                    $("#ppt").css("color", "#666");
+                    $("#ppt").css("font-weight", "bold");
+                    $("#ppt").css("text-decoration", "none");
+                    break;
+                case ".PDF":
+                    $("#pdf").css("color", "#666");
+                    $("#pdf").css("font-weight", "bold");
+                    $("#pdf").css("text-decoration", "none");
+                    break;
+                case ".XLS,.XLSX":
+                    $("#excel").css("color", "#666");
+                    $("#excel").css("font-weight", "bold");
+                    $("#excel").css("text-decoration", "none");
+                    break;
+                case ".TXT":
+                    $("#txt").css("color", "#666");
+                    $("#txt").css("font-weight", "bold");
+                    $("#txt").css("text-decoration", "none");
+                    break;
+                case ".RAR,.ZIP":
+                    $("#rar").css("color", "#666");
+                    $("#rar").css("font-weight", "bold");
+                    $("#rar").css("text-decoration", "none");
+                    break;
+                default:
+                    $("#all").css("color", "#666");
+                    $("#all").css("font-weight", "bold");
+                    $("#all").css("text-decoration", "none");
+                    break;
+            }
+        }
+
+        $(function () {
+
+            timeShow();
+            fileShow();
+
+            //默认搜索工具显示
+
+            $('.tool_box').find('.top').css({'top': '-30px'});
+            $('.tool_box').find('.bottom').css({'display': 'block', 'opacity': '1', 'top': '30'});
+            // $('.close_tool').show();
+            $('.close_tool').hide();
+
+        });
+
+
+
+
+
+    </script>
+    <!-- PHPStat Start -->
+    <!-- <script language="JavaScript">var _trackDataType = 'web';var _trackData = _trackData || [];</script>
+    <script type="text/javascript" charset="utf-8" id="phpstat_js_id_10000063" src="//120.76.215.72/phpstat/count/10000063/10000063.js"></script><noscript><img src="//120.76.215.72/phpstat/count/10000063/10000063.php" alt="PHPStat Analytics"/></noscript> -->
+    <!--/PHPStat End -->
+</body>
+</html>

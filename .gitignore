@@ -1,0 +1,12 @@
+# Project exclude paths
+/search/target/
+/search-tomcat/target/
+/sn-hd-controler/target/
+/sn-robot-controller/target/
+/sn-robot-service/target/
+/sn-search-controller/target/
+/sn-search-dao/target/
+/sn-search-interface/target/
+/sn-search-pojo/target/
+/sn-search-service/target/
+/sn-search-solr/target/

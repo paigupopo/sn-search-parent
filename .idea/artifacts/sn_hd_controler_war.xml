@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="sn-hd-controler:war">
+    <output-path>$PROJECT_DIR$/sn-hd-controler/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>sn-hd-controler</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="sn-hd-controler-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="sn-hd-controler:war exploded" />
+    </root>
+  </artifact>
+</component>

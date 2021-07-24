@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.HwadeeMailboxMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.HwadeeMailbox">
+    <id column="messageId" jdbcType="BIGINT" property="id" />
+    <result column="questionMegId" jdbcType="BIGINT" property="questionmegid" />
+    <result column="companyName" jdbcType="VARCHAR" property="companyname" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="fixedPhone" jdbcType="VARCHAR" property="fixedphone" />
+    <result column="phoneNumber" jdbcType="VARCHAR" property="phonenumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="ipContent" jdbcType="VARCHAR" property="ipcontent" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="code_" jdbcType="VARCHAR" property="code" />
+    <result column="msgDate" jdbcType="TIMESTAMP" property="msgdate" />
+    <result column="replyContent" jdbcType="VARCHAR" property="replycontent" />
+    <result column="replyContent1" jdbcType="VARCHAR" property="replycontent1" />
+    <result column="replyContent2" jdbcType="VARCHAR" property="replycontent2" />
+    <result column="replyDate" jdbcType="TIMESTAMP" property="replydate" />
+    <result column="replyName" jdbcType="VARCHAR" property="replyname" />
+    <result column="replyDate1" jdbcType="TIMESTAMP" property="replydate1" />
+    <result column="replyName1" jdbcType="VARCHAR" property="replyname1" />
+    <result column="replyDate2" jdbcType="TIMESTAMP" property="replydate2" />
+    <result column="replyName2" jdbcType="VARCHAR" property="replyname2" />
+    <result column="orgCode" jdbcType="VARCHAR" property="orgcode" />
+    <result column="isPublicity" jdbcType="INTEGER" property="ispublicity" />
+    <result column="IsSMSReply" jdbcType="INTEGER" property="issmsreply" />
+    <result column="isReply" jdbcType="INTEGER" property="isreply" />
+    <result column="mailType" jdbcType="INTEGER" property="mailtype" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="officeCode" jdbcType="VARCHAR" property="officecode" />
+    <result column="idCard" jdbcType="VARCHAR" property="idcard" />
+    <result column="queryCode" jdbcType="VARCHAR" property="querycode" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="groupId" jdbcType="INTEGER" property="groupid" />
+    <result column="clgroupId" jdbcType="INTEGER" property="clgroupid" />
+    <result column="attoldfilename" jdbcType="VARCHAR" property="attoldfilename" />
+    <result column="attPath" jdbcType="VARCHAR" property="attpath" />
+    <result column="plId" jdbcType="BIGINT" property="plid" />
+    <association property="Organization" javaType="com.sn.pojo.Organization">
+      <id column="organizationId" jdbcType="BIGINT" property="organizationid" />
+      <result column="uuid_" jdbcType="VARCHAR" property="uuid" />
+      <result column="companyId" jdbcType="BIGINT" property="companyid" />
+      <result column="userId" jdbcType="BIGINT" property="userid" />
+      <result column="userName" jdbcType="VARCHAR" property="username" />
+      <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+      <result column="modifiedDate" jdbcType="TIMESTAMP" property="modifieddate" />
+      <result column="parentOrganizationId" jdbcType="BIGINT" property="parentorganizationid" />
+      <result column="treePath" jdbcType="VARCHAR" property="treepath" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="type_" jdbcType="VARCHAR" property="type" />
+      <result column="recursable" jdbcType="TINYINT" property="recursable" />
+      <result column="regionId" jdbcType="BIGINT" property="regionid" />
+      <result column="countryId" jdbcType="BIGINT" property="countryid" />
+      <result column="statusId" jdbcType="INTEGER" property="statusid" />
+      <result column="comments" jdbcType="VARCHAR" property="comments" />
+    </association>
+    <association property="ClassnameMapper" javaType="com.sn.pojo.Classname">
+      <id column="classNameId" jdbcType="BIGINT" property="classnameid" />
+      <result column="value" jdbcType="VARCHAR" property="value" />
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    messageId, questionMegId, companyName, name, fixedPhone, phoneNumber, email, ipContent,
+    title, content, code_, msgDate, replyContent, replyContent1, replyContent2, replyDate, 
+    replyName, replyDate1, replyName1, replyDate2, replyName2, orgCode, isPublicity, 
+    IsSMSReply, isReply, mailType, address, officeCode, idCard, queryCode, userName, 
+    status, groupId, clgroupId, attoldfilename, attPath, plId
+  </sql>
+
+  <select id="selectMa"  resultType="java.util.Map" parameterType="java.lang.Long" >
+    select * from hwadee_MailBox where hwadee_MailBox.groupId in(
+select a.classpk from group_ a
+inner join ClassName_  b on a.classNameId = b.classNameId
+where b.value='com.liferay.portal.model.Organization'
+and  a.groupid=${groupId}
+)
+
+  </select>
+  <select id="selectByExample" parameterType="com.sn.pojo.HwadeeMailboxExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hwadee_mailbox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hwadee_mailbox
+    where messageId = #{messageid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from hwadee_mailbox
+    where messageId = #{messageid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.HwadeeMailboxExample">
+    delete from hwadee_mailbox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sn.pojo.HwadeeMailbox">
+    insert into hwadee_mailbox (messageId, questionMegId, companyName,
+      name, fixedPhone, phoneNumber, 
+      email, ipContent, title, 
+      content, code_, msgDate, 
+      replyContent, replyContent1, replyContent2, 
+      replyDate, replyName, replyDate1, 
+      replyName1, replyDate2, replyName2, 
+      orgCode, isPublicity, IsSMSReply, 
+      isReply, mailType, address, 
+      officeCode, idCard, queryCode, 
+      userName, status, groupId, 
+      clgroupId, attoldfilename, attPath, 
+      plId)
+    values (#{messageid,jdbcType=BIGINT}, #{questionmegid,jdbcType=BIGINT}, #{companyname,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{fixedphone,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{ipcontent,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{msgdate,jdbcType=TIMESTAMP}, 
+      #{replycontent,jdbcType=VARCHAR}, #{replycontent1,jdbcType=VARCHAR}, #{replycontent2,jdbcType=VARCHAR}, 
+      #{replydate,jdbcType=TIMESTAMP}, #{replyname,jdbcType=VARCHAR}, #{replydate1,jdbcType=TIMESTAMP}, 
+      #{replyname1,jdbcType=VARCHAR}, #{replydate2,jdbcType=TIMESTAMP}, #{replyname2,jdbcType=VARCHAR}, 
+      #{orgcode,jdbcType=VARCHAR}, #{ispublicity,jdbcType=INTEGER}, #{issmsreply,jdbcType=INTEGER}, 
+      #{isreply,jdbcType=INTEGER}, #{mailtype,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{officecode,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{querycode,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{groupid,jdbcType=INTEGER}, 
+      #{clgroupid,jdbcType=INTEGER}, #{attoldfilename,jdbcType=VARCHAR}, #{attpath,jdbcType=VARCHAR}, 
+      #{plid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.HwadeeMailbox">
+    insert into hwadee_mailbox
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messageid != null">
+        messageId,
+      </if>
+      <if test="questionmegid != null">
+        questionMegId,
+      </if>
+      <if test="companyname != null">
+        companyName,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="fixedphone != null">
+        fixedPhone,
+      </if>
+      <if test="phonenumber != null">
+        phoneNumber,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="ipcontent != null">
+        ipContent,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="code != null">
+        code_,
+      </if>
+      <if test="msgdate != null">
+        msgDate,
+      </if>
+      <if test="replycontent != null">
+        replyContent,
+      </if>
+      <if test="replycontent1 != null">
+        replyContent1,
+      </if>
+      <if test="replycontent2 != null">
+        replyContent2,
+      </if>
+      <if test="replydate != null">
+        replyDate,
+      </if>
+      <if test="replyname != null">
+        replyName,
+      </if>
+      <if test="replydate1 != null">
+        replyDate1,
+      </if>
+      <if test="replyname1 != null">
+        replyName1,
+      </if>
+      <if test="replydate2 != null">
+        replyDate2,
+      </if>
+      <if test="replyname2 != null">
+        replyName2,
+      </if>
+      <if test="orgcode != null">
+        orgCode,
+      </if>
+      <if test="ispublicity != null">
+        isPublicity,
+      </if>
+      <if test="issmsreply != null">
+        IsSMSReply,
+      </if>
+      <if test="isreply != null">
+        isReply,
+      </if>
+      <if test="mailtype != null">
+        mailType,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="officecode != null">
+        officeCode,
+      </if>
+      <if test="idcard != null">
+        idCard,
+      </if>
+      <if test="querycode != null">
+        queryCode,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="groupid != null">
+        groupId,
+      </if>
+      <if test="clgroupid != null">
+        clgroupId,
+      </if>
+      <if test="attoldfilename != null">
+        attoldfilename,
+      </if>
+      <if test="attpath != null">
+        attPath,
+      </if>
+      <if test="plid != null">
+        plId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messageid != null">
+        #{messageid,jdbcType=BIGINT},
+      </if>
+      <if test="questionmegid != null">
+        #{questionmegid,jdbcType=BIGINT},
+      </if>
+      <if test="companyname != null">
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedphone != null">
+        #{fixedphone,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="ipcontent != null">
+        #{ipcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="msgdate != null">
+        #{msgdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replycontent != null">
+        #{replycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="replycontent1 != null">
+        #{replycontent1,jdbcType=VARCHAR},
+      </if>
+      <if test="replycontent2 != null">
+        #{replycontent2,jdbcType=VARCHAR},
+      </if>
+      <if test="replydate != null">
+        #{replydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyname != null">
+        #{replyname,jdbcType=VARCHAR},
+      </if>
+      <if test="replydate1 != null">
+        #{replydate1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyname1 != null">
+        #{replyname1,jdbcType=VARCHAR},
+      </if>
+      <if test="replydate2 != null">
+        #{replydate2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyname2 != null">
+        #{replyname2,jdbcType=VARCHAR},
+      </if>
+      <if test="orgcode != null">
+        #{orgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublicity != null">
+        #{ispublicity,jdbcType=INTEGER},
+      </if>
+      <if test="issmsreply != null">
+        #{issmsreply,jdbcType=INTEGER},
+      </if>
+      <if test="isreply != null">
+        #{isreply,jdbcType=INTEGER},
+      </if>
+      <if test="mailtype != null">
+        #{mailtype,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="officecode != null">
+        #{officecode,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="querycode != null">
+        #{querycode,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="clgroupid != null">
+        #{clgroupid,jdbcType=INTEGER},
+      </if>
+      <if test="attoldfilename != null">
+        #{attoldfilename,jdbcType=VARCHAR},
+      </if>
+      <if test="attpath != null">
+        #{attpath,jdbcType=VARCHAR},
+      </if>
+      <if test="plid != null">
+        #{plid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sn.pojo.HwadeeMailboxExample" resultType="java.lang.Long">
+    select count(*) from hwadee_mailbox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+  <select id="selectMOX" resultMap="BaseResultMap">
+
+    SELECT  messageid,title,content,msgDate,plid,groupId FROM hwadee_mailbox
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update hwadee_mailbox
+    <set>
+      <if test="record.messageid != null">
+        messageId = #{record.messageid,jdbcType=BIGINT},
+      </if>
+      <if test="record.questionmegid != null">
+        questionMegId = #{record.questionmegid,jdbcType=BIGINT},
+      </if>
+      <if test="record.companyname != null">
+        companyName = #{record.companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fixedphone != null">
+        fixedPhone = #{record.fixedphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonenumber != null">
+        phoneNumber = #{record.phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipcontent != null">
+        ipContent = #{record.ipcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null">
+        code_ = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgdate != null">
+        msgDate = #{record.msgdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replycontent != null">
+        replyContent = #{record.replycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replycontent1 != null">
+        replyContent1 = #{record.replycontent1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replycontent2 != null">
+        replyContent2 = #{record.replycontent2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replydate != null">
+        replyDate = #{record.replydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replyname != null">
+        replyName = #{record.replyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replydate1 != null">
+        replyDate1 = #{record.replydate1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replyname1 != null">
+        replyName1 = #{record.replyname1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replydate2 != null">
+        replyDate2 = #{record.replydate2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replyname2 != null">
+        replyName2 = #{record.replyname2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgcode != null">
+        orgCode = #{record.orgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ispublicity != null">
+        isPublicity = #{record.ispublicity,jdbcType=INTEGER},
+      </if>
+      <if test="record.issmsreply != null">
+        IsSMSReply = #{record.issmsreply,jdbcType=INTEGER},
+      </if>
+      <if test="record.isreply != null">
+        isReply = #{record.isreply,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailtype != null">
+        mailType = #{record.mailtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officecode != null">
+        officeCode = #{record.officecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcard != null">
+        idCard = #{record.idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.querycode != null">
+        queryCode = #{record.querycode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupid != null">
+        groupId = #{record.groupid,jdbcType=INTEGER},
+      </if>
+      <if test="record.clgroupid != null">
+        clgroupId = #{record.clgroupid,jdbcType=INTEGER},
+      </if>
+      <if test="record.attoldfilename != null">
+        attoldfilename = #{record.attoldfilename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attpath != null">
+        attPath = #{record.attpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plid != null">
+        plId = #{record.plid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update hwadee_mailbox
+    set messageId = #{record.messageid,jdbcType=BIGINT},
+      questionMegId = #{record.questionmegid,jdbcType=BIGINT},
+      companyName = #{record.companyname,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      fixedPhone = #{record.fixedphone,jdbcType=VARCHAR},
+      phoneNumber = #{record.phonenumber,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      ipContent = #{record.ipcontent,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      code_ = #{record.code,jdbcType=VARCHAR},
+      msgDate = #{record.msgdate,jdbcType=TIMESTAMP},
+      replyContent = #{record.replycontent,jdbcType=VARCHAR},
+      replyContent1 = #{record.replycontent1,jdbcType=VARCHAR},
+      replyContent2 = #{record.replycontent2,jdbcType=VARCHAR},
+      replyDate = #{record.replydate,jdbcType=TIMESTAMP},
+      replyName = #{record.replyname,jdbcType=VARCHAR},
+      replyDate1 = #{record.replydate1,jdbcType=TIMESTAMP},
+      replyName1 = #{record.replyname1,jdbcType=VARCHAR},
+      replyDate2 = #{record.replydate2,jdbcType=TIMESTAMP},
+      replyName2 = #{record.replyname2,jdbcType=VARCHAR},
+      orgCode = #{record.orgcode,jdbcType=VARCHAR},
+      isPublicity = #{record.ispublicity,jdbcType=INTEGER},
+      IsSMSReply = #{record.issmsreply,jdbcType=INTEGER},
+      isReply = #{record.isreply,jdbcType=INTEGER},
+      mailType = #{record.mailtype,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      officeCode = #{record.officecode,jdbcType=VARCHAR},
+      idCard = #{record.idcard,jdbcType=VARCHAR},
+      queryCode = #{record.querycode,jdbcType=VARCHAR},
+      userName = #{record.username,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      groupId = #{record.groupid,jdbcType=INTEGER},
+      clgroupId = #{record.clgroupid,jdbcType=INTEGER},
+      attoldfilename = #{record.attoldfilename,jdbcType=VARCHAR},
+      attPath = #{record.attpath,jdbcType=VARCHAR},
+      plId = #{record.plid,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.HwadeeMailbox">
+    update hwadee_mailbox
+    <set>
+      <if test="questionmegid != null">
+        questionMegId = #{questionmegid,jdbcType=BIGINT},
+      </if>
+      <if test="companyname != null">
+        companyName = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedphone != null">
+        fixedPhone = #{fixedphone,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="ipcontent != null">
+        ipContent = #{ipcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code_ = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="msgdate != null">
+        msgDate = #{msgdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replycontent != null">
+        replyContent = #{replycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="replycontent1 != null">
+        replyContent1 = #{replycontent1,jdbcType=VARCHAR},
+      </if>
+      <if test="replycontent2 != null">
+        replyContent2 = #{replycontent2,jdbcType=VARCHAR},
+      </if>
+      <if test="replydate != null">
+        replyDate = #{replydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyname != null">
+        replyName = #{replyname,jdbcType=VARCHAR},
+      </if>
+      <if test="replydate1 != null">
+        replyDate1 = #{replydate1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyname1 != null">
+        replyName1 = #{replyname1,jdbcType=VARCHAR},
+      </if>
+      <if test="replydate2 != null">
+        replyDate2 = #{replydate2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyname2 != null">
+        replyName2 = #{replyname2,jdbcType=VARCHAR},
+      </if>
+      <if test="orgcode != null">
+        orgCode = #{orgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublicity != null">
+        isPublicity = #{ispublicity,jdbcType=INTEGER},
+      </if>
+      <if test="issmsreply != null">
+        IsSMSReply = #{issmsreply,jdbcType=INTEGER},
+      </if>
+      <if test="isreply != null">
+        isReply = #{isreply,jdbcType=INTEGER},
+      </if>
+      <if test="mailtype != null">
+        mailType = #{mailtype,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="officecode != null">
+        officeCode = #{officecode,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        idCard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="querycode != null">
+        queryCode = #{querycode,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null">
+        groupId = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="clgroupid != null">
+        clgroupId = #{clgroupid,jdbcType=INTEGER},
+      </if>
+      <if test="attoldfilename != null">
+        attoldfilename = #{attoldfilename,jdbcType=VARCHAR},
+      </if>
+      <if test="attpath != null">
+        attPath = #{attpath,jdbcType=VARCHAR},
+      </if>
+      <if test="plid != null">
+        plId = #{plid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where messageId = #{messageid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.HwadeeMailbox">
+    update hwadee_mailbox
+    set questionMegId = #{questionmegid,jdbcType=BIGINT},
+      companyName = #{companyname,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      fixedPhone = #{fixedphone,jdbcType=VARCHAR},
+      phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      ipContent = #{ipcontent,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      code_ = #{code,jdbcType=VARCHAR},
+      msgDate = #{msgdate,jdbcType=TIMESTAMP},
+      replyContent = #{replycontent,jdbcType=VARCHAR},
+      replyContent1 = #{replycontent1,jdbcType=VARCHAR},
+      replyContent2 = #{replycontent2,jdbcType=VARCHAR},
+      replyDate = #{replydate,jdbcType=TIMESTAMP},
+      replyName = #{replyname,jdbcType=VARCHAR},
+      replyDate1 = #{replydate1,jdbcType=TIMESTAMP},
+      replyName1 = #{replyname1,jdbcType=VARCHAR},
+      replyDate2 = #{replydate2,jdbcType=TIMESTAMP},
+      replyName2 = #{replyname2,jdbcType=VARCHAR},
+      orgCode = #{orgcode,jdbcType=VARCHAR},
+      isPublicity = #{ispublicity,jdbcType=INTEGER},
+      IsSMSReply = #{issmsreply,jdbcType=INTEGER},
+      isReply = #{isreply,jdbcType=INTEGER},
+      mailType = #{mailtype,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      officeCode = #{officecode,jdbcType=VARCHAR},
+      idCard = #{idcard,jdbcType=VARCHAR},
+      queryCode = #{querycode,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      groupId = #{groupid,jdbcType=INTEGER},
+      clgroupId = #{clgroupid,jdbcType=INTEGER},
+      attoldfilename = #{attoldfilename,jdbcType=VARCHAR},
+      attPath = #{attpath,jdbcType=VARCHAR},
+      plId = #{plid,jdbcType=BIGINT}
+    where messageId = #{messageid,jdbcType=BIGINT}
+  </update>
+</mapper>

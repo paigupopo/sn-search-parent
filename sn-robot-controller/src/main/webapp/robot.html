@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <meta name="Keywords" content="中国遂宁,门户网站,要闻动态，政府信息公开，政民互动，公众服务，走进遂宁，新闻发布，专题报道，近期信息公开，便民提示，遂宁概览，遂宁百科，城市明信片，营商环境等"/>
+    <meta name="Description"
+          content="“中国遂宁”是在遂宁市委、市政府领导亲自关心、指导下建立和发展起来的政府门户网站，始终坚持以努力建设“服务政府、责任政府、法治政府”为目标，以“为民、便民、利民”为宗旨，以发布政府信息、拓展网上办事、提供便民服务和开展互动交流为主要内容。"/>
+    <meta name="Keywords" content="遂宁市,遂宁市人民政府，中国·遂宁政府门户网站，遂宁概况，政府领导，机构职能，党务公开，政府信息公开，政务服务，政民互动，绿色遂宁，数据开放">
+    <meta name="Description" content="市政府办牵头搭建统一政府网站技术平台，将已建成的政府部门网站迁移至市政府网站统一技术平台，开设单独政务频道形成以市政府网站为龙头、区县政府网站为子站的“官网”新格局。">
+    <meta name="SiteName" content="遂宁市人民政府门户">
+    <meta name="SiteDomain" content="www.suining.gov.cn">
+    <meta name="SiteIDCode" content="5109000015">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <meta name="ColumnName" content="智能机器人应答子系统">
+    <meta name="ColumnDescription" content="智能机器人应答子系统">
+    <meta name="ColumnKeywords" content="智能机器人应答子系统">
+    <meta name="ColumnType" content="智能机器人应答">
+
+    <link rel="shortcut icon"/>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+    <link rel="stylesheet" href="css/main_2.css">
+    <script src="js/angularjs/angular.min.js"></script>
+    <script src="js/base.js"></script>
+
+
+    <link rel="stylesheet" href="js/easyhelper.min.css">
+    <script src="js/common.js"></script>
+    <script src="js/es6-shim.min.js"></script>
+    <script src="js/jquery.transit.min.js"></script>
+    <script src="js/easyhelper.min.js"></script>
+    <script src="js/rightClick_2.js"></script>
+    <link rel="stylesheet" href="css/introjs.min_2.css">
+
+
+    <script  src="js/service/RobotService.js"></script>
+    <script  src="js/controller/controllerRobot.js"></script>
+
+
+    <!  -[if itIE9]>
+    <script src="/html15shiv.js"></script>
+
+    <! [ENDIF]->
+
+    <script>
+        !function(n) {
+            var e = n.document,
+                t = e.documentElement,
+                i = 640,
+                d = i / 100,
+                o = "orientationchange" in n ? "orientationchange": "resize",
+                a = function() {
+                    var n = t.clientWidth || 320;
+                    n > 640 && (n = 640),
+                        t.style.fontSize = n / d + "px"
+                };
+            e.addEventListener && (n.addEventListener(o, a, !1), e.addEventListener("DOMContentLoaded", a, !1))
+        } (window);
+    </script>
+
+
+    <style>
+        #help-3 {
+            overflow-y: scroll !important;
+        }
+
+        .con-r-news > ul > li table td.dd {
+            width: 0px;
+            height: 0px;
+            background: none;
+            display: none;
+        }
+
+        .con-r-news > ul > li table td.t {
+            padding-left: 22px;
+        }
+
+        .part_data {
+            padding-left: 0;
+        }
+
+        .icon a span.three {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            background: url(img/icon-lg.png) no-repeat;
+            background-size: cover;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+        }
+
+        .iphone {
+            filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7F000000, endcolorstr=#7F000000);
+        }
+
+        .black_overlay {
+            display: none;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1001;
+            -moz-opacity: 0.8;
+            opacity: .80;
+            filter: alpha(opacity=80);
+        }
+
+        .white_content {
+            position: absolute;
+            top: 100px;
+            left: 15%;
+            width: 80%;
+            height: 60%;
+            border: 16px solid lightblue;
+            background-color: white;
+            z-index: 1002;
+            overflow: auto;
+        }
+
+        .modal {
+
+            max-width: 50%;
+            max-height: 100px;
+            height: auto;
+            background-color: #fff;
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            border-radius: 10px;
+            margin-left: -350px;
+            box-sizing: border-box;
+            background: #efefef;
+            display: none;!important;
+
+        }
+    </style>
+    <style>
+        .wrapper {
+            text-align: center;
+            margin: 50px auto;
+        }
+
+        .wrapper button {
+            width: 120px;
+            margin: 0 10px;
+        }
+        #login
+        {
+            display:none;
+            border:0.5em solid purple;
+            height:60%;
+            width:70%;
+            position:absolute;/*让节点脱离文档流,我的理解就是,从页面上浮出来,不再按照文档其它内容布局*/
+            top:24%;/*节点脱离了文档流,如果设置位置需要用top和left,right,bottom定位*/
+            left:24%;
+            z-index:2;/*个人理解为层级关系,由于这个节点要在顶部显示,所以这个值比其余节点的都大*/
+            background: white;
+        }
+        #over
+        {
+            width: 100%;
+            height: 100%;
+            opacity:0.5;/*设置背景色透明度,1为完全不透明,IE需要使用filter:alpha(opacity=80);*/
+            filter:alpha(opacity=80);
+            display: none;
+            position:absolute;
+            top:0;
+            left:0;
+            z-index:1;
+            background: silver;
+        }
+
+
+    </style>
+
+
+<body id="ng-app" ng-app="robot" ng-controller="controllerRobot" >
+<!-- header-start -->
+<div class="header clearfix">
+    <div class="top-nav">
+        <div class="s-content clearfix">
+            <div class="s-logo left"><a href="#" target="_blank"><img src="img/sn-1.png" alt=""></a></div>
+
+            <div>
+                <iframe width="300" scrolling="no" height="30" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="margin-top:7px;" src="http://i.tianqi.com/index.php?c=code&id=1&icon=1&wind=0&num=1"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="bo-nav">
+        <div class="s-content clearfix nav-con">
+            <!-- <div class="s-city left"><img src="images/city.png" alt=""></div> -->
+            <div class="ss-logo left"><img src="img/logo1.png" alt=""></div>
+
+            <div class="icon right clearfix">
+                <div class="help left"><a href="javascript:;"><img src="img/h-icon.png" alt=""></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- header-end -->
+
+
+
+<!-- main-start -->
+<div class="b-content clearfix">
+    <div class="con-l left">
+        <div class="con-l-t" >
+            <div id="message" tabindex="0">
+                <div class="dialog_tab" id="one-s" style="margin-top:20px; padding:8px;">
+                    <div>
+                        <div class="right_arrow"></div>
+                        <span class="triangle"></span>
+                        <div class="tab2_title"></div>
+                        <div style=" margin-top:0px;" class="tab2_content">
+                            <div style=" color:#333; font-family:'宋体';" id="huanying">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="con-l-b clearfix" id="inputpanel">
+            <div class="tipDiv">
+                <ul>
+                </ul>
+            </div>
+            <div class="text-con left">
+                <!--   <textarea type="text" id="messCon" ></textarea>-->
+                <input  ng-keyup="enterEvent($event);" ng-model="searchMap.keywords"  type="text" placeholder="请输入您的问题" id="messCon" >
+
+                <p id="fontNum"><i>还可以输入<span id="number"><strong>50</strong></span>字</i></p>
+            </div>
+            <div class="button left" >
+                <button class="chatbtnover"   type="button"   ng-click="robotSearch();">发送</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- content-index-left-end -->
+
+    <!-- content-index-right-start -->
+    <div class="con-r left" id="one-s3">
+        <div class="hottags" style="display: block" id="hottags-box">
+            <h2>常见问题</h2>
+            <div>
+                <ul>
+                    <li><a href="javascript:void(0)" ng-click="show0($event);" >如何注册公司?</a></li>
+                    <li><a href="javascript:void(0)" ng-click="show0($event)" >如何办理户口？</a></li>
+                    <li><a href="javascript:void(0)" ng-click="show0($event)" >政府工作报告？</a></li>
+                    <li><a href="javascript:void(0)" ng-click="show0($event)" >房屋过户需要哪些材料？</a></li>
+                    <li><a href="javascript:void(0)" ng-click="show0($event)" >医生执业证办理</a></li>
+                    <li><a href="javascript:void(0)" ng-click="show0($event)" >如何办理社保卡？</a></li>
+                    <li><a href="javascript:void(0)" ng-click="show0($event)" >居住证如何办理？</a></li>
+                    <li><a href="javascript:void(0)" ng-click="show0($event)" >新生儿上户口？</a></li>
+                    <li><a href="javascript:void(0)" ng-click="show0($event)" >外企注册登记</a></li>
+                    <li><a href="javascript:void(0)" ng-click="show0($event)" >公积金查询</a></li>
+                    <li><a href="javascript:void(0)" ng-click="show0($event)" >如何办理临时身份证？</a></li>
+                    <li><a href="javascript:void(0)" ng-click="show0($event)" >机动车业务办理</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- content-index-right-end -->
+
+</div>
+
+
+<!-- content-index-end -->
+
+<!-- footer-start -->
+<!--响应式尾部文件start-->
+<div id="footer" class="row-fluid margin-top10">
+    <div class="s-content clearfix">
+        <div class="footlogo left clearfix">
+
+            <a class="left" href="#" target="_blank" title="党政机关"></a>
+            <h4>
+                <p><a target="_blank">中共遂宁市委 遂宁市人民政府版权所有 </a>
+                <p><a target="_blank">Copyright 2019 www.suining.gov.cn All Rights Reserved</a>
+                    <a href="#" target="_blank"></a><br></p>
+            </h4>
+        </div>
+    </div>
+</div>
+
+
+<!--响应式尾部文件end-->
+<!-- footer-end -->
+
+</body>
+<script type="text/javascript" src="js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="js/jquery.SuperSlide.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/intro.js"></script>
+<script type="text/javascript">
+
+
+
+
+    //弹出窗口的方法
+    $(".help").on('click', function (e) {
+        introJs().setOptions({
+            //对应的按钮
+            prevLabel: "上一步",
+            nextLabel: "下一步",
+            skipLabel: "跳过",
+            doneLabel: "结束",
+            //对应的数组，顺序出现每一步引导提示
+            steps: [
+                {
+                    //第一步引导
+                    //这个属性类似于jquery的选择器， 可以通过jquery选择器的方式来选择你需要选中的对象进行指引
+                    element: '#message',
+                    //这里是每个引导框具体的文字内容，中间可以编写HTML代码
+                    intro: '这里是对话框，你想问的问题和答案都会呈现在这里哦',
+                    //这里可以规定引导框相对于选中对象出现的位置 top,bottom,left,right
+                    position: 'right'
+                },
+                {
+                    //第二步引导
+                    element: '#inputpanel',
+                    intro: '在这里输入您想要咨询的问题，点击发送',
+                    position: 'right'
+                },
+                {
+                    //第三步引导
+                    element: '#one-s3',
+                    intro: '这里是常见问题',
+                    position: 'left'
+                },
+
+
+            ]
+
+        }).start();
+    });
+
+
+    $(document).ready(function () {
+        $('#messCon').focus();
+    });
+
+
+
+    window.onload = function(){
+
+        if(navigator.appName == "Microsoft Internet Explorer"&&parseInt(navigator.appVersion.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))==9){
+
+            var url=document.location.href;  //获取浏览器访问栏里的地址
+            if( url.indexOf("times=")==-1 ){    //判断地址后面是否多了某些值，没有就进方法里进行刷新
+                var times = new Date();
+                if( url.indexOf("?")==-1 ){
+                    window.location.href = url+"?times="+times.getTime();
+                }else{
+                    window.location.href = url+"&times="+times.getTime();
+                }
+            }
+        }
+
+    }
+    window.onload = function(){
+
+        var  time=new Date();
+        var hours=time.getHours();
+
+
+        var str="请您将想要咨询的问题告诉我，我会为您解答哦！";
+        if(hours < 6){
+            document.getElementById("huanying").innerText+= "凌晨好"+str;
+        }else if (hours < 9){
+            document.getElementById("huanying").innerText+="早上好！"+str;
+        }else if (hours < 12){
+            document.getElementById("huanying").innerText+="上午好！"+str;
+        }else if (hours < 14){
+            document.getElementById("huanying").innerText+= "中午好！"+str;
+        }else if (hours < 17){
+            document.getElementById("huanying").innerText+= "下午好！"+str;
+        }else if (hours < 19){
+            document.getElementById("huanying").innerText+="傍晚好！"+str;
+        }else {
+            document.getElementById("huanying").innerText+="晚上好！"+str;
+        }
+
+    }
+
+
+</script>
+</html>
+

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <title>遂宁市政府门户网站智能搜索后台管理系统</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../layuiadmin/style/login.css" media="all">
+  <script type="text/javascript" src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+  <script type="text/javascript" src="/plugins/jQuery/sui.min.js"></script>
+
+  <script type="text/javascript" src="verify.css"></script>
+
+
+  <style>
+
+
+    #vcode{
+      width: 49%;
+      height: 35px;
+      margin-left: 0%;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 0;
+      padding-left: 10px;
+    }
+    #code{
+      color: #ffffff;
+      background-color: #000000;
+      font-size: 20px;
+      padding: 5px 35px 10px 35px;
+      margin-left: 5%;
+      cursor: pointer;
+    }
+
+    #forget_pass a{
+      color: #c0c0c0;
+      text-decoration: none;
+    }
+    #forget_pass a:hover{
+      color: #ff0000;
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body onload="changeImg() ">
+
+<div class="layadmin-user-login layadmin-user-display-show" >
+
+  <div class="layadmin-user-login-main" >
+    <div class="layadmin-user-login-box layadmin-user-login-header">
+      <h2>智能搜索后台管理系统</h2>
+
+    </div>
+    <div class="layadmin-user-login-box layadmin-user-login-body layui-form"  >
+      <form id="loginform" action="/login" method="post"  >
+
+
+      <div class="layui-form-item">
+        <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+        <input type="text" onblur="checkName(this.value)" name="username" id="LAY-user-login-username"  placeholder="用户名" class="layui-input">
+      </div>
+      <div class="layui-form-item">
+        <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+        <input type="password" name="password" id="LAY-user-login-password" onblur="checkNP()"  placeholder="密码" class="layui-input">
+      </div>
+
+
+        <div class="layui-form-item">
+          <input type="text" placeholder="图形验证码"  id="vcode" value=""  lay-verify="required" onfocus="this.value=''" onblur="if(this.value=='')this.value=''"/>
+          <span id="code" title="看不清？换一张～" onclick="changeImg()"></span>
+
+        </div>
+
+
+        <div class="layui-form-item">
+        <a class="layui-btn layui-btn-fluid" onclick="check()">登 入</a>
+      </div>
+      </form>
+      <span style="color: red" id="msg" ></span>
+    </div>
+  </div>
+
+  <div class="layui-trans layadmin-user-login-footer">
+
+    <p>© 2019 <a href="http://www.suining.gov.cn" target="_blank"> www.suining.gov.cn All Rights Reserved </a></p>
+
+  </div>
+
+</div>
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<script language="javascript" type="text/javascript">
+    function changeImg() {
+        var arrays =['1','2','3','4','5','6','7','8','9','0',
+            'a','b','c','d','e','f','g','h','i','j',
+            'k','l','m','n','o','p','q','r','s','t',
+            'u','v','w','x','y','z',
+            'A','B','C','D','E','F','G','H','I','J',
+            'K','L','M','N','O','P','Q','R','S','T',
+            'U','V','W','X','Y','Z'];
+        code='';
+        for(var i=0;i<4;i++){
+            var r=parseInt(Math.random()*arrays.length);
+            code+=arrays[r];
+        }
+        document.getElementById('code').innerHTML=code;
+    }
+
+    function checkName(username) {
+
+       if (username==""){
+            alert("用户名不能为空");
+            return;
+        }
+
+        $.ajax({
+            url:"/login/exsitLoginName.do",
+            type:"post",
+            async:"false",
+            dataType:'json',
+            data:'name='+username,
+            success:function(text){
+                if("0"==text)
+                {
+                    document.getElementById("msg").innerText="用户名不存在.....";
+                    return;
+                }else
+                {
+                    document.getElementById("msg").innerText="";
+                }
+            }
+        });
+    }
+
+    function checkNP() {
+
+        var input_username=document.getElementById("LAY-user-login-username").value;
+        if (input_username==""){
+            alert("用户名不能为空");
+            return;
+        }
+        var input_password=document.getElementById("LAY-user-login-password").value;
+        if (input_password==""){
+            alert("密码不能为空");
+            return;
+        }
+
+        $.ajax({
+            url:"/login/exsitLoginPassword.do",
+            type:"post",
+            async:"false",
+            dataType:'json',
+            data:'name='+input_username+"&pwd="+input_password,
+            success:function(text){
+                if("0"==text)
+                {
+
+                    document.getElementById("msg").innerText="用户名和密码不匹配.....";
+                    document.getElementById("LAY-user-login-password").value="";
+
+                    return;
+                }else
+                {
+                    document.getElementById("msg").innerText="";
+                }
+            }
+        });
+    }
+
+    function check() {
+
+        var input_username=document.getElementById("LAY-user-login-username").value;
+        if (input_username==""){
+            alert("用户名不能为空");
+            return;
+        }
+        var input_password=document.getElementById("LAY-user-login-password").value;
+        if (input_password==""){
+            alert("密码不能为空");
+            return;
+        }
+        var input_code=document.getElementById("vcode").value;
+        if(input_code.toLowerCase()===code.toLowerCase()){
+
+            document.getElementById("msg").innerText="登陆中.....";
+
+             document:loginform.submit();
+        }else {
+            changeImg();
+            document.getElementById("msg").innerText="验证码不正确.....";
+            return;
+        }
+    }
+</script>
+
+
+
+
+</body>
+
+</html>

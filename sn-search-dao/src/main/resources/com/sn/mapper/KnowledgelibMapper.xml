@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.KnowledgelibMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.Knowledgelib">
+    <id column="qakl_Revision" jdbcType="INTEGER" property="id" />
+    <result column="qakl_Recordcreatetime" jdbcType="DATE" property="qaklRecordcreatetime" />
+    <result column="qakl_Title" jdbcType="VARCHAR" property="qaklTitle" />
+    <result column="qakl_Content" jdbcType="VARCHAR" property="qaklContent" />
+    <result column="qakl_Visitcount" jdbcType="INTEGER" property="qaklVisitcount" />
+    <result column="qakl_State" jdbcType="INTEGER" property="qaklState" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    qakl_Revision, qakl_Recordcreatetime, qakl_Title, qakl_Content, qakl_Visitcount, 
+    qakl_State
+  </sql>
+  <select id="selectByExample" parameterType="com.sn.pojo.KnowledgelibExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from knowledgelib order by  qakl_Revision DESC
+
+
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from knowledgelib
+    where qakl_Revision = #{qaklRevision,jdbcType=INTEGER}
+  </select>
+  <select id="solrStart" resultMap="BaseResultMap">
+    select * from knowledgelib where qakl_State=1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from knowledgelib
+    where qakl_Revision = #{qaklRevision,jdbcType=INTEGER}
+  </delete>
+
+  <select id="knoSearch" resultMap="BaseResultMap">
+   select *from knowledgelib where qakl_Content like '%${qakl_Content}%'
+  </select>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.KnowledgelibExample">
+    delete from knowledgelib
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+
+  <select id="selectCount" resultType="java.lang.Long">
+    select count(*) from  knowledgelib
+  </select>
+  <insert id="insert" parameterType="com.sn.pojo.Knowledgelib">
+    insert into knowledgelib (qakl_Revision, qakl_Recordcreatetime, 
+      qakl_Title, qakl_Content, qakl_Visitcount, 
+      qakl_State)
+    values (#{qaklRevision,jdbcType=INTEGER}, #{qaklRecordcreatetime,jdbcType=DATE}, 
+      #{qaklTitle,jdbcType=VARCHAR}, #{qaklContent,jdbcType=VARCHAR}, #{qaklVisitcount,jdbcType=INTEGER}, 
+      #{qaklState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.Knowledgelib">
+    insert into knowledgelib
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="qaklRevision != null">
+        qakl_Revision,
+      </if>
+      <if test="qaklRecordcreatetime != null">
+        qakl_Recordcreatetime,
+      </if>
+      <if test="qaklTitle != null">
+        qakl_Title,
+      </if>
+      <if test="qaklContent != null">
+        qakl_Content,
+      </if>
+      <if test="qaklVisitcount != null">
+        qakl_Visitcount,
+      </if>
+      <if test="qaklState != null">
+        qakl_State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="qaklRevision != null">
+        #{qaklRevision,jdbcType=INTEGER},
+      </if>
+      <if test="qaklRecordcreatetime != null">
+        #{qaklRecordcreatetime,jdbcType=DATE},
+      </if>
+      <if test="qaklTitle != null">
+        #{qaklTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="qaklContent != null">
+        #{qaklContent,jdbcType=VARCHAR},
+      </if>
+      <if test="qaklVisitcount != null">
+        #{qaklVisitcount,jdbcType=INTEGER},
+      </if>
+      <if test="qaklState != null">
+        #{qaklState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sn.pojo.KnowledgelibExample" resultType="java.lang.Long">
+    select count(*) from knowledgelib
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update knowledgelib
+    <set>
+      <if test="record.qaklRevision != null">
+        qakl_Revision = #{record.qaklRevision,jdbcType=INTEGER},
+      </if>
+      <if test="record.qaklRecordcreatetime != null">
+        qakl_Recordcreatetime = #{record.qaklRecordcreatetime,jdbcType=DATE},
+      </if>
+      <if test="record.qaklTitle != null">
+        qakl_Title = #{record.qaklTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qaklContent != null">
+        qakl_Content = #{record.qaklContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qaklVisitcount != null">
+        qakl_Visitcount = #{record.qaklVisitcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.qaklState != null">
+        qakl_State = #{record.qaklState,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update knowledgelib
+    set qakl_Revision = #{record.qaklRevision,jdbcType=INTEGER},
+      qakl_Recordcreatetime = #{record.qaklRecordcreatetime,jdbcType=DATE},
+      qakl_Title = #{record.qaklTitle,jdbcType=VARCHAR},
+      qakl_Content = #{record.qaklContent,jdbcType=VARCHAR},
+      qakl_Visitcount = #{record.qaklVisitcount,jdbcType=INTEGER},
+      qakl_State = #{record.qaklState,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.Knowledgelib">
+    update knowledgelib
+    <set>
+      <if test="qaklRecordcreatetime != null">
+        qakl_Recordcreatetime = #{qaklRecordcreatetime,jdbcType=DATE},
+      </if>
+      <if test="qaklTitle != null">
+        qakl_Title = #{qaklTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="qaklContent != null">
+        qakl_Content = #{qaklContent,jdbcType=VARCHAR},
+      </if>
+      <if test="qaklVisitcount != null">
+        qakl_Visitcount = #{qaklVisitcount,jdbcType=INTEGER},
+      </if>
+      <if test="qaklState != null">
+        qakl_State = #{qaklState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where qakl_Revision = #{qaklRevision,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.Knowledgelib">
+    update knowledgelib
+    set qakl_Recordcreatetime = #{qaklRecordcreatetime,jdbcType=DATE},
+      qakl_Title = #{qaklTitle,jdbcType=VARCHAR},
+      qakl_Content = #{qaklContent,jdbcType=VARCHAR},
+      qakl_Visitcount = #{qaklVisitcount,jdbcType=INTEGER},
+      qakl_State = #{qaklState,jdbcType=INTEGER}
+    where qakl_Revision = #{qaklRevision,jdbcType=INTEGER}
+  </update>
+</mapper>

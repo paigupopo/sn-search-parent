@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.HwadeeSuggestMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.HwadeeSuggest">
+    <id column="id_" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="time_" jdbcType="TIMESTAMP" property="time" />
+    <result column="starttime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="endtime" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="group_" jdbcType="BIGINT" property="group" />
+    <result column="userid" jdbcType="BIGINT" property="userid" />
+    <result column="number_" jdbcType="BIGINT" property="number" />
+    <result column="totnumber" jdbcType="BIGINT" property="totnumber" />
+    <result column="status" jdbcType="BIGINT" property="status" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="reasonTwo" jdbcType="VARCHAR" property="reasontwo" />
+    <result column="beiyong2" jdbcType="BIGINT" property="beiyong2" />
+    <result column="beiyong3" jdbcType="BIGINT" property="beiyong3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id_, title, content, time_, starttime, endtime, group_, userid, number_, totnumber,
+    status, reason, reasonTwo, beiyong2, beiyong3
+  </sql>
+  <select id="selectByExample" parameterType="com.sn.pojo.HwadeeSuggestExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hwadee_suggest
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <select id="selectHSList" resultMap="BaseResultMap">
+    select id_,time_,title,content,group_ FROM hwadee_suggest
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hwadee_suggest
+    where id_ = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from hwadee_suggest
+    where id_ = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.HwadeeSuggestExample">
+    delete from hwadee_suggest
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sn.pojo.HwadeeSuggest">
+    insert into hwadee_suggest (id_, title, content,
+    time_, starttime, endtime,
+    group_, userid, number_,
+    totnumber, status, reason,
+    reasonTwo, beiyong2, beiyong3
+    )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+    #{time,jdbcType=TIMESTAMP}, #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP},
+    #{group,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{number,jdbcType=BIGINT},
+    #{totnumber,jdbcType=BIGINT}, #{status,jdbcType=BIGINT}, #{reason,jdbcType=VARCHAR},
+    #{reasontwo,jdbcType=VARCHAR}, #{beiyong2,jdbcType=BIGINT}, #{beiyong3,jdbcType=BIGINT}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.HwadeeSuggest">
+    insert into hwadee_suggest
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id_,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="time != null">
+        time_,
+      </if>
+      <if test="starttime != null">
+        starttime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+      <if test="group != null">
+        group_,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="number != null">
+        number_,
+      </if>
+      <if test="totnumber != null">
+        totnumber,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="reasontwo != null">
+        reasonTwo,
+      </if>
+      <if test="beiyong2 != null">
+        beiyong2,
+      </if>
+      <if test="beiyong3 != null">
+        beiyong3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="group != null">
+        #{group,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=BIGINT},
+      </if>
+      <if test="totnumber != null">
+        #{totnumber,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="reasontwo != null">
+        #{reasontwo,jdbcType=VARCHAR},
+      </if>
+      <if test="beiyong2 != null">
+        #{beiyong2,jdbcType=BIGINT},
+      </if>
+      <if test="beiyong3 != null">
+        #{beiyong3,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sn.pojo.HwadeeSuggestExample" resultType="java.lang.Long">
+    select count(*) from hwadee_suggest
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update hwadee_suggest
+    <set>
+      <if test="record.id != null">
+        id_ = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null">
+        time_ = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.starttime != null">
+        starttime = #{record.starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null">
+        endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.group != null">
+        group_ = #{record.group,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.number != null">
+        number_ = #{record.number,jdbcType=BIGINT},
+      </if>
+      <if test="record.totnumber != null">
+        totnumber = #{record.totnumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=BIGINT},
+      </if>
+      <if test="record.reason != null">
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reasontwo != null">
+        reasonTwo = #{record.reasontwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beiyong2 != null">
+        beiyong2 = #{record.beiyong2,jdbcType=BIGINT},
+      </if>
+      <if test="record.beiyong3 != null">
+        beiyong3 = #{record.beiyong3,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update hwadee_suggest
+    set id_ = #{record.id,jdbcType=BIGINT},
+    title = #{record.title,jdbcType=VARCHAR},
+    content = #{record.content,jdbcType=VARCHAR},
+    time_ = #{record.time,jdbcType=TIMESTAMP},
+    starttime = #{record.starttime,jdbcType=TIMESTAMP},
+    endtime = #{record.endtime,jdbcType=TIMESTAMP},
+    group_ = #{record.group,jdbcType=BIGINT},
+    userid = #{record.userid,jdbcType=BIGINT},
+    number_ = #{record.number,jdbcType=BIGINT},
+    totnumber = #{record.totnumber,jdbcType=BIGINT},
+    status = #{record.status,jdbcType=BIGINT},
+    reason = #{record.reason,jdbcType=VARCHAR},
+    reasonTwo = #{record.reasontwo,jdbcType=VARCHAR},
+    beiyong2 = #{record.beiyong2,jdbcType=BIGINT},
+    beiyong3 = #{record.beiyong3,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.HwadeeSuggest">
+    update hwadee_suggest
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time_ = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null">
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="group != null">
+        group_ = #{group,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="number != null">
+        number_ = #{number,jdbcType=BIGINT},
+      </if>
+      <if test="totnumber != null">
+        totnumber = #{totnumber,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="reasontwo != null">
+        reasonTwo = #{reasontwo,jdbcType=VARCHAR},
+      </if>
+      <if test="beiyong2 != null">
+        beiyong2 = #{beiyong2,jdbcType=BIGINT},
+      </if>
+      <if test="beiyong3 != null">
+        beiyong3 = #{beiyong3,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.HwadeeSuggest">
+        update hwadee_suggest
+        set title = #{title,jdbcType=VARCHAR},
+        content = #{content,jdbcType=VARCHAR},
+        time_ = #{time,jdbcType=TIMESTAMP},
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+        group_ = #{group,jdbcType=BIGINT},
+        userid = #{userid,jdbcType=BIGINT},
+        number_ = #{number,jdbcType=BIGINT},
+        totnumber = #{totnumber,jdbcType=BIGINT},
+        status = #{status,jdbcType=BIGINT},
+        reason = #{reason,jdbcType=VARCHAR},
+        reasonTwo = #{reasontwo,jdbcType=VARCHAR},
+        beiyong2 = #{beiyong2,jdbcType=BIGINT},
+        beiyong3 = #{beiyong3,jdbcType=BIGINT}
+        where id_ = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.AssetcategoryMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.Assetcategory">
+    <id column="categoryId" jdbcType="BIGINT" property="categoryid" />
+    <result column="uuid_" jdbcType="VARCHAR" property="uuid" />
+    <result column="groupId" jdbcType="BIGINT" property="groupid" />
+    <result column="companyId" jdbcType="BIGINT" property="companyid" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="modifiedDate" jdbcType="TIMESTAMP" property="modifieddate" />
+    <result column="parentCategoryId" jdbcType="BIGINT" property="parentcategoryid" />
+    <result column="leftCategoryId" jdbcType="BIGINT" property="leftcategoryid" />
+    <result column="rightCategoryId" jdbcType="BIGINT" property="rightcategoryid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="vocabularyId" jdbcType="BIGINT" property="vocabularyid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    categoryId, uuid_, groupId, companyId, userId, userName, createDate, modifiedDate, 
+    parentCategoryId, leftCategoryId, rightCategoryId, name, title, description, vocabularyId
+  </sql>
+  <select id="selectByExample" parameterType="com.sn.pojo.AssetcategoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from assetcategory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from assetcategory
+    where categoryId = #{categoryid,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectCategoryId"  resultType="String" parameterType="String">
+    select categoryId from assetcategory where name=#{name,jdbcType=VARCHAR}
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from assetcategory
+    where categoryId = #{categoryid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.AssetcategoryExample">
+    delete from assetcategory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sn.pojo.Assetcategory">
+    insert into assetcategory (categoryId, uuid_, groupId, 
+      companyId, userId, userName, 
+      createDate, modifiedDate, parentCategoryId, 
+      leftCategoryId, rightCategoryId, name, 
+      title, description, vocabularyId
+      )
+    values (#{categoryid,jdbcType=BIGINT}, #{uuid,jdbcType=VARCHAR}, #{groupid,jdbcType=BIGINT}, 
+      #{companyid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{modifieddate,jdbcType=TIMESTAMP}, #{parentcategoryid,jdbcType=BIGINT}, 
+      #{leftcategoryid,jdbcType=BIGINT}, #{rightcategoryid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{vocabularyid,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.Assetcategory">
+    insert into assetcategory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categoryid != null">
+        categoryId,
+      </if>
+      <if test="uuid != null">
+        uuid_,
+      </if>
+      <if test="groupid != null">
+        groupId,
+      </if>
+      <if test="companyid != null">
+        companyId,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="modifieddate != null">
+        modifiedDate,
+      </if>
+      <if test="parentcategoryid != null">
+        parentCategoryId,
+      </if>
+      <if test="leftcategoryid != null">
+        leftCategoryId,
+      </if>
+      <if test="rightcategoryid != null">
+        rightCategoryId,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="vocabularyid != null">
+        vocabularyId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categoryid != null">
+        #{categoryid,jdbcType=BIGINT},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="companyid != null">
+        #{companyid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifieddate != null">
+        #{modifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentcategoryid != null">
+        #{parentcategoryid,jdbcType=BIGINT},
+      </if>
+      <if test="leftcategoryid != null">
+        #{leftcategoryid,jdbcType=BIGINT},
+      </if>
+      <if test="rightcategoryid != null">
+        #{rightcategoryid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="vocabularyid != null">
+        #{vocabularyid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sn.pojo.AssetcategoryExample" resultType="java.lang.Long">
+    select count(*) from assetcategory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update assetcategory
+    <set>
+      <if test="record.categoryid != null">
+        categoryId = #{record.categoryid,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        uuid_ = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupid != null">
+        groupId = #{record.groupid,jdbcType=BIGINT},
+      </if>
+      <if test="record.companyid != null">
+        companyId = #{record.companyid,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null">
+        createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifieddate != null">
+        modifiedDate = #{record.modifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.parentcategoryid != null">
+        parentCategoryId = #{record.parentcategoryid,jdbcType=BIGINT},
+      </if>
+      <if test="record.leftcategoryid != null">
+        leftCategoryId = #{record.leftcategoryid,jdbcType=BIGINT},
+      </if>
+      <if test="record.rightcategoryid != null">
+        rightCategoryId = #{record.rightcategoryid,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vocabularyid != null">
+        vocabularyId = #{record.vocabularyid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update assetcategory
+    set categoryId = #{record.categoryid,jdbcType=BIGINT},
+      uuid_ = #{record.uuid,jdbcType=VARCHAR},
+      groupId = #{record.groupid,jdbcType=BIGINT},
+      companyId = #{record.companyid,jdbcType=BIGINT},
+      userId = #{record.userid,jdbcType=BIGINT},
+      userName = #{record.username,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      modifiedDate = #{record.modifieddate,jdbcType=TIMESTAMP},
+      parentCategoryId = #{record.parentcategoryid,jdbcType=BIGINT},
+      leftCategoryId = #{record.leftcategoryid,jdbcType=BIGINT},
+      rightCategoryId = #{record.rightcategoryid,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      vocabularyId = #{record.vocabularyid,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.Assetcategory">
+    update assetcategory
+    <set>
+      <if test="uuid != null">
+        uuid_ = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        groupId = #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="companyid != null">
+        companyId = #{companyid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifieddate != null">
+        modifiedDate = #{modifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentcategoryid != null">
+        parentCategoryId = #{parentcategoryid,jdbcType=BIGINT},
+      </if>
+      <if test="leftcategoryid != null">
+        leftCategoryId = #{leftcategoryid,jdbcType=BIGINT},
+      </if>
+      <if test="rightcategoryid != null">
+        rightCategoryId = #{rightcategoryid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="vocabularyid != null">
+        vocabularyId = #{vocabularyid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where categoryId = #{categoryid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.Assetcategory">
+    update assetcategory
+    set uuid_ = #{uuid,jdbcType=VARCHAR},
+      groupId = #{groupid,jdbcType=BIGINT},
+      companyId = #{companyid,jdbcType=BIGINT},
+      userId = #{userid,jdbcType=BIGINT},
+      userName = #{username,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      modifiedDate = #{modifieddate,jdbcType=TIMESTAMP},
+      parentCategoryId = #{parentcategoryid,jdbcType=BIGINT},
+      leftCategoryId = #{leftcategoryid,jdbcType=BIGINT},
+      rightCategoryId = #{rightcategoryid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      vocabularyId = #{vocabularyid,jdbcType=BIGINT}
+    where categoryId = #{categoryid,jdbcType=BIGINT}
+  </update>
+</mapper>

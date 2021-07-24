@@ -1,0 +1,22 @@
+
+{"code":0,"msg":"","count":1000,"data":[
+    {"id":10000,"username":"user-0","sex":"身份","city":"身份证","sign":"身份证办理需要多长时间?",
+        "experience":25,"logins":4,"wealth":5700,"classify":"192.168.20.133","score":57},
+    {"id":10001,"username":"user-1","sex":"注册","city":"注册公司","sign":"注册公司需要哪些手续?",
+        "experience":84,"logins":28,"wealth":6490,"classify":"192.168.20.133","score":27}
+        ,{"id":10002,"username":"user-2","sex":"残疾","city":"残疾证","sign":"残疾证办理需要用到什么手续",
+        "experience":150,"logins":77,"wealth":2078,"classify":"192.168.20.133","score":31},
+    {"id":10003,"username":"user-3","sex":"赞助","city":"赞助山区","sign":"赞助山区需要办理手续吗",
+        "experience":262,"logins":157,"wealth":3017,"classify":"192.168.20.133","score":68},
+    {"id":10004,"username":"user-4","sex":"贫困","city":"贫困补助","sign":"贫困补助一般都是多久补助多少",
+        "experience":107,"logins":51,"wealth":3262,"classify":"192.168.20.133","score":6},
+    {"id":10005,"username":"user-5","sex":"创业","city":"就业创业","sign":"创业麻烦吗,需要什么手续多少资金",
+        "experience":173,"logins":68,"wealth":4147,"classify":"192.168.20.133","score":87}
+        ,{"id":10006,"username":"user-6","sex":"就业","city":"就业创业","sign":"怎样快速的找到工作",
+        "experience":82,"logins":37,"wealth":8166,"classify":"192.168.20.133","score":34},
+    {"id":10007,"username":"user-7","sex":"户口","city":"户口办理","sign":"户口什么时候可以办理",
+        "experience":227,"logins":150,"wealth":5578,"classify":"192.168.20.133","score":28},
+    {"id":10008,"username":"user-8","sex":"贫困","city":"贫困补助","sign":"贫困补助一般都是多久补助多少",
+        "experience":151,"logins":133,"wealth":3371,"classify":"192.168.20.133","score":14},
+    {"id":10009,"username":"user-9","sex":"注册","city":"注册公司","sign":"注册公司需要哪些手续",
+        "experience":84,"logins":25,"wealth":1934,"classify":"192.168.20.133","score":75}]}

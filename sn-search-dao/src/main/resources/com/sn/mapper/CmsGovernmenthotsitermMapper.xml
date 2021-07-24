@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.CmsGovernmenthotsitermMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.CmsGovernmenthotsiterm">
+    <id column="itemId" jdbcType="BIGINT" property="itemid" />
+    <result column="govHotId" jdbcType="BIGINT" property="govhotid" />
+    <result column="hotDate" jdbcType="TIMESTAMP" property="hotdate" />
+    <result column="cityAddress" jdbcType="VARCHAR" property="cityaddress" />
+    <result column="hotResource" jdbcType="VARCHAR" property="hotresource" />
+    <result column="groupId" jdbcType="BIGINT" property="groupid" />
+    <result column="domainUrl" jdbcType="VARCHAR" property="domainurl" />
+    <result column="itemCount" jdbcType="INTEGER" property="itemcount" />
+      <association property="cmsNationalregion" javaType="com.sn.pojo.CmsNationalregion">
+          <id column="regionId" jdbcType="INTEGER" property="regionid" />
+          <result column="regionName" jdbcType="VARCHAR" property="regionname" />
+          <result column="parentId" jdbcType="INTEGER" property="parentid" />
+      </association>
+  </resultMap>
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    itemId, govHotId, hotDate, cityAddress, hotResource, groupId, domainUrl, itemCount
+  </sql>
+  <select id="selectByExample" parameterType="com.sn.pojo.CmsGovernmenthotsitermExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cms_governmenthotsiterm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <select id="selectAddress" resultMap="BaseResultMap">
+    select *, count(DISTINCT cityAddress) from  cms_governmenthotsiterm  GROUP BY cityAddress
+  </select>
+
+  <select id="selectItem" resultType="java.lang.Long">
+    select  count(*) from  cms_governmenthotsiterm
+  </select>
+  <select id="selectcount" resultType="java.lang.Long">
+  select SUM(itemCount) from cms_governmenthotsiterm
+
+  </select>
+    <select id="govHotIP" resultMap="BaseResultMap">
+        select * from  cms_governmenthotsiterm where cityAddress= #{cityaddress,jdbcType=VARCHAR} GROUP BY govHotId
+
+    </select>
+
+
+  <select id="selectCity" resultType="java.util.Map" >
+  select top 7 d.*,@rank:=@rank + 1 AS num from (select b.regionName,  IFNULL(c.count,0) itemCount from cms_nationalregion b
+  left join (select DISTINCT  CONCAT(LEFT(a.cityAddress,2),'0000') Address,SUM(itemCount) count from  cms_governmenthotsiterm a group by 1) c on b.regionId =c.Address
+  where b.parentId = 1 ORDER BY 2 desc) d,(SELECT @rank:= 0) e ;
+  </select>
+
+  <select id="thisMonth" resultType="java.lang.Long">
+      SELECT sum(itemCount) FROM cms_governmenthotsiterm WHERE DATE_FORMAT( hotDate, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+  </select>
+
+  <select id="lastMonth" resultType="java.lang.Long">
+      select sum(itemCount) from cms_governmenthotsiterm   where date_format(hotDate,'%Y-%m')=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m')
+  </select>
+
+  <select id="thisMonthCount" resultType="java.lang.Long">
+   SELECT COUNT(*) FROM cms_governmenthotsiterm WHERE DATE_FORMAT( hotDate, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+  </select>
+
+  <select id="lastMonthCount" resultType="java.lang.Long">
+    select COUNT(*) from cms_governmenthotsiterm   where date_format(hotDate,'%Y-%m')=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m')
+  </select>
+
+  <select id="selectMonth" resultType="java.util.Map" parameterType="java.lang.String">
+  SELECT COUNT(*) AS JanTradingVolume, COALESCE(SUM(tt.itemCount),0) AS JanAmount,
+
+ (SELECT COUNT(*) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-02')) AS FebTradingVolume,
+
+ (SELECT COALESCE(SUM(tt.itemCount),0) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-02')) AS FebAmount,
+
+ (SELECT COUNT(*) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-03')) AS MarTradingVolume,
+
+ (SELECT COALESCE(SUM(tt.itemCount),0) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-03')) AS MarAmount,
+
+ (SELECT COUNT(*) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-04')) AS AprTradingVolume,
+
+ (SELECT COALESCE(SUM(tt.itemCount),0) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-04')) AS AprAmount,
+
+ (SELECT COUNT(*) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-05')) AS MayTradingVolume,
+
+ (SELECT COALESCE(SUM(tt.itemCount),0) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-05')) AS MayAmount,
+
+ (SELECT COUNT(*) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-06')) AS JunTradingVolume,
+
+ (SELECT COALESCE(SUM(tt.itemCount),0) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-06')) AS JunAmount,
+
+ (SELECT COUNT(*) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-07')) AS JulTradingVolume,
+
+ (SELECT COALESCE(SUM(tt.itemCount),0) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-07')) AS JulAmount,
+
+ (SELECT COUNT(*) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-08')) AS AugTradingVolume,
+
+ (SELECT COALESCE(SUM(tt.itemCount),0) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-08')) AS AugAmount,
+
+ (SELECT COUNT(*) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-09')) AS SepTradingVolume,
+
+ (SELECT COALESCE(SUM(tt.itemCount),0) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-09')) AS SepAmount,
+
+ (SELECT COUNT(*) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-10')) AS OctTradingVolume,
+
+ (SELECT COALESCE(SUM(tt.itemCount),0) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-10')) AS OctAmount,
+
+ (SELECT COUNT(*) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-11')) AS NovTradingVolume,
+
+ (SELECT COALESCE(SUM(tt.itemCount),0) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-11')) AS NovAmount,
+
+ (SELECT COUNT(*) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-12')) AS DecTradingVolume,
+
+ (SELECT COALESCE(SUM(tt.itemCount),0) FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-12')) AS DecAmount
+
+  FROM cms_governmenthotsiterm tt
+
+  WHERE DATE_FORMAT(tt.hotDate,'%Y-%m') = CONCAT(#{day,jdbcType=VARCHAR},'-01')
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cms_governmenthotsiterm
+    where itemId = #{itemid,jdbcType=BIGINT}
+  </select>
+
+
+    <select id="selectAddressCount" resultType="java.util.Map">
+        select d.* from (select (b.regionName) name,  IFNULL(c.count,0) value from cms_nationalregion b
+        left join (select DISTINCT  CONCAT(LEFT(a.cityAddress,2),'0000') Address,SUM(itemCount) count from  cms_governmenthotsiterm a group by 1) c on b.regionId =c.Address
+        where b.parentId = 1 ORDER BY 2 desc) d
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cms_governmenthotsiterm
+    where itemId = #{itemid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.CmsGovernmenthotsitermExample">
+    delete from cms_governmenthotsiterm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sn.pojo.CmsGovernmenthotsiterm">
+    insert into cms_governmenthotsiterm (itemId, govHotId, hotDate,
+      cityAddress, hotResource, groupId, 
+      domainUrl, itemCount)
+    values (#{itemid,jdbcType=BIGINT}, #{govhotid,jdbcType=BIGINT}, #{hotdate,jdbcType=TIMESTAMP},
+      #{cityaddress,jdbcType=VARCHAR}, #{hotresource,jdbcType=VARCHAR}, #{groupid,jdbcType=BIGINT}, 
+      #{domainurl,jdbcType=VARCHAR}, #{itemcount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.CmsGovernmenthotsiterm">
+    insert into cms_governmenthotsiterm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemid != null">
+        itemId,
+      </if>
+      <if test="govhotid != null">
+        govHotId,
+      </if>
+      <if test="hotdate != null">
+        hotDate,
+      </if>
+      <if test="cityaddress != null">
+        cityAddress,
+      </if>
+      <if test="hotresource != null">
+        hotResource,
+      </if>
+      <if test="groupid != null">
+        groupId,
+      </if>
+      <if test="domainurl != null">
+        domainUrl,
+      </if>
+      <if test="itemcount != null">
+        itemCount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemid != null">
+        #{itemid,jdbcType=BIGINT},
+      </if>
+      <if test="govhotid != null">
+        #{govhotid,jdbcType=BIGINT},
+      </if>
+      <if test="hotdate != null">
+        #{hotdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cityaddress != null">
+        #{cityaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hotresource != null">
+        #{hotresource,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="domainurl != null">
+        #{domainurl,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcount != null">
+        #{itemcount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sn.pojo.CmsGovernmenthotsitermExample" resultType="java.lang.Long">
+    select count(*) from cms_governmenthotsiterm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cms_governmenthotsiterm
+    <set>
+      <if test="record.itemid != null">
+        itemId = #{record.itemid,jdbcType=BIGINT},
+      </if>
+      <if test="record.govhotid != null">
+        govHotId = #{record.govhotid,jdbcType=BIGINT},
+      </if>
+      <if test="record.hotdate != null">
+        hotDate = #{record.hotdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cityaddress != null">
+        cityAddress = #{record.cityaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotresource != null">
+        hotResource = #{record.hotresource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupid != null">
+        groupId = #{record.groupid,jdbcType=BIGINT},
+      </if>
+      <if test="record.domainurl != null">
+        domainUrl = #{record.domainurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemcount != null">
+        itemCount = #{record.itemcount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cms_governmenthotsiterm
+    set itemId = #{record.itemid,jdbcType=BIGINT},
+      govHotId = #{record.govhotid,jdbcType=BIGINT},
+      hotDate = #{record.hotdate,jdbcType=TIMESTAMP},
+      cityAddress = #{record.cityaddress,jdbcType=VARCHAR},
+      hotResource = #{record.hotresource,jdbcType=VARCHAR},
+      groupId = #{record.groupid,jdbcType=BIGINT},
+      domainUrl = #{record.domainurl,jdbcType=VARCHAR},
+      itemCount = #{record.itemcount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.CmsGovernmenthotsiterm">
+    update cms_governmenthotsiterm
+    <set>
+      <if test="govhotid != null">
+        govHotId = #{govhotid,jdbcType=BIGINT},
+      </if>
+      <if test="hotdate != null">
+        hotDate = #{hotdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cityaddress != null">
+        cityAddress = #{cityaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hotresource != null">
+        hotResource = #{hotresource,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        groupId = #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="domainurl != null">
+        domainUrl = #{domainurl,jdbcType=VARCHAR},
+      </if>
+      <if test="itemcount != null">
+        itemCount = #{itemcount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where itemId = #{itemid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.CmsGovernmenthotsiterm">
+    update cms_governmenthotsiterm
+    set govHotId = #{govhotid,jdbcType=BIGINT},
+      hotDate = #{hotdate,jdbcType=TIMESTAMP},
+      cityAddress = #{cityaddress,jdbcType=VARCHAR},
+      hotResource = #{hotresource,jdbcType=VARCHAR},
+      groupId = #{groupid,jdbcType=BIGINT},
+      domainUrl = #{domainurl,jdbcType=VARCHAR},
+      itemCount = #{itemcount,jdbcType=INTEGER}
+    where itemId = #{itemid,jdbcType=BIGINT}
+  </update>
+</mapper>

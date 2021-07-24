@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.LayoutMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.Layout">
+    <id column="plid" jdbcType="BIGINT" property="plid" />
+    <result column="uuid_" jdbcType="VARCHAR" property="uuid" />
+    <result column="groupId" jdbcType="BIGINT" property="groupid" />
+    <result column="companyId" jdbcType="BIGINT" property="companyid" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="modifiedDate" jdbcType="TIMESTAMP" property="modifieddate" />
+    <result column="privateLayout" jdbcType="BIGINT" property="privatelayout" />
+    <result column="layoutId" jdbcType="BIGINT" property="layoutid" />
+    <result column="parentLayoutId" jdbcType="BIGINT" property="parentlayoutid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="robots" jdbcType="VARCHAR" property="robots" />
+    <result column="type_" jdbcType="VARCHAR" property="type" />
+    <result column="typeSettings" jdbcType="VARCHAR" property="typesettings" />
+    <result column="hidden_" jdbcType="TINYINT" property="hidden" />
+    <result column="friendlyURL" jdbcType="VARCHAR" property="friendlyurl" />
+    <result column="iconImage" jdbcType="TINYINT" property="iconimage" />
+    <result column="iconImageId" jdbcType="BIGINT" property="iconimageid" />
+    <result column="themeId" jdbcType="VARCHAR" property="themeid" />
+    <result column="colorSchemeId" jdbcType="VARCHAR" property="colorschemeid" />
+    <result column="wapThemeId" jdbcType="VARCHAR" property="wapthemeid" />
+    <result column="wapColorSchemeId" jdbcType="VARCHAR" property="wapcolorschemeid" />
+    <result column="css" jdbcType="VARCHAR" property="css" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="layoutPrototypeUuid" jdbcType="VARCHAR" property="layoutprototypeuuid" />
+    <result column="layoutPrototypeLinkEnabled" jdbcType="TINYINT" property="layoutprototypelinkenabled" />
+    <result column="sourcePrototypeLayoutUuid" jdbcType="VARCHAR" property="sourceprototypelayoutuuid" />
+    <association  property="cmspublishedarticle"  javaType="com.sn.pojo.Cmspublishedarticle">
+      <id column="resourcePrimKey" jdbcType="BIGINT" property="resourceprimkey" />
+      <result column="refererResourcePrimKey" jdbcType="BIGINT" property="refererresourceprimkey" />
+      <result column="status" jdbcType="INTEGER" property="status" />
+      <result column="groupId" jdbcType="BIGINT" property="groupid" />
+      <result column="categoryId" jdbcType="BIGINT" property="categoryid" />
+      <result column="plid" jdbcType="BIGINT" property="plid" />
+      <result column="displayDate" jdbcType="TIMESTAMP" property="displaydate" />
+      <result column="userId" jdbcType="BIGINT" property="userid" />
+      <result column="userName" jdbcType="VARCHAR" property="username" />
+      <result column="title" jdbcType="VARCHAR" property="title" />
+      <result column="urlTitle" jdbcType="VARCHAR" property="urltitle" />
+      <result column="mobileTitle" jdbcType="VARCHAR" property="mobiletitle" />
+      <result column="url" jdbcType="VARCHAR" property="url" />
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    plid, uuid_, groupId, companyId, userId, userName, createDate, modifiedDate, privateLayout, 
+    layoutId, parentLayoutId, name, title, description, keywords, robots, type_, typeSettings, 
+    hidden_, friendlyURL, iconImage, iconImageId, themeId, colorSchemeId, wapThemeId, 
+    wapColorSchemeId, css, priority, layoutPrototypeUuid, layoutPrototypeLinkEnabled, 
+    sourcePrototypeLayoutUuid
+  </sql>
+  <select id="selectByExample" parameterType="com.sn.pojo.LayoutExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from layout
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+
+
+  <select id="selectName" resultMap="BaseResultMap">
+    select * from layout where groupid=${groupId} and hidden_=0 and privateLayout=0 and parentLayoutId=0
+  </select>
+  <select id="selectLayout"  resultType="java.lang.Long">
+    select layoutId from layout where groupid=${groupId} and hidden_=0 and privateLayout=0 and  name  like '%>${name}&lt;%';
+  </select>
+  <select id="selectLayoutName"  resultMap="BaseResultMap">
+    select * from layout where groupid=${groupId} and hidden_=0 and privateLayout=0 and  parentLayoutId= ${layoutId};
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from layout
+    where plid = #{plid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from layout
+    where plid = #{plid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.LayoutExample">
+    delete from layout
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sn.pojo.Layout">
+    insert into layout (plid, uuid_, groupId, 
+      companyId, userId, userName, 
+      createDate, modifiedDate, privateLayout, 
+      layoutId, parentLayoutId, name, 
+      title, description, keywords, 
+      robots, type_, typeSettings, 
+      hidden_, friendlyURL, iconImage, 
+      iconImageId, themeId, colorSchemeId, 
+      wapThemeId, wapColorSchemeId, css, 
+      priority, layoutPrototypeUuid, layoutPrototypeLinkEnabled, 
+      sourcePrototypeLayoutUuid)
+    values (#{plid,jdbcType=BIGINT}, #{uuid,jdbcType=VARCHAR}, #{groupid,jdbcType=BIGINT}, 
+      #{companyid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{modifieddate,jdbcType=TIMESTAMP}, #{privatelayout,jdbcType=BIGINT}, 
+      #{layoutid,jdbcType=BIGINT}, #{parentlayoutid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, 
+      #{robots,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{typesettings,jdbcType=VARCHAR}, 
+      #{hidden,jdbcType=TINYINT}, #{friendlyurl,jdbcType=VARCHAR}, #{iconimage,jdbcType=TINYINT}, 
+      #{iconimageid,jdbcType=BIGINT}, #{themeid,jdbcType=VARCHAR}, #{colorschemeid,jdbcType=VARCHAR}, 
+      #{wapthemeid,jdbcType=VARCHAR}, #{wapcolorschemeid,jdbcType=VARCHAR}, #{css,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=INTEGER}, #{layoutprototypeuuid,jdbcType=VARCHAR}, #{layoutprototypelinkenabled,jdbcType=TINYINT}, 
+      #{sourceprototypelayoutuuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.Layout">
+    insert into layout
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="plid != null">
+        plid,
+      </if>
+      <if test="uuid != null">
+        uuid_,
+      </if>
+      <if test="groupid != null">
+        groupId,
+      </if>
+      <if test="companyid != null">
+        companyId,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="modifieddate != null">
+        modifiedDate,
+      </if>
+      <if test="privatelayout != null">
+        privateLayout,
+      </if>
+      <if test="layoutid != null">
+        layoutId,
+      </if>
+      <if test="parentlayoutid != null">
+        parentLayoutId,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="keywords != null">
+        keywords,
+      </if>
+      <if test="robots != null">
+        robots,
+      </if>
+      <if test="type != null">
+        type_,
+      </if>
+      <if test="typesettings != null">
+        typeSettings,
+      </if>
+      <if test="hidden != null">
+        hidden_,
+      </if>
+      <if test="friendlyurl != null">
+        friendlyURL,
+      </if>
+      <if test="iconimage != null">
+        iconImage,
+      </if>
+      <if test="iconimageid != null">
+        iconImageId,
+      </if>
+      <if test="themeid != null">
+        themeId,
+      </if>
+      <if test="colorschemeid != null">
+        colorSchemeId,
+      </if>
+      <if test="wapthemeid != null">
+        wapThemeId,
+      </if>
+      <if test="wapcolorschemeid != null">
+        wapColorSchemeId,
+      </if>
+      <if test="css != null">
+        css,
+      </if>
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="layoutprototypeuuid != null">
+        layoutPrototypeUuid,
+      </if>
+      <if test="layoutprototypelinkenabled != null">
+        layoutPrototypeLinkEnabled,
+      </if>
+      <if test="sourceprototypelayoutuuid != null">
+        sourcePrototypeLayoutUuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="plid != null">
+        #{plid,jdbcType=BIGINT},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="companyid != null">
+        #{companyid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifieddate != null">
+        #{modifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="privatelayout != null">
+        #{privatelayout,jdbcType=BIGINT},
+      </if>
+      <if test="layoutid != null">
+        #{layoutid,jdbcType=BIGINT},
+      </if>
+      <if test="parentlayoutid != null">
+        #{parentlayoutid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="robots != null">
+        #{robots,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="typesettings != null">
+        #{typesettings,jdbcType=VARCHAR},
+      </if>
+      <if test="hidden != null">
+        #{hidden,jdbcType=TINYINT},
+      </if>
+      <if test="friendlyurl != null">
+        #{friendlyurl,jdbcType=VARCHAR},
+      </if>
+      <if test="iconimage != null">
+        #{iconimage,jdbcType=TINYINT},
+      </if>
+      <if test="iconimageid != null">
+        #{iconimageid,jdbcType=BIGINT},
+      </if>
+      <if test="themeid != null">
+        #{themeid,jdbcType=VARCHAR},
+      </if>
+      <if test="colorschemeid != null">
+        #{colorschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="wapthemeid != null">
+        #{wapthemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="wapcolorschemeid != null">
+        #{wapcolorschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="css != null">
+        #{css,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="layoutprototypeuuid != null">
+        #{layoutprototypeuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutprototypelinkenabled != null">
+        #{layoutprototypelinkenabled,jdbcType=TINYINT},
+      </if>
+      <if test="sourceprototypelayoutuuid != null">
+        #{sourceprototypelayoutuuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sn.pojo.LayoutExample" resultType="java.lang.Long">
+    select count(*) from layout
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update layout
+    <set>
+      <if test="record.plid != null">
+        plid = #{record.plid,jdbcType=BIGINT},
+      </if>
+      <if test="record.uuid != null">
+        uuid_ = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupid != null">
+        groupId = #{record.groupid,jdbcType=BIGINT},
+      </if>
+      <if test="record.companyid != null">
+        companyId = #{record.companyid,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null">
+        createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifieddate != null">
+        modifiedDate = #{record.modifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.privatelayout != null">
+        privateLayout = #{record.privatelayout,jdbcType=BIGINT},
+      </if>
+      <if test="record.layoutid != null">
+        layoutId = #{record.layoutid,jdbcType=BIGINT},
+      </if>
+      <if test="record.parentlayoutid != null">
+        parentLayoutId = #{record.parentlayoutid,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keywords != null">
+        keywords = #{record.keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.robots != null">
+        robots = #{record.robots,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type_ = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typesettings != null">
+        typeSettings = #{record.typesettings,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hidden != null">
+        hidden_ = #{record.hidden,jdbcType=TINYINT},
+      </if>
+      <if test="record.friendlyurl != null">
+        friendlyURL = #{record.friendlyurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconimage != null">
+        iconImage = #{record.iconimage,jdbcType=TINYINT},
+      </if>
+      <if test="record.iconimageid != null">
+        iconImageId = #{record.iconimageid,jdbcType=BIGINT},
+      </if>
+      <if test="record.themeid != null">
+        themeId = #{record.themeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.colorschemeid != null">
+        colorSchemeId = #{record.colorschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wapthemeid != null">
+        wapThemeId = #{record.wapthemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wapcolorschemeid != null">
+        wapColorSchemeId = #{record.wapcolorschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.css != null">
+        css = #{record.css,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priority != null">
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
+      <if test="record.layoutprototypeuuid != null">
+        layoutPrototypeUuid = #{record.layoutprototypeuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.layoutprototypelinkenabled != null">
+        layoutPrototypeLinkEnabled = #{record.layoutprototypelinkenabled,jdbcType=TINYINT},
+      </if>
+      <if test="record.sourceprototypelayoutuuid != null">
+        sourcePrototypeLayoutUuid = #{record.sourceprototypelayoutuuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update layout
+    set plid = #{record.plid,jdbcType=BIGINT},
+      uuid_ = #{record.uuid,jdbcType=VARCHAR},
+      groupId = #{record.groupid,jdbcType=BIGINT},
+      companyId = #{record.companyid,jdbcType=BIGINT},
+      userId = #{record.userid,jdbcType=BIGINT},
+      userName = #{record.username,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      modifiedDate = #{record.modifieddate,jdbcType=TIMESTAMP},
+      privateLayout = #{record.privatelayout,jdbcType=BIGINT},
+      layoutId = #{record.layoutid,jdbcType=BIGINT},
+      parentLayoutId = #{record.parentlayoutid,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      robots = #{record.robots,jdbcType=VARCHAR},
+      type_ = #{record.type,jdbcType=VARCHAR},
+      typeSettings = #{record.typesettings,jdbcType=VARCHAR},
+      hidden_ = #{record.hidden,jdbcType=TINYINT},
+      friendlyURL = #{record.friendlyurl,jdbcType=VARCHAR},
+      iconImage = #{record.iconimage,jdbcType=TINYINT},
+      iconImageId = #{record.iconimageid,jdbcType=BIGINT},
+      themeId = #{record.themeid,jdbcType=VARCHAR},
+      colorSchemeId = #{record.colorschemeid,jdbcType=VARCHAR},
+      wapThemeId = #{record.wapthemeid,jdbcType=VARCHAR},
+      wapColorSchemeId = #{record.wapcolorschemeid,jdbcType=VARCHAR},
+      css = #{record.css,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=INTEGER},
+      layoutPrototypeUuid = #{record.layoutprototypeuuid,jdbcType=VARCHAR},
+      layoutPrototypeLinkEnabled = #{record.layoutprototypelinkenabled,jdbcType=TINYINT},
+      sourcePrototypeLayoutUuid = #{record.sourceprototypelayoutuuid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.Layout">
+    update layout
+    <set>
+      <if test="uuid != null">
+        uuid_ = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        groupId = #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="companyid != null">
+        companyId = #{companyid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifieddate != null">
+        modifiedDate = #{modifieddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="privatelayout != null">
+        privateLayout = #{privatelayout,jdbcType=BIGINT},
+      </if>
+      <if test="layoutid != null">
+        layoutId = #{layoutid,jdbcType=BIGINT},
+      </if>
+      <if test="parentlayoutid != null">
+        parentLayoutId = #{parentlayoutid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="robots != null">
+        robots = #{robots,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type_ = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="typesettings != null">
+        typeSettings = #{typesettings,jdbcType=VARCHAR},
+      </if>
+      <if test="hidden != null">
+        hidden_ = #{hidden,jdbcType=TINYINT},
+      </if>
+      <if test="friendlyurl != null">
+        friendlyURL = #{friendlyurl,jdbcType=VARCHAR},
+      </if>
+      <if test="iconimage != null">
+        iconImage = #{iconimage,jdbcType=TINYINT},
+      </if>
+      <if test="iconimageid != null">
+        iconImageId = #{iconimageid,jdbcType=BIGINT},
+      </if>
+      <if test="themeid != null">
+        themeId = #{themeid,jdbcType=VARCHAR},
+      </if>
+      <if test="colorschemeid != null">
+        colorSchemeId = #{colorschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="wapthemeid != null">
+        wapThemeId = #{wapthemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="wapcolorschemeid != null">
+        wapColorSchemeId = #{wapcolorschemeid,jdbcType=VARCHAR},
+      </if>
+      <if test="css != null">
+        css = #{css,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="layoutprototypeuuid != null">
+        layoutPrototypeUuid = #{layoutprototypeuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutprototypelinkenabled != null">
+        layoutPrototypeLinkEnabled = #{layoutprototypelinkenabled,jdbcType=TINYINT},
+      </if>
+      <if test="sourceprototypelayoutuuid != null">
+        sourcePrototypeLayoutUuid = #{sourceprototypelayoutuuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where plid = #{plid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.Layout">
+    update layout
+    set uuid_ = #{uuid,jdbcType=VARCHAR},
+      groupId = #{groupid,jdbcType=BIGINT},
+      companyId = #{companyid,jdbcType=BIGINT},
+      userId = #{userid,jdbcType=BIGINT},
+      userName = #{username,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      modifiedDate = #{modifieddate,jdbcType=TIMESTAMP},
+      privateLayout = #{privatelayout,jdbcType=BIGINT},
+      layoutId = #{layoutid,jdbcType=BIGINT},
+      parentLayoutId = #{parentlayoutid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      robots = #{robots,jdbcType=VARCHAR},
+      type_ = #{type,jdbcType=VARCHAR},
+      typeSettings = #{typesettings,jdbcType=VARCHAR},
+      hidden_ = #{hidden,jdbcType=TINYINT},
+      friendlyURL = #{friendlyurl,jdbcType=VARCHAR},
+      iconImage = #{iconimage,jdbcType=TINYINT},
+      iconImageId = #{iconimageid,jdbcType=BIGINT},
+      themeId = #{themeid,jdbcType=VARCHAR},
+      colorSchemeId = #{colorschemeid,jdbcType=VARCHAR},
+      wapThemeId = #{wapthemeid,jdbcType=VARCHAR},
+      wapColorSchemeId = #{wapcolorschemeid,jdbcType=VARCHAR},
+      css = #{css,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      layoutPrototypeUuid = #{layoutprototypeuuid,jdbcType=VARCHAR},
+      layoutPrototypeLinkEnabled = #{layoutprototypelinkenabled,jdbcType=TINYINT},
+      sourcePrototypeLayoutUuid = #{sourceprototypelayoutuuid,jdbcType=VARCHAR}
+    where plid = #{plid,jdbcType=BIGINT}
+  </update>
+
+</mapper>

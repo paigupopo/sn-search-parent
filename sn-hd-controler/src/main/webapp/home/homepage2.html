@@ -1,0 +1,561 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>数据统计</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
+
+
+
+  <script type="text/javascript" src="/plugins/angularjs/angular.js"></script>
+  <script type="text/javascript" src="/plugins/angularjs/angular.min.js"></script>
+
+
+  <script type="text/javascript" src="/js/base.js"></script>
+
+
+  <script type="text/javascript" src="/service/hotWordsService.js"></script>
+  <script type="text/javascript" src="/controller/hotWordsController.js"></script>
+
+
+
+</head>
+<body ng-app="sn"  ng-controller="hotWordsController" ng-init="selectcount()">
+
+  <div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+      
+      <div class="layui-col-sm6 layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            访问量
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font">{{itemCount}}</p>
+            <p>
+              总计访问量 
+              <span class="layuiadmin-span-color">{{itemCount}}<i class="layui-inline layui-icon layui-icon-flag"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+     <div class="layui-col-sm6 layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            总文章数
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font">{{jourCountList}}</p>
+            <p>
+              总文章数
+              <span class="layuiadmin-span-color">{{jourCountList}}<i class="layui-inline layui-icon layui-icon-flag"></i></span>
+
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-sm6 layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+           总搜索
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+
+            <p class="layuiadmin-big-font">{{countList}}</p>
+            <p>
+              总计搜索量
+              <span class="layuiadmin-span-color">{{countList}} <i class="layui-inline layui-icon layui-icon-flag"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-sm6 layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+           知识库数据
+          </div>
+          <div class="layui-card-body layuiadmin-card-list" >
+
+            <p class="layuiadmin-big-font" >{{knoCount}}</p>
+            <p>
+
+              总数据
+              <span class="layuiadmin-span-color">{{knoCount}}<i class="layui-inline layui-icon layui-icon-user"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-sm12">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            访问量
+            <div class=" layuiadmin-btn-group">
+              <a href="javascript:;" class="layui-btn layui-btn-primary layui-btn-xs">今年</a>
+            </div>
+          </div>
+
+          <div class="layui-card-body">
+            <select id="sel" onchange="years()">
+            </select>
+            <div class="layui-row">
+              <div class="layui-col-sm8">
+                <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-pagetwo">
+                  <div carousel-item id="LAY-index-pagetwo">
+                    <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="layui-col-sm4">
+                <div class="layuiadmin-card-list">
+                  <p class="layuiadmin-normal-font">月搜索数</p>
+                  <span>同上期增长</span>
+                  <div class="layui-progress layui-progress-big" lay-showPercent="yes">
+                    <div class="layui-progress-bar" lay-percent="{{monthList}}%"></div>
+                  </div>
+                </div>
+                <div class="layuiadmin-card-list">
+                  <p class="layuiadmin-normal-font">月访问数</p>
+                  <span>同上期增长</span>
+                  <div class="layui-progress layui-progress-big" lay-showPercent="yes">
+                    <div class="layui-progress-bar" lay-percent="{{monthCountList}}%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-col-sm4">
+     <div style="background-color: white;height: 515px; width: 100%;top:16px;margin-top: 15px" >
+        <div id="container1" style="top:16px;position: relative; height: 515px; width: 100%; font-family: Microsoft Yahei, Helvetica, STHeitiSC-Light, Arial, sans-serif;" >
+
+        </div>
+</div>
+      </div>
+      <div class="layui-col-sm8">
+        <div class="layui-row layui-col-space15">
+          <div class="layui-col-sm6">
+
+          </div>
+
+          <div class="layui-col-sm12">
+            <div class="layui-card">
+              <div class="layui-card-header">搜索用户全国分布</div>
+              <div class="layui-card-body">
+                <div class="layui-row layui-col-space15">
+                  <div class="layui-col-sm4" >
+                    <table class="layui-table layuiadmin-page-table" lay-skin="line">
+                      <thead>
+                        <tr>
+                          <th>排名</th>
+                          <th>地区</th>
+                          <th>搜索次数</th>
+                        </tr>
+                      </thead>
+                      <tbody  ng-repeat="city in citymap">
+                        <tr>
+
+                          <td>{{city.num}}</td>
+                          <td>{{city.regionName}}</td>
+                          <td>{{city.itemCount}}</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="layui-col-sm8">
+
+                    <div class="layui-carousel layadmin-carousel layadmin-dataview" com.data-anim="fade" lay-filter="LAY-index-pagethree">
+                      <div carousel-item id="LAY-index-pagethree">
+                        <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      </div>
+    </div>
+
+  <script src="/layuiadmin/layui/layui.js" ></script>
+
+  <script type="text/javascript" src="/js/jquery-3.3.1.min.js">
+
+
+  </script>
+
+  <script>
+      layui.config({
+          base: '../../layuiadmin/' //静态资源所在路径
+      }).extend({
+          index: 'lib/index' //主入口模块
+      }).use(['index','carousel', 'echarts'],function(){
+
+          var $=layui.$;
+
+          years=function () {
+
+             var day1;
+              var year=new Date();
+             year=year.getFullYear();
+             var options=$("#sel option:selected");
+             day1=options.text();
+
+                 $.ajax({
+                     url:"/governmenthotsiterm/selectMonth.do",
+                     type:"post",
+                     async:"true",
+                     dataType:'json',
+                     data:'day='+day1,
+                     success:function(es){
+                         for (var n = 0; n < es.length; n++) {
+                             var $ = layui.$
+                                 , carousel = layui.carousel
+                                 , echarts = layui.echarts;
+                             var echartsApp = [],
+                                 options = [
+                                     {
+                                         tooltip: {
+                                             trigger: 'axis'
+                                         },
+                                         calculable: true,
+                                         legend: {
+                                             data: ['访问量', '搜索量', '']
+                                         },
+
+                                         xAxis: [
+                                             {
+                                                 type: 'category',
+                                                 data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                                             }
+                                         ],
+                                         yAxis: [
+                                             {
+                                                 type: 'value',
+                                                 name: '访问量',
+                                                 axisLabel: {
+                                                     formatter: '{value} '
+                                                 }
+                                             },
+                                             {
+                                                 type: 'value',
+                                                 name: '搜索量',
+                                                 axisLabel: {
+                                                     formatter: '{value} '
+                                                 }
+                                             }
+                                         ],
+                                         series: [
+                                             {
+                                                 name: '访问量',
+                                                 type: 'line',
+                                                 data: [es[n]["JanTradingVolume"], es[n]["FebTradingVolume"],  es[n]["MarTradingVolume"], es[n]["AprTradingVolume"], es[n]["MayTradingVolume"], es[n]["JunTradingVolume"],
+                                                     es[n]["JulTradingVolume"], es[n]["AugTradingVolume"], es[n]["SepTradingVolume"], es[n]["OctTradingVolume"], es[n]["NovTradingVolume"], es[n]["DecTradingVolume"]]
+                                             },
+                                             {
+                                                 name: '搜索量',
+                                                 type: 'line',
+                                                 yAxisIndex: 1,
+                                                 data: [es[n]["JanAmount"], es[n]["FebAmount"],  es[n]["MarAmount"], es[n]["AprAmount"], es[n]["MayAmount"], es[n]["JunAmount"],
+                                                     es[n]["JulAmount"], es[n]["AugAmount"], es[n]["SepAmount"], es[n]["OctAmount"], es[n]["NovAmount"], es[n]["DecAmount"]]
+
+                                             },
+                                         ]
+                                     }
+                                 ]
+                                 , elemDataView = $('#LAY-index-pagetwo').children('div')
+                                 , renderDataView = function (index) {
+                                     echartsApp[index] = echarts.init(elemDataView[index], layui.echartsTheme);
+                                     echartsApp[index].setOption(options[index]);
+                                     window.onresize = echartsApp[index].resize;
+                                 };
+                         }
+                         //没找到DOM，终止执行
+                         if(!elemDataView[0]) return;
+                         renderDataView(0);
+                     }
+                 })
+             };
+          var year=new Date();
+          year=year.getFullYear();
+          $.ajax({
+              url:"/governmenthotsiterm/selectMonth.do",
+              type:"post",
+              async:"true",
+              dataType:'json',
+              data:'day='+year,
+              success:function(es){
+                  for (var n = 0; n < es.length; n++) {
+                      var $ = layui.$
+                          , carousel = layui.carousel
+                          , echarts = layui.echarts;
+                      var echartsApp = [],
+                          options = [
+                              {
+                                  tooltip: {
+                                      trigger: 'axis'
+                                  },
+                                  calculable: true,
+                                  legend: {
+                                      data: ['访问量', '搜索量', '']
+                                  },
+
+                                  xAxis: [
+                                      {
+                                          type: 'category',
+                                          data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                                      }
+                                  ],
+                                  yAxis: [
+                                      {
+                                          type: 'value',
+                                          name: '访问量',
+                                          axisLabel: {
+                                              formatter: '{value} '
+                                          }
+                                      },
+                                      {
+                                          type: 'value',
+                                          name: '搜索量',
+                                          axisLabel: {
+                                              formatter: '{value} '
+                                          }
+                                      }
+                                  ],
+                                  series: [
+                                      {
+                                          name: '访问量',
+                                          type: 'line',
+                                          data: [es[n]["JanTradingVolume"], es[n]["FebTradingVolume"],  es[n]["MarTradingVolume"], es[n]["AprTradingVolume"], es[n]["MayTradingVolume"], es[n]["JunTradingVolume"],
+                                              es[n]["JulTradingVolume"], es[n]["AugTradingVolume"], es[n]["SepTradingVolume"], es[n]["OctTradingVolume"], es[n]["NovTradingVolume"], es[n]["DecTradingVolume"]]
+                                      },
+                                      {
+                                          name: '搜索量',
+                                          type: 'line',
+                                          yAxisIndex: 1,
+                                          data: [es[n]["JanAmount"], es[n]["FebAmount"],  es[n]["MarAmount"], es[n]["AprAmount"], es[n]["MayAmount"], es[n]["JunAmount"],
+                                              es[n]["JulAmount"], es[n]["AugAmount"], es[n]["SepAmount"], es[n]["OctAmount"], es[n]["NovAmount"], es[n]["DecAmount"]]
+
+                                      },
+                                  ]
+                              }
+                          ]
+                          , elemDataView = $('#LAY-index-pagetwo').children('div')
+                          , renderDataView = function (index) {
+                              echartsApp[index] = echarts.init(elemDataView[index], layui.echartsTheme);
+                              echartsApp[index].setOption(options[index]);
+                              window.onresize = echartsApp[index].resize;
+                          };
+                  }
+                  //没找到DOM，终止执行
+                  if(!elemDataView[0]) return;
+                  renderDataView(0);
+              }
+          })
+
+
+      }).use(['index','carousel', 'echarts'],function () {
+
+
+          var $=layui.$;
+          $.ajax({
+              url:"/governmenthotsiterm/selectCityAddress.do",
+              type:"post",
+              async:"true",
+              dataType:'json',
+              success:function(city){
+
+
+          for (var n = 0; n < city.length; n++) {
+              var $ = layui.$
+                  , carousel = layui.carousel
+                  , echarts = layui.echarts;
+
+              var echartsApp = [], options = [
+                  {
+                      title: {
+                          text: '全国搜索用户分布',
+                          subtext: '不完全统计'
+                      },
+                      tooltip: {
+                          trigger: 'item'
+                      },
+                      dataRange: {
+                          orient: 'horizontal',
+                          min: 0,
+                          max: 20000,
+                          text: ['高', '低'],
+                          splitNumber: 0
+                      },
+                      series: [
+                          {
+                              name: '全国搜索用户分布',
+                              type: 'map',
+                              mapType: 'china',
+                              selectedMode: 'multiple',
+                              itemStyle: {
+                                  normal: {label: {show: true}},
+                                  emphasis: {label: {show: true}}
+                              },
+                              data: city
+                          }
+
+                      ]
+                  }
+              ]
+
+
+                  , elemDataView = $('#LAY-index-pagethree').children('div')
+
+                  , renderDataView = function (index) {
+                  echartsApp[index] = echarts.init(elemDataView[index], layui.echartsTheme);
+                  echartsApp[index].setOption(options[index]);
+                  window.onresize = echartsApp[index].resize;
+              };
+
+
+              //没找到DOM，终止执行
+              if (!elemDataView[0]) return;
+
+              renderDataView(0);
+          }
+              }})}).use(['index','carousel', 'echarts'],function () {
+
+      })
+  </script>
+
+
+  <script  src="/dist1/echarts.js"></script>
+
+   <script>
+
+       $.ajax({
+           url:"/Governmenthots/selectName.do",
+           type:"post",
+           async:"true",
+           dataType:'json',
+           success:function(list){
+
+
+    for (var n = 0; n < list.length; n++) {
+
+
+        var dom = document.getElementById("container1");
+
+        var myChart = echarts.init(dom);
+        var app = {};
+
+        option = null;
+        option = {
+            title: {
+                text: '搜索热点词',
+                subtext: '',
+                x: 'center'
+
+            },
+            tooltip: {
+                trigger: 'item',
+                align: 'right',
+
+                formatter:function (params) {
+                    var r = "";
+
+                    var n = params['name'].length;
+                    if(n>6)
+                    {
+                        r+='名称:'+params['name'].substring(0,6) +"...<br/>";
+                    }else {
+                        r+='名称:'+params['name']+"<br/>";
+                    }
+
+                    r+='百分比:'+params['percent']+'%'+"<br/>";
+                    r+='数量:'+params['value'];
+                    return  r;
+                }
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                y:40,
+                formatter:function(params) {
+                    var tip1 = "";
+                    var tip = "";
+                    var le = params.length  //图例文本的长度
+                    if(le > 30){   //几个字换行大于几就可以了
+                        var l = Math.ceil(le/30)  //有些不能整除，会有余数，向上取整
+                        for(var i = 1;i <= l;i++){ //循环
+                            if(i < l){ //最后一段字符不能有\n
+                                tip1 += params.slice(i*30-30,i*30)+'\n'; //字符串拼接
+                            }else if(i === l){  //最后一段字符不一定够9个
+                                tip = tip1 + params.slice((l-1)*30,le) //最后的拼接在最后
+                            }
+                        }
+                        return tip;
+                    }else{
+                        tip = params  //前面定义了tip为空，这里要重新赋值，不然会替换为空
+                        return tip;
+                    }
+                },
+
+                data: [list[0]["name"],list[1]["name"],list[2]["name"],list[3]["name"],list[4]["name"]]
+            },
+            series: [
+                {
+                    name: '热词占比',
+                    type: 'pie',
+                    radius: '55%',
+                    right:'right',
+                    center: ['50%', '60%'],
+                    data: list,
+
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+
+    }
+}})
+  </script>
+  <script>
+
+
+
+
+  </script>
+
+
+  <script>
+      layui.config({
+          base: '../../layuiadmin/' //静态资源所在路径
+      }).extend({
+          index: 'lib/index' //主入口模块
+      }).use(['index', 'console']);
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

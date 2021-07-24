@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.LeaderMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.Leader">
+    <id column="qal_id" jdbcType="BIGINT" property="id" />
+    <result column="qal_Name" jdbcType="VARCHAR" property="qalName" />
+    <result column="qal_Resign" jdbcType="VARCHAR" property="qalResign" />
+    <result column="qal_Synopsis" jdbcType="VARCHAR" property="qalSynopsis" />
+    <result column="qal_Resume" jdbcType="VARCHAR" property="qalResume" />
+    <result column="qal_Achievement" jdbcType="VARCHAR" property="qalAchievement" />
+    <result column="qal_Work" jdbcType="VARCHAR" property="qalWork" />
+    <result column="qal_url" jdbcType="VARCHAR" property="qalUrl" />
+    <result column="qal_img" jdbcType="VARCHAR" property="qalImg" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    qal_id, qal_Name, qal_Resign, qal_Synopsis, qal_Resume, qal_Achievement, qal_Work, 
+    qal_url, qal_img
+  </sql>
+  <select id="selectByExample" parameterType="com.sn.pojo.LeaderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from leader order by qal_id DESC
+
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from leader
+    where qal_id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from leader
+    where qal_id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.LeaderExample">
+    delete from leader
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sn.pojo.Leader">
+    insert into leader (qal_id, qal_Name, qal_Resign, 
+      qal_Synopsis, qal_Resume, qal_Achievement, 
+      qal_Work, qal_url, qal_img
+      )
+    values (#{id,jdbcType=BIGINT}, #{qalName,jdbcType=VARCHAR}, #{qalResign,jdbcType=VARCHAR},
+      #{qalSynopsis,jdbcType=VARCHAR}, #{qalResume,jdbcType=VARCHAR}, #{qalAchievement,jdbcType=VARCHAR}, 
+      #{qalWork,jdbcType=VARCHAR}, #{qalUrl,jdbcType=VARCHAR}, #{qalImg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.Leader">
+    insert into leader
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        qal_id,
+      </if>
+      <if test="qalName != null">
+        qal_Name,
+      </if>
+      <if test="qalResign != null">
+        qal_Resign,
+      </if>
+      <if test="qalSynopsis != null">
+        qal_Synopsis,
+      </if>
+      <if test="qalResume != null">
+        qal_Resume,
+      </if>
+      <if test="qalAchievement != null">
+        qal_Achievement,
+      </if>
+      <if test="qalWork != null">
+        qal_Work,
+      </if>
+      <if test="qalUrl != null">
+        qal_url,
+      </if>
+      <if test="qalImg != null">
+        qal_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="qalName != null">
+        #{qalName,jdbcType=VARCHAR},
+      </if>
+      <if test="qalResign != null">
+        #{qalResign,jdbcType=VARCHAR},
+      </if>
+      <if test="qalSynopsis != null">
+        #{qalSynopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="qalResume != null">
+        #{qalResume,jdbcType=VARCHAR},
+      </if>
+      <if test="qalAchievement != null">
+        #{qalAchievement,jdbcType=VARCHAR},
+      </if>
+      <if test="qalWork != null">
+        #{qalWork,jdbcType=VARCHAR},
+      </if>
+      <if test="qalUrl != null">
+        #{qalUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="qalImg != null">
+        #{qalImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sn.pojo.LeaderExample" resultType="java.lang.Long">
+    select count(*) from leader
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update leader
+    <set>
+      <if test="record.id != null">
+        qal_id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.qalName != null">
+        qal_Name = #{record.qalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qalResign != null">
+        qal_Resign = #{record.qalResign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qalSynopsis != null">
+        qal_Synopsis = #{record.qalSynopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qalResume != null">
+        qal_Resume = #{record.qalResume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qalAchievement != null">
+        qal_Achievement = #{record.qalAchievement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qalWork != null">
+        qal_Work = #{record.qalWork,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qalUrl != null">
+        qal_url = #{record.qalUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qalImg != null">
+        qal_img = #{record.qalImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update leader
+    set qal_id = #{record.id,jdbcType=BIGINT},
+      qal_Name = #{record.qalName,jdbcType=VARCHAR},
+      qal_Resign = #{record.qalResign,jdbcType=VARCHAR},
+      qal_Synopsis = #{record.qalSynopsis,jdbcType=VARCHAR},
+      qal_Resume = #{record.qalResume,jdbcType=VARCHAR},
+      qal_Achievement = #{record.qalAchievement,jdbcType=VARCHAR},
+      qal_Work = #{record.qalWork,jdbcType=VARCHAR},
+      qal_url = #{record.qalUrl,jdbcType=VARCHAR},
+      qal_img = #{record.qalImg,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.Leader">
+    update leader
+    <set>
+      <if test="qalName != null">
+        qal_Name = #{qalName,jdbcType=VARCHAR},
+      </if>
+      <if test="qalResign != null">
+        qal_Resign = #{qalResign,jdbcType=VARCHAR},
+      </if>
+      <if test="qalSynopsis != null">
+        qal_Synopsis = #{qalSynopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="qalResume != null">
+        qal_Resume = #{qalResume,jdbcType=VARCHAR},
+      </if>
+      <if test="qalAchievement != null">
+        qal_Achievement = #{qalAchievement,jdbcType=VARCHAR},
+      </if>
+      <if test="qalWork != null">
+        qal_Work = #{qalWork,jdbcType=VARCHAR},
+      </if>
+      <if test="qalUrl != null">
+        qal_url = #{qalUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="qalImg != null">
+        qal_img = #{qalImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where qal_id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.Leader">
+    update leader
+    set qal_Name = #{qalName,jdbcType=VARCHAR},
+      qal_Resign = #{qalResign,jdbcType=VARCHAR},
+      qal_Synopsis = #{qalSynopsis,jdbcType=VARCHAR},
+      qal_Resume = #{qalResume,jdbcType=VARCHAR},
+      qal_Achievement = #{qalAchievement,jdbcType=VARCHAR},
+      qal_Work = #{qalWork,jdbcType=VARCHAR},
+      qal_url = #{qalUrl,jdbcType=VARCHAR},
+      qal_img = #{qalImg,jdbcType=VARCHAR}
+    where qal_id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,654 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9,chrome=1"/>
+    <meta name="renderer" content="webkit">
+    <meta name="SiteName" content="中国遂宁">
+    <meta name="SiteDomain" content="www.suining.gov.cn">
+    <meta name="SiteIDCode" content="3100000044">
+    <meta name="ColumnName" content="中国遂宁门户网站-智能问答">
+    <meta name="ColumnType" content="智能问答">
+    <title>遂宁智能机器人</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Keywords" content="中国遂宁,门户网站,要闻动态，政府信息公开，政民互动，公众服务，走进遂宁，新闻发布，专题报道，近期信息公开，便民提示，遂宁概览，遂宁百科，城市明信片，营商环境等"/>
+    <meta name="Description"
+          content="“中国遂宁”是在遂宁市委、市政府领导亲自关心、指导下建立和发展起来的政府门户网站，始终坚持以努力建设“服务政府、责任政府、法治政府”为目标，以“为民、便民、利民”为宗旨，以发布政府信息、拓展网上办事、提供便民服务和开展互动交流为主要内容。"/>
+
+    <meta name="author" content="author,email address">
+    <link rel="shortcut icon"/>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+    <link rel="stylesheet" href="css/main_2.css">
+    <script src="js/angularjs/angular.min.js"></script>
+    <script src="js/base.js"></script>
+
+
+    <link rel="stylesheet" href="js/easyhelper.min.css">
+    <script src="js/common.js"></script>
+    <script src="js/es6-shim.min.js"></script>
+    <script src="js/jquery.transit.min.js"></script>
+    <script src="js/easyhelper.min.js"></script>
+    <script src="js/rightClick_2.js"></script>
+    <link rel="stylesheet" href="css/introjs.min_2.css">
+
+
+    <script  src="js/service/RobotService.js"></script>
+    <script  src="js/controller/controllerRobot.js"></script>
+
+
+
+    <style>
+        #help-3 {
+            overflow-y: scroll !important;
+        }
+
+        .con-r-news > ul > li table td.dd {
+            width: 0px;
+            height: 0px;
+            background: none;
+            display: none;
+        }
+
+        .con-r-news > ul > li table td.t {
+            padding-left: 22px;
+        }
+
+        .part_data {
+            padding-left: 0;
+        }
+
+        .icon a span.three {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            background: url(img/icon-lg.png) no-repeat;
+            background-size: cover;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+        }
+
+        .iphone {
+            filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7F000000, endcolorstr=#7F000000);
+        }
+
+        .black_overlay {
+            display: none;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1001;
+            -moz-opacity: 0.8;
+            opacity: .80;
+            filter: alpha(opacity=80);
+        }
+
+        .white_content {
+            position: absolute;
+            top: 100px;
+            left: 15%;
+            width: 80%;
+            height: 60%;
+            border: 16px solid lightblue;
+            background-color: white;
+            z-index: 1002;
+            overflow: auto;
+        }
+
+        .modal {
+
+            max-width: 50%;
+            max-height: 100px;
+            height: auto;
+            background-color: #fff;
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            border-radius: 10px;
+            margin-left: -350px;
+            box-sizing: border-box;
+            background: #efefef;
+            display: none;!important;
+
+        }
+    </style>
+    <style>
+        .wrapper {
+            text-align: center;
+            margin: 50px auto;
+        }
+
+        .wrapper button {
+            width: 120px;
+            margin: 0 10px;
+        }
+        #login
+        {
+            display:none;
+            border:0.5em solid purple;
+            height:60%;
+            width:70%;
+            position:absolute;/*让节点脱离文档流,我的理解就是,从页面上浮出来,不再按照文档其它内容布局*/
+            top:24%;/*节点脱离了文档流,如果设置位置需要用top和left,right,bottom定位*/
+            left:24%;
+            z-index:2;/*个人理解为层级关系,由于这个节点要在顶部显示,所以这个值比其余节点的都大*/
+            background: white;
+        }
+        #over
+        {
+            width: 100%;
+            height: 100%;
+            opacity:0.5;/*设置背景色透明度,1为完全不透明,IE需要使用filter:alpha(opacity=80);*/
+            filter:alpha(opacity=80);
+            display: none;
+            position:absolute;
+            top:0;
+            left:0;
+            z-index:1;
+            background: silver;
+        }
+
+
+    </style>
+
+
+<body ng-app="robot" ng-controller="controllerRobot">
+<!-- header-start -->
+<div class="header clearfix">
+    <div class="top-nav">
+        <div class="s-content clearfix">
+            <div class="s-logo left"><a href="#" target="_blank"><img src="img/sn-1.png" alt=""></a></div>
+            <!--<ul id="mainNav" class="nav clearfix left">
+             <li><a href="http://118.122.186.244:81/web/guest/welcome" target="_blank" class="margin-left10">首页</a></li>
+               <li id="nav02" class="active"><a href="http://118.122.186.244:81/web/guest/zwgk" target="_blank">政府公开</a></li>
+               <li id="nav05"><a href="http://118.122.186.244:81/web/guest/zwfw" target="_blank">政府服务</a></li>
+               <li id="nav04"><a href="http://118.122.186.244:81/web/guest/zmhd" target="_blank">政民互动</a></li>
+               <li id="nav06"><a href="http://118.122.186.244:81/web/guest/lssn" target="_blank" class="no-margin-right">走进遂宁</a></li>
+               <li id="nav03"><a href="http://118.122.186.244:81/web/guest/sjkf" target="_blank">数据开放</a></li>
+             <li id="nav01"><a href="http://118.122.186.244:81/web/guest/snzx" target="_blank">要闻动态</a></li>
+           </ul>-->
+            <div>
+            <iframe width="300" scrolling="no" height="30" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="margin-top:7px;" src="http://i.tianqi.com/index.php?c=code&id=1&icon=1&wind=0&num=1"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="bo-nav">
+        <div class="s-content clearfix nav-con">
+            <!-- <div class="s-city left"><img src="images/city.png" alt=""></div> -->
+            <div class="ss-logo left"><img src="img/logo1.png" alt=""></div>
+
+            <div class="icon right clearfix">
+                <div class="help left"><a href="javascript:;"><img src="img/h-icon.png" alt=""></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- header-end -->
+<!--
+<script>
+
+
+    var path = "${pageContext.request.contextPath}";
+    window.browser = {
+        /*判断访问终端*/
+        versions: function () {
+            var u = navigator.userAgent, app = navigator.appVersion;
+            return {
+                trident: u.indexOf('Trident') > -1, /*IE内核*/
+                presto: u.indexOf('Presto') > -1, /*opera内核*/
+                webKit: u.indexOf('AppleWebKit') > -1, /*苹果、谷歌内核*/
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, /*火狐内核*/
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/), /*是否为移动终端*/
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), /*ios终端*/
+                android: u.indexOf('Android') > -1, /*android终端或者uc浏览器*/
+                linux: u.indexOf('Linux') > -1,
+                iPhone: u.indexOf('iPhone') > -1, /*是否为iPhone或者QQHD浏览器*/
+                iPad: u.indexOf('iPad') > -1, /*是否iPad*/
+                webApp: u.indexOf('Safari') == -1, /*是否web应该程序，没有头部与底部*/
+                weixin: u.toLowerCase().indexOf('micromessenger') > -1 /*是否是微信*/
+            };
+        }(),
+        language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    };
+
+
+  /*  var str = "";
+    for (var i in browser.versions) {
+        if (browser.versions[i]) {
+            //str+=i+browser.versions[i]+" ";
+            if (i == "trident") {
+                str += "IE内核"
+            }
+            else if (i == "presto") {
+                str += "opera内核"
+            }
+            else if (i == "webKit") {
+                str += "苹果、谷歌内核"
+            }
+            else if (i == "gecko") {
+                str += "火狐内核"
+            }
+            else if (i == "mobile") {
+                str += "移动终端"
+            }
+            else if (i == "ios") {
+                str += "ios终端"
+            }
+            else if (i == "android") {
+                str += "android终端或者uc浏览器"
+            }
+            else if (i == "linux") {
+                str += "linux"
+            }
+            else if (i == "iPhone") {
+                str += "iPhone或者QQHD浏览器"
+            }
+            else if (i == "iPad") {
+                str += "iPad"
+            }
+            else if (i == "webApp") {
+                str += "web应该程序"
+            }//，没有头部与底部
+            else if (i == "weixin") {
+                str += "微信"
+            }
+        }
+    }*/
+
+    function getDevice(str) {
+        if (str.indexOf("微信") != -1) return "1";
+        else if (str.indexOf("移动终端") != -1) return "2";
+        else if (str.indexOf("iPad") != -1) return "4";
+        else return "3";
+    }
+
+    function getBrowser(str) {
+        if (str.indexOf("IE内核") != -1) return "1";
+        else if (str.indexOf("opera内核") != -1) return "2";
+        else if (str.indexOf("苹果、谷歌内核") != -1) return "3";
+        else if (str.indexOf("火狐内核") != -1) return "4";
+        else return "5";
+    }
+
+    var typeByDevice = getDevice(str);
+    var typeByBrowser = getBrowser(str);
+    //js 读取文件
+    $.get("/dhc/admin/addTerminal.act?typeByDevice=" + typeByDevice + "&typeByBrowser=" + typeByBrowser);
+    $.get("/dhc/admin/addDevice.act?typeOfDevice=" + typeByDevice);
+    $.get("/dhc/admin/addBrowse.act?typeOfBrowse=" + typeByBrowser)
+</script>-->
+
+
+<!-- main-start -->
+<div class="b-content clearfix">
+    <div class="con-l left">
+        <div class="con-l-t" >
+            <div id="message" tabindex="0" style="overflow: hidden; outline: none;">
+                <div class="dialog_tab" id="one-s" style="margin-top:20px; padding:8px;">
+                    <div>
+                        <div class="right_arrow"></div>
+                        <span class="triangle"></span>
+                        <div class="tab2_title"></div>
+                        <div style=" margin-top:0px;" class="tab2_content">
+                            <div style=" color:#333; font-family:'宋体';" id="huanying">
+                                您好！请您将想要咨询的问题告诉我，我会为您解答哦！
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="myContent">
+                    <div  id="wenTi">
+
+                    </div>
+
+                    <div style="display: none" id="zhuijia" >
+                        <div class="dialog_tab" >
+                            <div>
+                                <div class="right_arrow">
+
+                                </div>
+                                <span class="triangle"></span>
+
+                                <div class="tab2_content"  ng-repeat="know in knowMap.row" >
+
+                                    <ul class="news">
+                                        <li>
+                                            <div>
+                                                <a href={{know.url}} target="_blank" >{{know.title}}</a><span class="bszn">[{{know.gatype}}]</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="tab2_content"  ng-repeat="know in knowMap.jo" >
+
+                                    <ul class="news">
+                                        <li>
+                                            <div>
+                                                <a href={{know.url}} target="_blank" >{{know.title}}</a><span class="bszn">[{{know.username}}]</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                                <div   ng-repeat="know in knowMap.leader">
+                                    <div>
+                                        <div class="right_arrow"></div>
+                                        <span class="triangle"></span>
+                                        <span>{{know.qalName}}</span>
+                                        <div class="c_text" id="c_text"><img alt="" height="459" src="{{know.qalImg}}" width="400">
+                                            {{know.qalSynopsis}}<br>
+                                            {{know.qalResume}}
+                                        </div>
+                                        <a href="{{know.qalUrl}}" target="_blank" class="adwz">
+                                            点击进入网页内容</a>
+                                        <p class="more-dan" id="jjj" onclick="leader();">[阅读全文]</p>
+
+                                    </div>
+                                </div>
+
+                                <!--
+                                                                <p id="dianji" style=" color:#ec6941;cursor: pointer;line-height: 32px;padding-left:10px;" ng-click="shijiana('dianji','gengduo')" >更多信息</p>
+                                -->
+                                <div id="gengduo">
+                                    <div class="tab2_content "  ng-repeat="know in knowMap.rows"  >
+                                        <ul class="news">
+                                            <li>
+                                                <div >
+                                                    <a  href="javascript:void(0)"  ng-click="shuju($event,know.qaklContent);"  target="" >{{know.qaklTitle}}
+
+
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div  ng-repeat="qad in knowMap.qs">
+
+                                    <div class="right_arrow">
+
+                                    </div>
+                                    <span class="triangle">
+
+    </span>
+                                    <div class="tab2_content">{{qad.qadContent}}</div>
+                                </div>
+
+
+
+
+                                <div ng-if="knowMap.rows==''&&knowMap.row==''&&knowMap.jo==''">
+                                    <div class="right_arrow">
+
+                                    </div>
+                                    <span class="triangle">
+
+    </span>
+                                    <div class="tab2_content">
+                                        您好，此问题建议您拨打遂宁政府服务热线12345进行咨询。</div>
+                                </div>
+                                <div >
+                                    <div class="right_arrow">
+
+                                    </div>
+                                    <span class="triangle">
+
+    </span>
+                                    <div  class="tab2_content" id="mingan"  ng-if="knowMap.min">
+                                        <div>很抱歉，您搜索的内容含有<em style="color: #ce2b2b">敏感词</em>，无法找到相关内容</div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="con-l-b clearfix" id="inputpanel">
+        <div class="tipDiv">
+            <ul>
+            </ul>
+        </div>
+        <div class="text-con left">
+            <!--   <textarea type="text" id="messCon" ></textarea>-->
+            <input  ng-keyup="enterEvent($event,'zhuijia','messCon');" ng-model="searchMap.keywords"  type="text" placeholder="请输入您的问题" id="messCon" >
+
+            <p id="fontNum"><i>还可以输入<span id="number"><strong>50</strong></span>字</i></p>
+        </div>
+        <div class="button left" >
+            <button class="chatbtnover"   type="button"   ng-click="robotSearch('zhuijia','myContent');cleak('messCon');">发送</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- content-index-left-end -->
+
+<!-- content-index-right-start -->
+<div class="con-r left" id="one-s3">
+    <div class="hottags" style="display: block" id="hottags-box">
+        <h2>常见问题</h2>
+        <div>
+            <ul>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon');" >如何注册公司?</a></li>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon')" >如何办理户口？</a></li>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon')" >政府工作报告？</a></li>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon')" >房屋过户需要哪些材料？</a></li>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon')" >医生执业证办理</a></li>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon')" >如何办理社保卡？</a></li>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon')" >居住证如何办理？</a></li>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon')" >新生儿上户口？</a></li>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon')" >外企注册登记</a></li>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon')" >公积金查询</a></li>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon')" >如何办理临时身份证？</a></li>
+                <li><a href="javascript:" ng-click="show0($event,'zhuijia','messCon')" >机动车业务办理</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- content-index-right-end -->
+
+</div>
+
+
+<!-- content-index-end -->
+
+<!-- footer-start -->
+<!--响应式尾部文件start-->
+<div id="footer" class="row-fluid margin-top10">
+    <div class="s-content clearfix">
+        <div class="footlogo left clearfix">
+
+            <a class="left" href="#" target="_blank" title="党政机关"></a>
+            <h4>
+                <p><a target="_blank">中共遂宁市委 遂宁市人民政府版权所有 </a>
+                <p><a target="_blank">Copyright 2019 www.suining.gov.cn All Rights Reserved</a>
+                    <a href="#" target="_blank"></a><br></p>
+            </h4>
+        </div>
+    </div>
+</div>
+
+
+<!--响应式尾部文件end-->
+<!-- footer-end -->
+<div class="prompting" style="display:none;">
+    <div class="pro-box">
+        <div class="modal-body">
+
+            <h5 style="clear:both">您对我们的有什么建议？</h5>
+            <textarea rows="4" style="width:100%; border:0 none; border:1px solid #777;" id="content"></textarea>
+        </div>
+        <div class="modal-footer text-center">
+            <button id="cancelBtn" class="btn" com.data-dismiss="modal" aria-hidden="true">取消</button>
+            <button id="submitBtn" class="btn btn-danger" onclick="submit(this)">提交</button>
+        </div>
+
+    </div>
+</div>
+
+<div class="prompting1" style="display:none;">
+    <div class="pro-box">
+        <div class="modal-body">
+
+            <h5 style="clear:both">您对我们的有什么建议？</h5>
+            <textarea rows="4" style="width:100%; border:0 none; border:1px solid #777;" id="content1"></textarea>
+        </div>
+        <div class="modal-footer text-center">
+            <button id="cancelBtn1" class="btn" com.data-dismiss="modal" aria-hidden="true">取消</button>
+            <button id="submitBtn1" class="btn btn-danger" onclick="submit1(this)">提交</button>
+        </div>
+
+    </div>
+</div>
+
+
+</div>
+
+<div style="display: none;" class="iphone"><img src="img/sn-logo%20(2).png" alt="">
+    <p>扫一扫 进入手机端</p></div>
+
+</body>
+<script type="text/javascript" src="js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="js/jquery.SuperSlide.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/intro.js"></script>
+<script type="text/javascript">
+
+
+
+
+    //弹出窗口的方法
+    $(".help").on('click', function (e) {
+        introJs().setOptions({
+            //对应的按钮
+            prevLabel: "上一步",
+            nextLabel: "下一步",
+            skipLabel: "跳过",
+            doneLabel: "结束",
+            //对应的数组，顺序出现每一步引导提示
+            steps: [
+                {
+                    //第一步引导
+                    //这个属性类似于jquery的选择器， 可以通过jquery选择器的方式来选择你需要选中的对象进行指引
+                    element: '#message',
+                    //这里是每个引导框具体的文字内容，中间可以编写HTML代码
+                    intro: '这里是对话框，你想问的问题和答案都会呈现在这里哦',
+                    //这里可以规定引导框相对于选中对象出现的位置 top,bottom,left,right
+                    position: 'right'
+                },
+                {
+                    //第二步引导
+                    element: '#inputpanel',
+                    intro: '在这里输入您想要咨询的问题，点击发送',
+                    position: 'right'
+                },
+                {
+                    //第三步引导
+                    element: '#one-s3',
+                    intro: '这里是常见问题',
+                    position: 'left'
+                },
+
+
+            ]
+
+        }).start();
+    });
+
+
+    $(document).ready(function () {
+        $('#messCon').focus();
+    });
+
+
+    var flag = true;
+    function leader(){
+
+
+        if (!flag) {
+
+
+            $('.c_text').css({
+                "overflow" : "visible",
+                "height" : "auto"
+
+            });
+
+            $('#jjj').html("[收起]");
+
+            flag = false;
+        } else {
+
+            $('.c_text').css({
+                'overflow' : 'hidden',
+                'height' : '134px'
+            });
+            $('#jjj').html("[阅读全文]");
+
+            flag = true;
+        }
+
+
+    }
+
+
+</script>
+<script type="text/javascript">
+    var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+
+    var browser = navigator.userAgent.toLowerCase();
+
+    var isMobile = false;
+
+    for (var i = 0; i < mobileAgent.length; i++) {
+        if (browser.indexOf(mobileAgent[i]) != -1) {
+            isMobile = true;
+
+            //alert(mobileAgent[i]);
+
+            location.href = '../../../../sn-search-interface/web';
+
+            break;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="search-tomcat:war">
+    <output-path>$PROJECT_DIR$/search-tomcat/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>search-tomcat</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="search-tomcat-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="search-tomcat:war exploded" />
+    </root>
+  </artifact>
+</component>

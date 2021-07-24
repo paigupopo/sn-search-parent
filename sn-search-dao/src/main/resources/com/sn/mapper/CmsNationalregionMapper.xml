@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.CmsNationalregionMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.CmsNationalregion">
+    <id column="regionId" jdbcType="INTEGER" property="regionid" />
+    <result column="regionName" jdbcType="VARCHAR" property="regionname" />
+    <result column="parentId" jdbcType="INTEGER" property="parentid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    regionId, regionName, parentId
+  </sql>
+  <select id="selectByExample" parameterType="com.sn.pojo.CmsNationalregionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cms_nationalregion
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cms_nationalregion
+    where regionId = #{regionid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectRegionId" resultType="java.lang.String" resultMap="BaseResultMap">
+    select regionId from cms_nationalregion where regionName=#{regionname,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cms_nationalregion
+    where regionId = #{regionid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.CmsNationalregionExample">
+    delete from cms_nationalregion
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+
+
+  <select id="selectParentId" resultType="Long" parameterType="java.lang.Long">
+     select parentId from cms_nationalregion where regionId=${cityAddress}
+  </select>
+
+  <select id="selectRegionName" resultType="String" parameterType="java.lang.Long">
+    SELECT regionName from cms_nationalregion where regionId=${parentId}
+  </select>
+
+  <insert id="insert" parameterType="com.sn.pojo.CmsNationalregion">
+    insert into cms_nationalregion (regionId, regionName, parentId
+      )
+    values (#{regionid,jdbcType=INTEGER}, #{regionname,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.CmsNationalregion">
+    insert into cms_nationalregion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="regionid != null">
+        regionId,
+      </if>
+      <if test="regionname != null">
+        regionName,
+      </if>
+      <if test="parentid != null">
+        parentId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="regionid != null">
+        #{regionid,jdbcType=INTEGER},
+      </if>
+      <if test="regionname != null">
+        #{regionname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sn.pojo.CmsNationalregionExample" resultType="java.lang.Long">
+    select count(*) from cms_nationalregion
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cms_nationalregion
+    <set>
+      <if test="record.regionid != null">
+        regionId = #{record.regionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.regionname != null">
+        regionName = #{record.regionname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null">
+        parentId = #{record.parentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cms_nationalregion
+    set regionId = #{record.regionid,jdbcType=INTEGER},
+      regionName = #{record.regionname,jdbcType=VARCHAR},
+      parentId = #{record.parentid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.CmsNationalregion">
+    update cms_nationalregion
+    <set>
+      <if test="regionname != null">
+        regionName = #{regionname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where regionId = #{regionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.CmsNationalregion">
+    update cms_nationalregion
+    set regionName = #{regionname,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=INTEGER}
+    where regionId = #{regionid,jdbcType=INTEGER}
+  </update>
+</mapper>

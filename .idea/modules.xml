@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/search/search.iml" filepath="$PROJECT_DIR$/search/search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/search-tomcat/search-tomcat.iml" filepath="$PROJECT_DIR$/search-tomcat/search-tomcat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-hd-controler/sn-hd-controler.iml" filepath="$PROJECT_DIR$/sn-hd-controler/sn-hd-controler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-robot-controller/sn-robot-controller.iml" filepath="$PROJECT_DIR$/sn-robot-controller/sn-robot-controller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-robot-service/sn-robot-service.iml" filepath="$PROJECT_DIR$/sn-robot-service/sn-robot-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-search-controller/sn-search-controller.iml" filepath="$PROJECT_DIR$/sn-search-controller/sn-search-controller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-search-dao/sn-search-dao.iml" filepath="$PROJECT_DIR$/sn-search-dao/sn-search-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-search-interface/sn-search-interface.iml" filepath="$PROJECT_DIR$/sn-search-interface/sn-search-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-search-parent.iml" filepath="$PROJECT_DIR$/sn-search-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-search-pojo/sn-search-pojo.iml" filepath="$PROJECT_DIR$/sn-search-pojo/sn-search-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-search-service/sn-search-service.iml" filepath="$PROJECT_DIR$/sn-search-service/sn-search-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sn-search-solr/sn-search-solr.iml" filepath="$PROJECT_DIR$/sn-search-solr/sn-search-solr.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,29 @@
+/*图片瀑布流开始*/
+#container{margin:22px auto;width:1005px;}
+.picdiv{float:left;overflow:hidden;margin:5px 5px 0 0;display:block;width:196px;height:144px;position:relative;}
+.picdiv img{position:absolute;left:0;top:0;width:196px;height:144px}
+.picdiv span{width:100%;;height:27px;background:url(../images/pic_mask.png) no-repeat center;position:absolute;bottom:0;left:-196px;color:#fff;text-align:center;line-height:27px;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.loading i{display:inline-block;height:16px;width:16px;background:url(../images/timg.gif) no-repeat;background-size:contain;}
+#head-copy{height:137px;width:100%;left:0;top:0;}
+.more{width:280px;height:32px;line-height:32px;border:1px solid #dcdcdc;margin:40px auto 45px;color:#565656;}
+.loading{width:160px;height:25px;line-height:25px;color:#333;margin:25px auto 0;}
+.loading img{display:inline-block;width:25px;height:25px;position: relative;top: 8px;left: -5px;}
+/*图片瀑布流结束*/
+/*图片列表开始*/
+.picList .container{width:1005px;margin:22px auto 0;}
+.picList .container a{float:left;overflow:hidden;margin:6px 6px 0 0;display:block;width:195px;height:144px;position:relative;}
+.picList .container a img{position:absolute;left:0;top:0;width:195px;height:144px;}
+.picList .container a span{width:195px;height:27px;background:url(../imges/pic_mask.png) no-repeat center;position:absolute;bottom:0;left:-195px;color:#fff;text-align:center;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.picList .pages{margin:43px auto 51px;}
+/*图片列表结束*/
+/*视频开始*/
+.video .container{width:1005px;margin:26px auto 0;}
+.video .container a{float:left;overflow:hidden;margin:5px 5px 0 0;display:block;width:196px;height:144px;position:relative;}
+.video .container a img {width:196px;height:144px;}
+.video .container a span.title{width:100%;height:27px;background:url(../imges/pic_mask.png) no-repeat center;position:absolute;bottom:0;left:0;color:#fff;text-align:center;line-height:27px;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.video .pages{margin:43px auto 52px;text-align:center;}
+.video .play{display:none;width:42px;height:42px;background:url(../imges/play.png) no-repeat;position:absolute;left:50%;top:50%;margin-left:-21px;margin-top:-21px;}
+/*视频结束*/
+/*回到顶部开始*/
+.backTop{display:none;width:40px;height:40px;background:url(../imges/icon.png) 0 -93px;position:fixed;right:160px;bottom:120px;}
+/*回到顶部结束*/

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+			 xmlns:beans="http://www.springframework.org/schema/beans"
+			 xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:baens="http://www.springframework.org/schema/c"
+			 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+<!-- 设置页面不登陆也可以访问 -->
+	<http pattern="/user/login.html" security="none"></http>
+	<http pattern="/layuiadmin/json/css/**" security="none"></http>
+	<http pattern="/layuiadmin/layui/css/**" security="none"></http>
+	<http pattern="/layuiadmin/layui/**" security="none"></http>
+	<http pattern="/layuiadmin/style/**" security="none"></http>
+	<http pattern="/service/**" security="none"></http>
+	<http pattern="/controller/**" security="none"></http>
+	<http pattern="/layuiadmin/json/plugins/**" security="none"></http>
+	<http pattern="/layuiadmin/json/js/**" security="none"></http>
+	<http pattern="/dist1/**" security="none"></http>
+	<http pattern="/login/exsitLoginName.do" security="none"></http>
+	<http pattern="/login/exsitLoginPassword.do" security="none"></http>
+	<http pattern="/js/**" security="none"></http>
+
+	<!-- 页面的拦截规则    use-expressions:是否启动SPEL表达式 默认是true -->
+	<http use-expressions="false"  auto-config="true" >
+		<!-- 当前用户必须有ROLE_ADMIN的角色 才可以访问根目录及所属子目录的资源 -->
+		<intercept-url pattern="/**" access="ROLE_ADMIN" />
+
+		<!-- 开启表单登陆功能 -->
+		<form-login login-page="/user/login.html" default-target-url="/admin.html"
+					authentication-failure-url="/user/forget.html" always-use-default-target="true"/>
+		<csrf disabled="true"/>
+		<headers>
+			<frame-options policy="SAMEORIGIN"/>
+		</headers>
+		<logout/>
+	</http>
+
+
+
+
+	<beans:bean id="bcryptEncoder"
+				class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+	<!-- 认证管理器 -->
+	<authentication-manager>
+		<authentication-provider user-service-ref="userDetailService">
+
+
+
+		</authentication-provider>
+	</authentication-manager>
+
+
+
+	<!--认证类-->
+	<beans:bean id="userDetailService" class="com.sn.robot.service.UserDetailsServiceImpl">
+		<beans:property name="userInterface" ref="userInterface"/>
+	</beans:bean>
+
+	<!--引入dubbo服务-->
+	<dubbo:application name="sn-hd-controler"/>
+	<dubbo:registry address="zookeeper://192.168.13.179:2181"/>
+	<dubbo:reference id="userInterface" interface="com.sn.search.UserInterface" />
+
+
+
+</beans:beans>

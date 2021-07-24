@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.CmspublishedarticleMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.Cmspublishedarticle">
+    <id column="resourcePrimKey" jdbcType="BIGINT" property="resourceprimkey" />
+    <result column="refererResourcePrimKey" jdbcType="BIGINT" property="refererresourceprimkey" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="groupId" jdbcType="BIGINT" property="groupid" />
+    <result column="categoryId" jdbcType="BIGINT" property="categoryid" />
+    <result column="plid" jdbcType="BIGINT" property="plid" />
+    <result column="displayDate" jdbcType="TIMESTAMP" property="displaydate" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="urlTitle" jdbcType="VARCHAR" property="urltitle" />
+    <result column="mobileTitle" jdbcType="VARCHAR" property="mobiletitle" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+  </resultMap>
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    resourcePrimKey, refererResourcePrimKey, status, groupId, categoryId, plid, displayDate, 
+    userId, userName, title, urlTitle, mobileTitle, url
+  </sql>
+
+  <select id="selectByExample" parameterType="com.sn.pojo.CmspublishedarticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cmspublishedarticle
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cmspublishedarticle
+    where resourcePrimKey = #{resourceprimkey,jdbcType=BIGINT}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cmspublishedarticle
+    where resourcePrimKey = #{resourceprimkey,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.CmspublishedarticleExample">
+    delete from cmspublishedarticle
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sn.pojo.Cmspublishedarticle">
+    insert into cmspublishedarticle (resourcePrimKey, refererResourcePrimKey, 
+      status, groupId, categoryId, 
+      plid, displayDate, userId, 
+      userName, title, urlTitle, 
+      mobileTitle, url)
+    values (#{resourceprimkey,jdbcType=BIGINT}, #{refererresourceprimkey,jdbcType=BIGINT}, 
+      #{status,jdbcType=INTEGER}, #{groupid,jdbcType=BIGINT}, #{categoryid,jdbcType=BIGINT}, 
+      #{plid,jdbcType=BIGINT}, #{displaydate,jdbcType=TIMESTAMP}, #{userid,jdbcType=BIGINT}, 
+      #{username,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{urltitle,jdbcType=VARCHAR}, 
+      #{mobiletitle,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.Cmspublishedarticle">
+    insert into cmspublishedarticle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resourceprimkey != null">
+        resourcePrimKey,
+      </if>
+      <if test="refererresourceprimkey != null">
+        refererResourcePrimKey,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="groupid != null">
+        groupId,
+      </if>
+      <if test="categoryid != null">
+        categoryId,
+      </if>
+      <if test="plid != null">
+        plid,
+      </if>
+      <if test="displaydate != null">
+        displayDate,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="urltitle != null">
+        urlTitle,
+      </if>
+      <if test="mobiletitle != null">
+        mobileTitle,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resourceprimkey != null">
+        #{resourceprimkey,jdbcType=BIGINT},
+      </if>
+      <if test="refererresourceprimkey != null">
+        #{refererresourceprimkey,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="categoryid != null">
+        #{categoryid,jdbcType=BIGINT},
+      </if>
+      <if test="plid != null">
+        #{plid,jdbcType=BIGINT},
+      </if>
+      <if test="displaydate != null">
+        #{displaydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="urltitle != null">
+        #{urltitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiletitle != null">
+        #{mobiletitle,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sn.pojo.CmspublishedarticleExample" resultType="java.lang.Long">
+    select count(*) from cmspublishedarticle
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cmspublishedarticle
+    <set>
+      <if test="record.resourceprimkey != null">
+        resourcePrimKey = #{record.resourceprimkey,jdbcType=BIGINT},
+      </if>
+      <if test="record.refererresourceprimkey != null">
+        refererResourcePrimKey = #{record.refererresourceprimkey,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupid != null">
+        groupId = #{record.groupid,jdbcType=BIGINT},
+      </if>
+      <if test="record.categoryid != null">
+        categoryId = #{record.categoryid,jdbcType=BIGINT},
+      </if>
+      <if test="record.plid != null">
+        plid = #{record.plid,jdbcType=BIGINT},
+      </if>
+      <if test="record.displaydate != null">
+        displayDate = #{record.displaydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urltitle != null">
+        urlTitle = #{record.urltitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobiletitle != null">
+        mobileTitle = #{record.mobiletitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cmspublishedarticle
+    set resourcePrimKey = #{record.resourceprimkey,jdbcType=BIGINT},
+      refererResourcePrimKey = #{record.refererresourceprimkey,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=INTEGER},
+      groupId = #{record.groupid,jdbcType=BIGINT},
+      categoryId = #{record.categoryid,jdbcType=BIGINT},
+      plid = #{record.plid,jdbcType=BIGINT},
+      displayDate = #{record.displaydate,jdbcType=TIMESTAMP},
+      userId = #{record.userid,jdbcType=BIGINT},
+      userName = #{record.username,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      urlTitle = #{record.urltitle,jdbcType=VARCHAR},
+      mobileTitle = #{record.mobiletitle,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.Cmspublishedarticle">
+    update cmspublishedarticle
+    <set>
+      <if test="refererresourceprimkey != null">
+        refererResourcePrimKey = #{refererresourceprimkey,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null">
+        groupId = #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="categoryid != null">
+        categoryId = #{categoryid,jdbcType=BIGINT},
+      </if>
+      <if test="plid != null">
+        plid = #{plid,jdbcType=BIGINT},
+      </if>
+      <if test="displaydate != null">
+        displayDate = #{displaydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="urltitle != null">
+        urlTitle = #{urltitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiletitle != null">
+        mobileTitle = #{mobiletitle,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where resourcePrimKey = #{resourceprimkey,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.Cmspublishedarticle">
+    update cmspublishedarticle
+    set refererResourcePrimKey = #{refererresourceprimkey,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      groupId = #{groupid,jdbcType=BIGINT},
+      categoryId = #{categoryid,jdbcType=BIGINT},
+      plid = #{plid,jdbcType=BIGINT},
+      displayDate = #{displaydate,jdbcType=TIMESTAMP},
+      userId = #{userid,jdbcType=BIGINT},
+      userName = #{username,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      urlTitle = #{urltitle,jdbcType=VARCHAR},
+      mobileTitle = #{mobiletitle,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR}
+    where resourcePrimKey = #{resourceprimkey,jdbcType=BIGINT}
+  </update>
+
+  <select id="getCategoryName" resultType="java.lang.String">
+    select distinct categoryName from Articlecategory where cateGoryFlag = #{cateGoryFlag}
+  </select>
+</mapper>

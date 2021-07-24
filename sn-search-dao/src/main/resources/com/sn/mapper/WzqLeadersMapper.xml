@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.WzqLeadersMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.WzqLeaders">
+    <id column="leadersId" jdbcType="BIGINT" property="leadersid" />
+    <result column="leadersName" jdbcType="VARCHAR" property="leadersname" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="nation" jdbcType="VARCHAR" property="nation" />
+    <result column="birthdate" jdbcType="VARCHAR" property="birthdate" />
+    <result column="nativeplace" jdbcType="VARCHAR" property="nativeplace" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="incumbent" jdbcType="VARCHAR" property="incumbent" />
+    <result column="work" jdbcType="VARCHAR" property="work" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="photobig" jdbcType="VARCHAR" property="photobig" />
+    <result column="resume" jdbcType="VARCHAR" property="resume" />
+    <result column="resumes" jdbcType="VARCHAR" property="resumes" />
+    <result column="ordernub" jdbcType="INTEGER" property="ordernub" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="remark1" jdbcType="VARCHAR" property="remark1" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    leadersId, leadersName, sex, nation, birthdate, nativeplace, education, incumbent, 
+    work, photo, photobig, resume, resumes, ordernub, remark, remark1
+  </sql>
+  <select id="selectByExample" parameterType="com.sn.pojo.WzqLeadersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wzq_leaders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wzq_leaders
+    where leadersId = #{leadersid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wzq_leaders
+    where leadersId = #{leadersid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.WzqLeadersExample">
+    delete from wzq_leaders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sn.pojo.WzqLeaders">
+    insert into wzq_leaders (leadersId, leadersName, sex, 
+      nation, birthdate, nativeplace, 
+      education, incumbent, work, 
+      photo, photobig, resume, 
+      resumes, ordernub, remark, 
+      remark1)
+    values (#{leadersid,jdbcType=BIGINT}, #{leadersname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{nation,jdbcType=VARCHAR}, #{birthdate,jdbcType=VARCHAR}, #{nativeplace,jdbcType=VARCHAR}, 
+      #{education,jdbcType=VARCHAR}, #{incumbent,jdbcType=VARCHAR}, #{work,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{photobig,jdbcType=VARCHAR}, #{resume,jdbcType=VARCHAR}, 
+      #{resumes,jdbcType=VARCHAR}, #{ordernub,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{remark1,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.WzqLeaders">
+    insert into wzq_leaders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="leadersid != null">
+        leadersId,
+      </if>
+      <if test="leadersname != null">
+        leadersName,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="nation != null">
+        nation,
+      </if>
+      <if test="birthdate != null">
+        birthdate,
+      </if>
+      <if test="nativeplace != null">
+        nativeplace,
+      </if>
+      <if test="education != null">
+        education,
+      </if>
+      <if test="incumbent != null">
+        incumbent,
+      </if>
+      <if test="work != null">
+        work,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="photobig != null">
+        photobig,
+      </if>
+      <if test="resume != null">
+        resume,
+      </if>
+      <if test="resumes != null">
+        resumes,
+      </if>
+      <if test="ordernub != null">
+        ordernub,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="remark1 != null">
+        remark1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="leadersid != null">
+        #{leadersid,jdbcType=BIGINT},
+      </if>
+      <if test="leadersname != null">
+        #{leadersname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdate != null">
+        #{birthdate,jdbcType=VARCHAR},
+      </if>
+      <if test="nativeplace != null">
+        #{nativeplace,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="incumbent != null">
+        #{incumbent,jdbcType=VARCHAR},
+      </if>
+      <if test="work != null">
+        #{work,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="photobig != null">
+        #{photobig,jdbcType=VARCHAR},
+      </if>
+      <if test="resume != null">
+        #{resume,jdbcType=VARCHAR},
+      </if>
+      <if test="resumes != null">
+        #{resumes,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernub != null">
+        #{ordernub,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sn.pojo.WzqLeadersExample" resultType="java.lang.Long">
+    select count(*) from wzq_leaders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wzq_leaders
+    <set>
+      <if test="record.leadersid != null">
+        leadersId = #{record.leadersid,jdbcType=BIGINT},
+      </if>
+      <if test="record.leadersname != null">
+        leadersName = #{record.leadersname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nation != null">
+        nation = #{record.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthdate != null">
+        birthdate = #{record.birthdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nativeplace != null">
+        nativeplace = #{record.nativeplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.education != null">
+        education = #{record.education,jdbcType=VARCHAR},
+      </if>
+      <if test="record.incumbent != null">
+        incumbent = #{record.incumbent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.work != null">
+        work = #{record.work,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo != null">
+        photo = #{record.photo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photobig != null">
+        photobig = #{record.photobig,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resume != null">
+        resume = #{record.resume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumes != null">
+        resumes = #{record.resumes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordernub != null">
+        ordernub = #{record.ordernub,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null">
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wzq_leaders
+    set leadersId = #{record.leadersid,jdbcType=BIGINT},
+      leadersName = #{record.leadersname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      nation = #{record.nation,jdbcType=VARCHAR},
+      birthdate = #{record.birthdate,jdbcType=VARCHAR},
+      nativeplace = #{record.nativeplace,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR},
+      incumbent = #{record.incumbent,jdbcType=VARCHAR},
+      work = #{record.work,jdbcType=VARCHAR},
+      photo = #{record.photo,jdbcType=VARCHAR},
+      photobig = #{record.photobig,jdbcType=VARCHAR},
+      resume = #{record.resume,jdbcType=VARCHAR},
+      resumes = #{record.resumes,jdbcType=VARCHAR},
+      ordernub = #{record.ordernub,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.WzqLeaders">
+    update wzq_leaders
+    <set>
+      <if test="leadersname != null">
+        leadersName = #{leadersname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdate != null">
+        birthdate = #{birthdate,jdbcType=VARCHAR},
+      </if>
+      <if test="nativeplace != null">
+        nativeplace = #{nativeplace,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="incumbent != null">
+        incumbent = #{incumbent,jdbcType=VARCHAR},
+      </if>
+      <if test="work != null">
+        work = #{work,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="photobig != null">
+        photobig = #{photobig,jdbcType=VARCHAR},
+      </if>
+      <if test="resume != null">
+        resume = #{resume,jdbcType=VARCHAR},
+      </if>
+      <if test="resumes != null">
+        resumes = #{resumes,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernub != null">
+        ordernub = #{ordernub,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null">
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where leadersId = #{leadersid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.WzqLeaders">
+    update wzq_leaders
+    set leadersName = #{leadersname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      birthdate = #{birthdate,jdbcType=VARCHAR},
+      nativeplace = #{nativeplace,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      incumbent = #{incumbent,jdbcType=VARCHAR},
+      work = #{work,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      photobig = #{photobig,jdbcType=VARCHAR},
+      resume = #{resume,jdbcType=VARCHAR},
+      resumes = #{resumes,jdbcType=VARCHAR},
+      ordernub = #{ordernub,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR}
+    where leadersId = #{leadersid,jdbcType=BIGINT}
+  </update>
+</mapper>

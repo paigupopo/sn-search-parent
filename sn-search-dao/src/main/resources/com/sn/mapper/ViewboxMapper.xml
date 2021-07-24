@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.ViewboxMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.Viewbox">
+    <id column="fangtanId" jdbcType="BIGINT" property="id" />
+    <result column="fangtanbeginTime" jdbcType="TIMESTAMP" property="fangtanbegintime" />
+    <result column="fangtanendTime" jdbcType="TIMESTAMP" property="fangtanendtime" />
+    <result column="fangtanName" jdbcType="VARCHAR" property="fangtanname" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="siteId" jdbcType="BIGINT" property="siteid" />
+    <result column="diziId" jdbcType="VARCHAR" property="diziid" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="jiab" jdbcType="VARCHAR" property="jiab" />
+    <result column="zcshow" jdbcType="VARCHAR" property="zcshow" />
+    <result column="fangtanBj" jdbcType="VARCHAR" property="fangtanbj" />
+    <result column="fangtanMs" jdbcType="VARCHAR" property="fangtanms" />
+    <result column="gongkaiSx" jdbcType="VARCHAR" property="gongkaisx" />
+    <result column="gongkaiFw" jdbcType="VARCHAR" property="gongkaifw" />
+    <result column="gongkaiCx" jdbcType="VARCHAR" property="gongkaicx" />
+    <result column="zherenBm" jdbcType="VARCHAR" property="zherenbm" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    fangtanId, fangtanbeginTime, fangtanendTime, fangtanName, status, siteId, diziId, 
+    content, jiab, zcshow, fangtanBj, fangtanMs, gongkaiSx, gongkaiFw, gongkaiCx, zherenBm
+  </sql>
+  <select id="selectByExample" parameterType="com.sn.pojo.ViewboxExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from viewbox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from viewbox
+    where fangtanId = #{fangtanid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from viewbox
+    where fangtanId = #{fangtanid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.ViewboxExample">
+    delete from viewbox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sn.pojo.Viewbox">
+    insert into viewbox (fangtanId, fangtanbeginTime, fangtanendTime, 
+      fangtanName, status, siteId, 
+      diziId, content, jiab, 
+      zcshow, fangtanBj, fangtanMs, 
+      gongkaiSx, gongkaiFw, gongkaiCx, 
+      zherenBm)
+    values (#{fangtanid,jdbcType=BIGINT}, #{fangtanbegintime,jdbcType=TIMESTAMP}, #{fangtanendtime,jdbcType=TIMESTAMP}, 
+      #{fangtanname,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{siteid,jdbcType=BIGINT}, 
+      #{diziid,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{jiab,jdbcType=VARCHAR}, 
+      #{zcshow,jdbcType=VARCHAR}, #{fangtanbj,jdbcType=VARCHAR}, #{fangtanms,jdbcType=VARCHAR}, 
+      #{gongkaisx,jdbcType=VARCHAR}, #{gongkaifw,jdbcType=VARCHAR}, #{gongkaicx,jdbcType=VARCHAR}, 
+      #{zherenbm,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.Viewbox">
+    insert into viewbox
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fangtanid != null">
+        fangtanId,
+      </if>
+      <if test="fangtanbegintime != null">
+        fangtanbeginTime,
+      </if>
+      <if test="fangtanendtime != null">
+        fangtanendTime,
+      </if>
+      <if test="fangtanname != null">
+        fangtanName,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="siteid != null">
+        siteId,
+      </if>
+      <if test="diziid != null">
+        diziId,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="jiab != null">
+        jiab,
+      </if>
+      <if test="zcshow != null">
+        zcshow,
+      </if>
+      <if test="fangtanbj != null">
+        fangtanBj,
+      </if>
+      <if test="fangtanms != null">
+        fangtanMs,
+      </if>
+      <if test="gongkaisx != null">
+        gongkaiSx,
+      </if>
+      <if test="gongkaifw != null">
+        gongkaiFw,
+      </if>
+      <if test="gongkaicx != null">
+        gongkaiCx,
+      </if>
+      <if test="zherenbm != null">
+        zherenBm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fangtanid != null">
+        #{fangtanid,jdbcType=BIGINT},
+      </if>
+      <if test="fangtanbegintime != null">
+        #{fangtanbegintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fangtanendtime != null">
+        #{fangtanendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fangtanname != null">
+        #{fangtanname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="siteid != null">
+        #{siteid,jdbcType=BIGINT},
+      </if>
+      <if test="diziid != null">
+        #{diziid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="jiab != null">
+        #{jiab,jdbcType=VARCHAR},
+      </if>
+      <if test="zcshow != null">
+        #{zcshow,jdbcType=VARCHAR},
+      </if>
+      <if test="fangtanbj != null">
+        #{fangtanbj,jdbcType=VARCHAR},
+      </if>
+      <if test="fangtanms != null">
+        #{fangtanms,jdbcType=VARCHAR},
+      </if>
+      <if test="gongkaisx != null">
+        #{gongkaisx,jdbcType=VARCHAR},
+      </if>
+      <if test="gongkaifw != null">
+        #{gongkaifw,jdbcType=VARCHAR},
+      </if>
+      <if test="gongkaicx != null">
+        #{gongkaicx,jdbcType=VARCHAR},
+      </if>
+      <if test="zherenbm != null">
+        #{zherenbm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sn.pojo.ViewboxExample" resultType="java.lang.Long">
+    select count(*) from viewbox
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update viewbox
+    <set>
+      <if test="record.fangtanid != null">
+        fangtanId = #{record.fangtanid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fangtanbegintime != null">
+        fangtanbeginTime = #{record.fangtanbegintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fangtanendtime != null">
+        fangtanendTime = #{record.fangtanendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fangtanname != null">
+        fangtanName = #{record.fangtanname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteid != null">
+        siteId = #{record.siteid,jdbcType=BIGINT},
+      </if>
+      <if test="record.diziid != null">
+        diziId = #{record.diziid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiab != null">
+        jiab = #{record.jiab,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zcshow != null">
+        zcshow = #{record.zcshow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fangtanbj != null">
+        fangtanBj = #{record.fangtanbj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fangtanms != null">
+        fangtanMs = #{record.fangtanms,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gongkaisx != null">
+        gongkaiSx = #{record.gongkaisx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gongkaifw != null">
+        gongkaiFw = #{record.gongkaifw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gongkaicx != null">
+        gongkaiCx = #{record.gongkaicx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zherenbm != null">
+        zherenBm = #{record.zherenbm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update viewbox
+    set fangtanId = #{record.fangtanid,jdbcType=BIGINT},
+      fangtanbeginTime = #{record.fangtanbegintime,jdbcType=TIMESTAMP},
+      fangtanendTime = #{record.fangtanendtime,jdbcType=TIMESTAMP},
+      fangtanName = #{record.fangtanname,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      siteId = #{record.siteid,jdbcType=BIGINT},
+      diziId = #{record.diziid,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      jiab = #{record.jiab,jdbcType=VARCHAR},
+      zcshow = #{record.zcshow,jdbcType=VARCHAR},
+      fangtanBj = #{record.fangtanbj,jdbcType=VARCHAR},
+      fangtanMs = #{record.fangtanms,jdbcType=VARCHAR},
+      gongkaiSx = #{record.gongkaisx,jdbcType=VARCHAR},
+      gongkaiFw = #{record.gongkaifw,jdbcType=VARCHAR},
+      gongkaiCx = #{record.gongkaicx,jdbcType=VARCHAR},
+      zherenBm = #{record.zherenbm,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.Viewbox">
+    update viewbox
+    <set>
+      <if test="fangtanbegintime != null">
+        fangtanbeginTime = #{fangtanbegintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fangtanendtime != null">
+        fangtanendTime = #{fangtanendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fangtanname != null">
+        fangtanName = #{fangtanname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="siteid != null">
+        siteId = #{siteid,jdbcType=BIGINT},
+      </if>
+      <if test="diziid != null">
+        diziId = #{diziid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="jiab != null">
+        jiab = #{jiab,jdbcType=VARCHAR},
+      </if>
+      <if test="zcshow != null">
+        zcshow = #{zcshow,jdbcType=VARCHAR},
+      </if>
+      <if test="fangtanbj != null">
+        fangtanBj = #{fangtanbj,jdbcType=VARCHAR},
+      </if>
+      <if test="fangtanms != null">
+        fangtanMs = #{fangtanms,jdbcType=VARCHAR},
+      </if>
+      <if test="gongkaisx != null">
+        gongkaiSx = #{gongkaisx,jdbcType=VARCHAR},
+      </if>
+      <if test="gongkaifw != null">
+        gongkaiFw = #{gongkaifw,jdbcType=VARCHAR},
+      </if>
+      <if test="gongkaicx != null">
+        gongkaiCx = #{gongkaicx,jdbcType=VARCHAR},
+      </if>
+      <if test="zherenbm != null">
+        zherenBm = #{zherenbm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fangtanId = #{fangtanid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.Viewbox">
+    update viewbox
+    set fangtanbeginTime = #{fangtanbegintime,jdbcType=TIMESTAMP},
+      fangtanendTime = #{fangtanendtime,jdbcType=TIMESTAMP},
+      fangtanName = #{fangtanname,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      siteId = #{siteid,jdbcType=BIGINT},
+      diziId = #{diziid,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      jiab = #{jiab,jdbcType=VARCHAR},
+      zcshow = #{zcshow,jdbcType=VARCHAR},
+      fangtanBj = #{fangtanbj,jdbcType=VARCHAR},
+      fangtanMs = #{fangtanms,jdbcType=VARCHAR},
+      gongkaiSx = #{gongkaisx,jdbcType=VARCHAR},
+      gongkaiFw = #{gongkaifw,jdbcType=VARCHAR},
+      gongkaiCx = #{gongkaicx,jdbcType=VARCHAR},
+      zherenBm = #{zherenbm,jdbcType=VARCHAR}
+    where fangtanId = #{fangtanid,jdbcType=BIGINT}
+  </update>
+</mapper>

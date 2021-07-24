@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="sn-robot-service:war">
+    <output-path>$PROJECT_DIR$/sn-robot-service/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>sn-robot-service</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="sn-robot-service-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="sn-robot-service:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,14 @@
+.navbar a:hover,.navbar .click_bg,.form .search-btn{background-color: #f44236;color: #fff;}
+.fm input[name=btn]{background-color: #f44236;color: #fff;}
+.txt_color{color: #004276!important;}
+.com-head{background-color: #fff;}
+.head-box{background-image:none;background-repeat:no-repeat;background-position:center;background-color:#fff;}
+.nav{background: #f7f7f7;border: 1px solid #e9e9e9;}
+.nav a{color: #000000!important;}
+.checked{border-bottom: 3px solid #f44236!important;}
+.project_title{background: #f44236;color: #fff;}
+.pagination .current{background: #f44236!important;}
+.advanced_search_box .condition_bottom input[type="button"]{background:#0cbbef;color:#fff;}
+.feedback_form_box .feedback_submit{color: #fff;background:#0bbaef;}
+.bg_change{background: #0cbbef;}
+

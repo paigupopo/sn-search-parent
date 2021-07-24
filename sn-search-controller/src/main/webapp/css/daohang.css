@@ -1,0 +1,5 @@
+body{margin: 0}
+.daohang{width:100%;background:#f7f7f7;border-top:1px solid #ececec;border-bottom:1px solid #ececec;height:auto;overflow: hidden;}
+.daohang section{width:100%;max-width:1024px;margin:0 auto;}
+.daohang div{float: left;padding:8px 14px;margin-right:20px;cursor: pointer;}
+.daohang .action{border-bottom:2px solid #f54236;}

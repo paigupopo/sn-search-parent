@@ -1,0 +1,10 @@
+@charset "utf-8";
+.pagination{height:34px;line-height:34px;font:16px/32px '微软雅黑';}
+.pagination a {width:32px;height:32px;text-decoration: none;border: 1px solid #dadadc;color: #666;}
+.pagination a, .pagination span {display: inline-block;margin-right: 7px;}
+.pagination .current {background: #265582;color: #fff;}
+.pagination .pagination-break{width:46px;height:32px;border: 1px solid #dadadc;color: #666;  }
+.pagination .prev, .pagination .next{font:14px/32px '微软雅黑';color:#9a9a9a;width:81px;background:#fff;  }
+.pagination .prev:before{content:'';display:inline-block;width:13px;height:9px;background:url(../images/icon.png) no-repeat -20px -22px;position:relative;top:-1px;}
+.pagination .next:after{content:'';display:inline-block;width:13px;height:9px;background:url(../images/icon.png) no-repeat -20px -33px;position:relative;top:-1px;}
+

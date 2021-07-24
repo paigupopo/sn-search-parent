@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sn.mapper.HwadeeInterviewnoticeMapper">
+  <resultMap id="BaseResultMap" type="com.sn.pojo.HwadeeInterviewnotice">
+    <id column="noticeId" jdbcType="BIGINT" property="id" />
+    <result column="groupId" jdbcType="BIGINT" property="groupid" />
+    <result column="onlineState" jdbcType="INTEGER" property="onlinestate" />
+    <result column="onlineDate" jdbcType="TIMESTAMP" property="onlinedate" />
+    <result column="onlineTime" jdbcType="VARCHAR" property="onlinetime" />
+    <result column="onlineGuest" jdbcType="VARCHAR" property="onlineguest" />
+    <result column="onlineTitle" jdbcType="VARCHAR" property="onlinetitle" />
+    <result column="onlineDepart" jdbcType="VARCHAR" property="onlinedepart" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="imgUrl" jdbcType="VARCHAR" property="imgurl" />
+    <result column="isPush" jdbcType="INTEGER" property="ispush" />
+    <result column="noticeType" jdbcType="INTEGER" property="noticetype" />
+    <result column="noticeState" jdbcType="INTEGER" property="noticestate" />
+    <result column="isTop" jdbcType="INTEGER" property="istop" />
+    <result column="isValid" jdbcType="INTEGER" property="isvalid" />
+    <result column="isDeleted" jdbcType="INTEGER" property="isdeleted" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="updateDate" jdbcType="TIMESTAMP" property="updatedate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    noticeId, groupId, onlineState, onlineDate, onlineTime, onlineGuest, onlineTitle, 
+    onlineDepart, remark, imgUrl, isPush, noticeType, noticeState, isTop, isValid, isDeleted, 
+    creater, updateDate
+  </sql>
+  <select id="selectByExample" parameterType="com.sn.pojo.HwadeeInterviewnoticeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hwadee_interviewnotice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hwadee_interviewnotice
+    where noticeId = #{noticeid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from hwadee_interviewnotice
+    where noticeId = #{noticeid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sn.pojo.HwadeeInterviewnoticeExample">
+    delete from hwadee_interviewnotice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sn.pojo.HwadeeInterviewnotice">
+    insert into hwadee_interviewnotice (noticeId, groupId, onlineState, 
+      onlineDate, onlineTime, onlineGuest, 
+      onlineTitle, onlineDepart, remark, 
+      imgUrl, isPush, noticeType, 
+      noticeState, isTop, isValid, 
+      isDeleted, creater, updateDate
+      )
+    values (#{noticeid,jdbcType=BIGINT}, #{groupid,jdbcType=BIGINT}, #{onlinestate,jdbcType=INTEGER}, 
+      #{onlinedate,jdbcType=TIMESTAMP}, #{onlinetime,jdbcType=VARCHAR}, #{onlineguest,jdbcType=VARCHAR}, 
+      #{onlinetitle,jdbcType=VARCHAR}, #{onlinedepart,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{imgurl,jdbcType=VARCHAR}, #{ispush,jdbcType=INTEGER}, #{noticetype,jdbcType=INTEGER}, 
+      #{noticestate,jdbcType=INTEGER}, #{istop,jdbcType=INTEGER}, #{isvalid,jdbcType=INTEGER}, 
+      #{isdeleted,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}, #{updatedate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sn.pojo.HwadeeInterviewnotice">
+    insert into hwadee_interviewnotice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="noticeid != null">
+        noticeId,
+      </if>
+      <if test="groupid != null">
+        groupId,
+      </if>
+      <if test="onlinestate != null">
+        onlineState,
+      </if>
+      <if test="onlinedate != null">
+        onlineDate,
+      </if>
+      <if test="onlinetime != null">
+        onlineTime,
+      </if>
+      <if test="onlineguest != null">
+        onlineGuest,
+      </if>
+      <if test="onlinetitle != null">
+        onlineTitle,
+      </if>
+      <if test="onlinedepart != null">
+        onlineDepart,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="imgurl != null">
+        imgUrl,
+      </if>
+      <if test="ispush != null">
+        isPush,
+      </if>
+      <if test="noticetype != null">
+        noticeType,
+      </if>
+      <if test="noticestate != null">
+        noticeState,
+      </if>
+      <if test="istop != null">
+        isTop,
+      </if>
+      <if test="isvalid != null">
+        isValid,
+      </if>
+      <if test="isdeleted != null">
+        isDeleted,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="updatedate != null">
+        updateDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="noticeid != null">
+        #{noticeid,jdbcType=BIGINT},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="onlinestate != null">
+        #{onlinestate,jdbcType=INTEGER},
+      </if>
+      <if test="onlinedate != null">
+        #{onlinedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="onlinetime != null">
+        #{onlinetime,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineguest != null">
+        #{onlineguest,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinetitle != null">
+        #{onlinetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinedepart != null">
+        #{onlinedepart,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="ispush != null">
+        #{ispush,jdbcType=INTEGER},
+      </if>
+      <if test="noticetype != null">
+        #{noticetype,jdbcType=INTEGER},
+      </if>
+      <if test="noticestate != null">
+        #{noticestate,jdbcType=INTEGER},
+      </if>
+      <if test="istop != null">
+        #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="isvalid != null">
+        #{isvalid,jdbcType=INTEGER},
+      </if>
+      <if test="isdeleted != null">
+        #{isdeleted,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectIN"  resultMap="BaseResultMap">
+    SELECT  * from  hwadee_interviewnotice
+  </select>
+  <select id="countByExample" parameterType="com.sn.pojo.HwadeeInterviewnoticeExample" resultType="java.lang.Long">
+    select count(*) from hwadee_interviewnotice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+
+  <update id="updateByExampleSelective" parameterType="map">
+    update hwadee_interviewnotice
+    <set>
+      <if test="record.noticeid != null">
+        noticeId = #{record.noticeid,jdbcType=BIGINT},
+      </if>
+      <if test="record.groupid != null">
+        groupId = #{record.groupid,jdbcType=BIGINT},
+      </if>
+      <if test="record.onlinestate != null">
+        onlineState = #{record.onlinestate,jdbcType=INTEGER},
+      </if>
+      <if test="record.onlinedate != null">
+        onlineDate = #{record.onlinedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.onlinetime != null">
+        onlineTime = #{record.onlinetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onlineguest != null">
+        onlineGuest = #{record.onlineguest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onlinetitle != null">
+        onlineTitle = #{record.onlinetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onlinedepart != null">
+        onlineDepart = #{record.onlinedepart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgurl != null">
+        imgUrl = #{record.imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ispush != null">
+        isPush = #{record.ispush,jdbcType=INTEGER},
+      </if>
+      <if test="record.noticetype != null">
+        noticeType = #{record.noticetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.noticestate != null">
+        noticeState = #{record.noticestate,jdbcType=INTEGER},
+      </if>
+      <if test="record.istop != null">
+        isTop = #{record.istop,jdbcType=INTEGER},
+      </if>
+      <if test="record.isvalid != null">
+        isValid = #{record.isvalid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isdeleted != null">
+        isDeleted = #{record.isdeleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.creater != null">
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedate != null">
+        updateDate = #{record.updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+  <update id="updateByExample" parameterType="map">
+    update hwadee_interviewnotice
+    set noticeId = #{record.noticeid,jdbcType=BIGINT},
+      groupId = #{record.groupid,jdbcType=BIGINT},
+      onlineState = #{record.onlinestate,jdbcType=INTEGER},
+      onlineDate = #{record.onlinedate,jdbcType=TIMESTAMP},
+      onlineTime = #{record.onlinetime,jdbcType=VARCHAR},
+      onlineGuest = #{record.onlineguest,jdbcType=VARCHAR},
+      onlineTitle = #{record.onlinetitle,jdbcType=VARCHAR},
+      onlineDepart = #{record.onlinedepart,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      imgUrl = #{record.imgurl,jdbcType=VARCHAR},
+      isPush = #{record.ispush,jdbcType=INTEGER},
+      noticeType = #{record.noticetype,jdbcType=INTEGER},
+      noticeState = #{record.noticestate,jdbcType=INTEGER},
+      isTop = #{record.istop,jdbcType=INTEGER},
+      isValid = #{record.isvalid,jdbcType=INTEGER},
+      isDeleted = #{record.isdeleted,jdbcType=INTEGER},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      updateDate = #{record.updatedate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sn.pojo.HwadeeInterviewnotice">
+    update hwadee_interviewnotice
+    <set>
+      <if test="groupid != null">
+        groupId = #{groupid,jdbcType=BIGINT},
+      </if>
+      <if test="onlinestate != null">
+        onlineState = #{onlinestate,jdbcType=INTEGER},
+      </if>
+      <if test="onlinedate != null">
+        onlineDate = #{onlinedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="onlinetime != null">
+        onlineTime = #{onlinetime,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineguest != null">
+        onlineGuest = #{onlineguest,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinetitle != null">
+        onlineTitle = #{onlinetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinedepart != null">
+        onlineDepart = #{onlinedepart,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        imgUrl = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="ispush != null">
+        isPush = #{ispush,jdbcType=INTEGER},
+      </if>
+      <if test="noticetype != null">
+        noticeType = #{noticetype,jdbcType=INTEGER},
+      </if>
+      <if test="noticestate != null">
+        noticeState = #{noticestate,jdbcType=INTEGER},
+      </if>
+      <if test="istop != null">
+        isTop = #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="isvalid != null">
+        isValid = #{isvalid,jdbcType=INTEGER},
+      </if>
+      <if test="isdeleted != null">
+        isDeleted = #{isdeleted,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null">
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where noticeId = #{noticeid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sn.pojo.HwadeeInterviewnotice">
+    update hwadee_interviewnotice
+    set groupId = #{groupid,jdbcType=BIGINT},
+      onlineState = #{onlinestate,jdbcType=INTEGER},
+      onlineDate = #{onlinedate,jdbcType=TIMESTAMP},
+      onlineTime = #{onlinetime,jdbcType=VARCHAR},
+      onlineGuest = #{onlineguest,jdbcType=VARCHAR},
+      onlineTitle = #{onlinetitle,jdbcType=VARCHAR},
+      onlineDepart = #{onlinedepart,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      imgUrl = #{imgurl,jdbcType=VARCHAR},
+      isPush = #{ispush,jdbcType=INTEGER},
+      noticeType = #{noticetype,jdbcType=INTEGER},
+      noticeState = #{noticestate,jdbcType=INTEGER},
+      isTop = #{istop,jdbcType=INTEGER},
+      isValid = #{isvalid,jdbcType=INTEGER},
+      isDeleted = #{isdeleted,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=VARCHAR},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP}
+    where noticeId = #{noticeid,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta charset="GB2312">
+    <title>动态年份下拉列表</title>
+    <style type="text/css">
+    </style>
+    <!--<script type="text/javascript">
+        onload = function ()
+        {
+            var year=new Date().getFullYear(); //获取当前年份
+            alert(year)
+
+            var sel = document.getElementById ('sel');//获取select下拉列表
+            alert(sel)
+            for ( var i = 2010; i < year+1; i++)//循环添加2010到当前年份,每个年份依次添加到下拉列表
+            {
+                var option = document.createElement ('option');
+                option.value = i;
+                var txt = document.createTextNode (i);
+                option.appendChild (txt);
+                sel.appendChild (option);
+            }
+        }
+    </script>-->
+
+<SCRIPT >
+    window.onload = function()
+    {
+        var sel = document.createElement('select');
+        var date = new Date();
+        alert(date.getFullYear());
+        for(var i=0;i<5;i++)
+        {
+            var opt = document.createElement("option");
+            opt.value = i;
+            opt.innerHTML = (date.getFullYear()-i);
+            sel.appendChild(opt);
+        }
+        document.body.appendChild(sel);
+    }
+</SCRIPT>
+</head>
+<body>
+    <select id="sel">
+        </select>
+</body>
+</html>
