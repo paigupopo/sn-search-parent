@@ -24,4 +24,7 @@ public interface SearchInterface {
 
 
     List<String> getCategoryName(String cateGoryFlag);
+
+    List<Map<String, String>> getTop();
+
 }

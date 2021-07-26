@@ -65,8 +65,8 @@ input.srkcss:focus{
 .search_unit .search_bmlist{ height:32px; overflow:hidden; clear:both;  }
 .search_unit .showbm{ height:auto; overflow:inherit;}
 .search_unit ul li.unittype{ width:66px; margin-right:0; position:absolute; left:0; top:0; }
-.search_unit ul li{ float:left; margin-right:10px; white-space:nowrap; height:28px; overflow:hidden;}
-.search_unit ul li a{ color:#5b5b5a;}
+.search_unit ul li{ float:left; margin-right:25px; white-space:nowrap; height:28px; overflow:hidden;}
+.search_unit ul li a{ color:#5b5b5a;font-size: 13pt}
 .search_unit ul li a.active{ font-weight:bold;  text-decoration:underline; }
 .search_unit ul li a.wait:hover,.search_unit ul li a.wait{ color:#acacab;}
 .search_unit .tit{ position:absolute; right:25px; bottom:4px; color:#333; cursor:pointer; width:64px; height:26px; line-height:26px;border:1px solid #e5e5e5;  background:#f3fdef; font-size:14px; padding-left:12px;}

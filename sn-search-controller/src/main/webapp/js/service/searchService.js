@@ -71,5 +71,9 @@ app.service('searchService',function($http){
         return $http.get('../sn/getCategoryName.do?cateGoryFlag=' + cateGoryFlag);
     }
 
+    this.getTop = function() {
+        return $http.get('../sn/getTop.do');
+    }
+
 
 });

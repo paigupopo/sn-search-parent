@@ -6,8 +6,6 @@ app.controller("searchController",function ($scope,searchService) {
         , 'categoryName' : ''};
 
 
-
-
     $scope.shuju=function() {
         //var url="http://192.168.2.102:8088/?groupId=15003&fromAnother=true&keywords=再见";
 
@@ -745,7 +743,9 @@ app.controller("searchController",function ($scope,searchService) {
         var id = th.id;
         //将获取的区县的id赋值到搜索记录
         $scope.searchMap.groupId=id;
-        $scope.SNSearch();
+        $scope.groupName=th.innerText;
+        $scope.closeSelect();
+        // $scope.SNSearch();
 
     }
     window.onload=function () {
@@ -946,6 +946,12 @@ app.controller("searchController",function ($scope,searchService) {
         $scope.cfocusIndex01=index0; //点击切换样式
     };
 
+    $scope.groupIndex = 1;
+    $scope.groupName = "全平台";
+    $scope.groupIndexClick = function(index0){
+        $scope.groupIndex=index0; //点击切换样式
+    };
+
 
 
 
@@ -1007,6 +1013,15 @@ app.controller("searchController",function ($scope,searchService) {
         $scope.searchItems.splice(0,$scope.searchItems.length);//清空数组
     };
 
+    $scope.searchTop = [];
+    getTop = function () {
+        searchService.getTop().success(function (response) {
+            if (response) {
+                $scope.searchTop = response;
+
+            }
+        })
+    }
 
 
     $scope.searchItems = [];//初始化历史列表数组
@@ -1264,6 +1279,17 @@ app.controller("searchController",function ($scope,searchService) {
         document.getElementById("zh").style='block';
         document.getElementById("bu").style.display='none';
         document.getElementById("sh").style.display='none';
+    }
+
+    $scope.openSelect = function() {
+        document.getElementById("groupsDiv").style.display='block';  //显示弹窗
+        document.getElementById("cover").style.display='block';
+        document.getElementById("cover").style.height=document.body.clientHeight+'px';
+    }
+
+    $scope.closeSelect = function() {
+        document.getElementById("groupsDiv").style.display='none';  //显示弹窗
+        document.getElementById("cover").style.display='none';
     }
 
 

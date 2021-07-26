@@ -5,6 +5,7 @@ import com.sn.pojo.CmspublishedarticleExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CmspublishedarticleMapper {
     long countByExample(CmspublishedarticleExample example);
@@ -32,4 +33,6 @@ public interface CmspublishedarticleMapper {
     List<Cmspublishedarticle>selectJOSList(@Param("start") long start, @Param("groupId") long groupId);
 
     List<String> getCategoryName(String cateGoryFlag);
+
+    List<Map<String, String>> getTop();
 }

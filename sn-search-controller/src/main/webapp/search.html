@@ -163,14 +163,22 @@
             </a>
             <!--center-->
             <div class="center-box fl">
+
                 <!--搜索框-->
                 <div class="search-box clearfix">
+                    <div class="fl" style="width: 160px;font-size: 13pt;text-align: right;">
+                        <div style="color: #666;height: 50px;width: 132px;float: left" ng-bind="groupName" ng-click="openSelect()"></div>
+                        <div style="height: 28px;width: 28px;padding-top: 10px;float: left">
+                            <div class="select_span"  ng-click="openSelect()"></div>
+                        </div>
+
+                    </div>
                     <form method="get" class="form clearfix fl">
                         <input type="hidden" name="siteCode" value="62" id="siteCode"/>
                         <input type="hidden" name="database" value="news" id="database"/>
 
                         <input type="hidden"/>
-                        <div class="search-top clearfix">
+                        <div class="search-top clearfix" style="padding-left: 10px">
 
 
                             <input id="qt" type="text" class="search-txt fl" ng-model="searchMap.keywords;"
@@ -195,7 +203,7 @@
 
                 <!--热搜词-->
                 <div style="display:block; ">
-                    <span class="hot-search font12 clearfix hot-start fl hot-word " style="display:block;margin:10px">
+                    <span class="hot-search font12 clearfix hot-start fl hot-word " style="display:block;margin:10px;padding-left: 160px    ">
                        热搜词:
                     </span>
 
@@ -279,23 +287,28 @@
     </div>
     <div id="head-copy" style="display:none;"></div>
 
-    <div class="search_typebg hidden-xs">
+    <div id="cover" style="background: #000; position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: none; z-index: 2;"></div>
+    <div class="search_typebg hidden-xs" id="groupsDiv" style="width: 50%; margin: 0 auto; height: 50%; border: 1px solid #999; display: none; position: absolute; top: 20%; left: 25%; z-index: 3; background: #fff">
+        <div style="float: right;height:12px;width:12px;"><div class="close_span" ng-click="closeSelect()"></div></div>
         <div class="">
             <div class="search_typebox">
+                <div style="border-bottom:solid 1px #000;text-align: center;font-size: 20pt">请选择站点</div>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="search_typetable">
                     <tbody><tr>
-                        <td class="search_type" valign="top">集约化站群：</td>
+<!--                        <td class="search_type" valign="top">集约化站群：</td>-->
                         <td><div class="search_unit">
                             <ul style="margin-right: 115px;">
                                 <li class="unittype"><strong>市本级：</strong></li>
                                 <li>
-                                    <a target="_self" href="" id="10184" onclick="groupId(this)">
-                                        <span>遂宁市人民政府</span>
+                                    <a target="_self" href="" id="" onclick="groupId(this)" ng-click="groupIndexClick(1)" ng-class="{'keyplace':groupIndex==1}">
+                                        <span>全平台</span>
 
                                     </a>
-                                </li> <li>
-                                    <a target="_self" href="" id="" onclick="groupId(this)">
-                                        <span>全平台</span>
+                                </li>
+
+                                <li>
+                                    <a target="_self" href="" id="10184" onclick="groupId(this)" ng-click="groupIndexClick(0)" ng-class="{'keyplace':groupIndex==0}">
+                                        <span>遂宁市人民政府</span>
 
                                     </a>
                                 </li>
@@ -303,187 +316,187 @@
                             <ul>
                                 <li class="unittype"><strong>县&nbsp;&nbsp;&nbsp;区：</strong></li>
                                 <li>
-                                    <a target="_self" href="" id="15165" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15165" onclick="groupId(this)" ng-click="groupIndexClick(2)" ng-class="{'keyplace':groupIndex==2}">
                                         <span>遂宁市安居区人民政府</span>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a   target="_self" href="" id="15177" onclick="groupId(this)">
+                                    <a   target="_self" href="" id="15177" onclick="groupId(this)" ng-click="groupIndexClick(3)" ng-class="{'keyplace':groupIndex==3}">
                                         <span>射洪市人民政府</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" href="" id="15171" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15171" onclick="groupId(this)" ng-click="groupIndexClick(4)" ng-class="{'keyplace':groupIndex==4}">
                                         <span>蓬溪县人民政府</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" href="" id="15183" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15183" onclick="groupId(this)" ng-click="groupIndexClick(5)" ng-class="{'keyplace':groupIndex==5}">
                                         <span>大英县人民政府</span>
                                     </a>
                                 </li> <li>
-                                <a target="_self" href="" id="5739126" onclick="groupId(this)">
+                                <a target="_self" href="" id="5739126" onclick="groupId(this)" ng-click="groupIndexClick(6)" ng-class="{'keyplace':groupIndex==6}">
                                     <span>高新区管委会</span>
                                 </a>
                             </li>
                             </ul>
-                            <ul id="bu" class="search_bmlist showbm" style="margin-right: 115px; display: none">
+                            <ul id="bu" class="search_bmlist showbm" style="margin-right: 115px">
                                 <li class="unittype"><strong>部&nbsp;&nbsp;&nbsp;门：</strong></li>
                                 <li 6787381="">
-                                    <a target="_self" href="" id="15189" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15189" onclick="groupId(this)" ng-click="groupIndexClick(7)" ng-class="{'keyplace':groupIndex==7}">
                                         <span>遂宁市经济开发区</span>
                                     </a>
                                 </li>
                                 <li 6787391="">
-                                    <a target="_self" href="" id="14967" onclick="groupId(this)">
+                                    <a target="_self" href="" id="14967" onclick="groupId(this)" ng-click="groupIndexClick(8)" ng-class="{'keyplace':groupIndex==8}">
                                         <span>遂宁市扶贫开发局</span>
                                     </a>
                                 </li>
                                 <li 6788601="">
-                                    <a target="_self" href="" id="15045" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15045" onclick="groupId(this)"ng-click="groupIndexClick(9)" ng-class="{'keyplace':groupIndex==9}">
                                         <span>遂宁市审计局</span>
                                     </a>
                                 </li>
                                 <li 6788611="">
-                                    <a target="_self" href="">
+                                    <a target="_self" href="" onclick="groupId(this)" ng-click="groupIndexClick(10)" ng-class="{'keyplace':groupIndex==10}">
                                         <span>遂宁市市场监督管理局</span>
                                     </a>
                                 </li>
                                 <li 6789011="">
-                                    <a target="_self" href="" id="2777685" onclick="groupId(this)">
+                                    <a target="_self" href="" id="2777685" onclick="groupId(this)" ng-click="groupIndexClick(11)" ng-class="{'keyplace':groupIndex==11}">
                                         <span>遂宁市医疗保障局</span>
                                     </a>
                                 </li>
 
                                 <li 6789531="">
-                                    <a target="_self" href="" id="1420811" onclick="groupId(this)">
+                                    <a target="_self" href="" id="1420811" onclick="groupId(this)" ng-click="groupIndexClick(12)" ng-class="{'keyplace':groupIndex==12}">
                                         <span>遂宁市应急管理局</span>
                                     </a>
                                 </li>
                                 <li 6790571="">
-                                    <a target="_self" href="" id="2975180" onclick="groupId(this)">
+                                    <a target="_self" href="" id="2975180" onclick="groupId(this)" ng-click="groupIndexClick(13)" ng-class="{'keyplace':groupIndex==13}">
                                         <span>遂宁市教育和体育局</span>
                                     </a>
                                 </li>
                                 <li 6791401="">
-                                    <a target="_self" href="" id="15129" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15129" onclick="groupId(this)" ng-click="groupIndexClick(14)" ng-class="{'keyplace':groupIndex==14}">
                                         <span>遂宁市水利局</span>
                                     </a>
                                 </li>
                                 <li 6793761="">
-                                    <a target="_self" href="" id="15003" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15003" onclick="groupId(this)" ng-click="groupIndexClick(15)" ng-class="{'keyplace':groupIndex==15}">
                                         <span>遂宁市住房和城乡建设局</span>
                                     </a>
                                 </li>
                                 <li 6794201="">
-                                    <a target="_self" href="" id="8120802" onclick="groupId(this)">
+                                    <a target="_self" href="" id="8120802" onclick="groupId(this)" ng-click="groupIndexClick(16)" ng-class="{'keyplace':groupIndex==16}">
                                         <span>遂宁市住房公积金管理中心</span>
                                     </a>
                                 </li>
                                 <li 6794831="">
-                                    <a target="_self" href="" id="14961" onclick="groupId(this)">
+                                    <a target="_self" href="" id="14961" onclick="groupId(this)" ng-click="groupIndexClick(17)" ng-class="{'keyplace':groupIndex==17}">
                                         <span>遂宁市公安局 </span>
                                     </a>
                                 </li>
                                 <li 6795471="">
-                                    <a target="_self" href="" id="1687591" onclick="groupId(this)">
+                                    <a target="_self" href="" id="1687591" onclick="groupId(this)" ng-click="groupIndexClick(18)" ng-class="{'keyplace':groupIndex==18}">
                                         <span>遂宁市农业农村局</span>
                                     </a>
                                 </li>
                                 <li 6797511="">
-                                    <a target="_self" href="" id="15135" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15135" onclick="groupId(this)" ng-click="groupIndexClick(19)" ng-class="{'keyplace':groupIndex==19}">
                                         <span>遂宁市商务局</span>
                                     </a>
                                 </li>
                                 <li 6797941="">
-                                    <a target="_self" href="" id="14979" onclick="groupId(this)">
+                                    <a target="_self" href="" id="14979" onclick="groupId(this)" ng-click="groupIndexClick(20)" ng-class="{'keyplace':groupIndex==20}">
                                         <span>遂宁市司法局</span>
                                     </a>
                                 </li>
 
                                 <li 6798951="">
-                                    <a target="_self" href="" id="14973" onclick="groupId(this)">
+                                    <a target="_self" href="" id="14973" onclick="groupId(this)" ng-click="groupIndexClick(21)" ng-class="{'keyplace':groupIndex==21}">
                                         <span>遂宁市民政局</span>
                                     </a>
                                 </li>
                                 <li 6798961="">
-                                    <a target="_self" href="" id="14943" onclick="groupId(this)">
+                                    <a target="_self" href="" id="14943" onclick="groupId(this)" ng-click="groupIndexClick(22)" ng-class="{'keyplace':groupIndex==22}">
                                         <span>遂宁市经济和信息化局</span>
                                     </a>
                                 </li>
                                 <li 6802121="">
-                                    <a target="_self" href="" id="15147" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15147" onclick="groupId(this)" ng-click="groupIndexClick(23)" ng-class="{'keyplace':groupIndex==23}">
                                         <span>遂宁市统计局</span>
                                     </a>
                                 </li>
                                 <li 6798971="">
-                                    <a target="_self" href="" id="5023964" onclick="groupId(this)">
+                                    <a target="_self" href="" id="5023964" onclick="groupId(this)" ng-click="groupIndexClick(24)" ng-class="{'keyplace':groupIndex==24}">
                                         <span>遂宁市政务服务和大数据管理局</span>
                                     </a>
                                 </li>
                                 <li 6798981="">
-                                    <a target="_self" href="" id="15039" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15039" onclick="groupId(this)" ng-click="groupIndexClick(25)" ng-class="{'keyplace':groupIndex==25}">
                                         <span>遂宁市卫生健康委员会</span>
                                     </a>
                                 </li>
                                 <li 6799111="">
-                                    <a target="_self" href="" id="14937" onclick="groupId(this)">
+                                    <a target="_self" href="" id="14937" onclick="groupId(this)" ng-click="groupIndexClick(26)" ng-class="{'keyplace':groupIndex==26}">
                                         <span>遂宁市发展和改革委员会</span>
                                     </a>
                                 </li>
 
                                 <li 6801321="">
-                                    <a target="_self" href="" id="14991" onclick="groupId(this)">
+                                    <a target="_self" href="" id="14991" onclick="groupId(this)" ng-click="groupIndexClick(27)" ng-class="{'keyplace':groupIndex==27}">
                                         <span>遂宁市人力资源和社会保障局</span>
                                     </a>
                                 </li>
                                 <li 6801331="">
-                                    <a target="_self" href="" id="15027" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15027" onclick="groupId(this)" ng-click="groupIndexClick(28)" ng-class="{'keyplace':groupIndex==28}">
                                         <span>遂宁市林业局</span>
                                     </a>
                                 </li>
                                 <li 6802571="">
-                                    <a target="_self" href="" id="15087" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15087" onclick="groupId(this)" ng-click="groupIndexClick(29)" ng-class="{'keyplace':groupIndex==29}">
                                         <span>遂宁市城市管理行政执法局</span>
                                     </a>
                                 </li>
                                 <li 6803521="">
-                                    <a target="_self" href="" id="2975806" onclick="groupId(this)">
+                                    <a target="_self" href="" id="2975806" onclick="groupId(this)" ng-click="groupIndexClick(30)" ng-class="{'keyplace':groupIndex==30}">
                                         <span>遂宁市文化广播电视和旅游局</span>
                                     </a>
                                 </li>
 
                                 <li 6805671="">
-                                    <a target="_self" href="" id="14985" onclick="groupId(this)">
+                                    <a target="_self" href="" id="14985" onclick="groupId(this)" ng-click="groupIndexClick(31)" ng-class="{'keyplace':groupIndex==31}">
                                         <span>遂宁市财政局</span>
                                     </a>
                                 </li>
                                 <li 6806821="">
-                                    <a target="_self" href="" id="14955" onclick="groupId(this)" >
+                                    <a target="_self" href="" id="14955" onclick="groupId(this)"  ng-click="groupIndexClick(32)" ng-class="{'keyplace':groupIndex==32}">
                                         <span>遂宁市科学技术局</span>
                                     </a>
                                 </li>
                                 <li 6813261="">
-                                    <a target="_self" href="" id="2970412" onclick="groupId(this)">
+                                    <a target="_self" href="" id="2970412" onclick="groupId(this)" ng-click="groupIndexClick(33)" ng-class="{'keyplace':groupIndex==33}">
                                         <span>遂宁市生态环境局</span>
                                     </a>
                                 </li>
                                 <li 6817421="">
-                                    <a target="_self" href="" id="2974878" onclick="groupId(this)">
+                                    <a target="_self" href="" id="2974878" onclick="groupId(this)" ng-click="groupIndexClick(34)" ng-class="{'keyplace':groupIndex==34}">
                                         <span>遂宁市退役军人事务局</span>
                                     </a>
                                 </li>
                                 <li 6817851="">
-                                    <a target="_self" href="" id="15015" onclick="groupId(this)">
+                                    <a target="_self" href="" id="15015" onclick="groupId(this)" ng-click="groupIndexClick(35)" ng-class="{'keyplace':groupIndex==35}">
                                         <span>遂宁市交通运输局</span>
                                     </a>
                                 </li>
                             </ul>
-                            <div class="tit">
-                                <div class="hide_bt" style="display: none;" id="sh" ng-click="shou()">收起</div>
-                                <div class="show_bt" style="display: block;" id="zh" ng-click="zhan()">展开</div>
-                            </div>
+<!--                            <div class="tit">-->
+<!--                                <div class="hide_bt" style="display: none;" id="sh" ng-click="shou()">收起</div>-->
+<!--                                <div class="show_bt" style="display: block;" id="zh" ng-click="zhan()">展开</div>-->
+<!--                            </div>-->
                             <div class="clear"></div>
                         </div></td>
                     </tr>
@@ -1255,6 +1268,18 @@
                         <div id="online_servers" class="part online_servers" style="display: none;"></div>
                     </div>
                 </div>
+
+                <div class="part hotart">
+                    <ul class="title posr txt_color">热门信息推荐</ul>
+                </div>
+                    <div ng-repeat="item in searchTop track by $index"
+                         class="hot-search">
+                        <a style="font-size:14px;margin-top:12px; color: #003eff" class="disb"
+                           target="_blank" href={{item.url}}
+                           ng-bind-html="item.name|trustHtml"> </a>
+<!--                        <a href="#" style="font-size:14px;margin-top:12px; color: #003eff" ng-click="window.open('{{item.url}}')">{{item.name}}</a>-->
+
+                    </div><br>
                 <!-- 智能推荐结束 -->
                 <!-- 搜索历史开始 -->
                 <div class="part history">
@@ -1450,6 +1475,9 @@
 
 
     <script type="text/javascript">
+        $(document).ready(function(){
+            getTop();
+        })
 
         //导航条样式切换
         $(".nav a ").on("click", function () {

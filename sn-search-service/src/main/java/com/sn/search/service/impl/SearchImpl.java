@@ -79,6 +79,11 @@ public class SearchImpl implements SearchInterface {
         return res;
     }
 
+    @Override
+    public List<Map<String, String>> getTop() {
+        return mapper.getTop();
+    }
+
     private Map searchListNew(Map searchMap) {
         Map map = new HashMap();
 

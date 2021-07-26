@@ -64,4 +64,10 @@ public class SNSearchController {
         List<String> res = itemSearchService.getCategoryName(cateGoryFlag);
         return res;
     }
+
+    @RequestMapping("/getTop")
+    public List<Map<String, String>> getTop(String cateGoryFlag) {
+        List<Map<String, String>> res = itemSearchService.getTop();
+        return res;
+    }
 }
