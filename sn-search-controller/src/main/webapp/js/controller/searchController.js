@@ -64,8 +64,8 @@ app.controller("searchController",function ($scope,searchService) {
             if(groupId==10184){
 
                 var cont=document.getElementById("biao");
-                cont.innerText="中共遂宁市委   遂宁市人民政府版权所有   Copyright 2018 www.suining.gov.cn All Rights Reserved\n" +
-                    "承办：遂宁市人民政府办公室 (0825-2312860) 网站维护：遂宁市大数据中心 (0825-2689313)\n" +
+                cont.innerText="" +
+                    "主办单位：遂宁市人民政府办公室 (0825-2312860) 网站维护：遂宁市大数据中心 (0825-2689313)\n" +
                     "蜀ICP备：05028878号 网站标识码：5109000015";
 
                 var ha= document.getElementById("bian");
@@ -114,8 +114,8 @@ app.controller("searchController",function ($scope,searchService) {
                     "<li><a href=\"http://www.12377.cn/ \" target=\"_blank\"><img alt=\"\" src=\"http://www.suining.gov.cn/suining-zhuzhan-theme/images/bg/snf_03.png\" width=\"177\" height=\"52\" border=\"0\" align=\"top\"></a></li> " +
                     "<li><a href=\"http://www.scjb.gov.cn/guide\" target=\"_blank\"><img alt=\"\" src=\"http://www.suining.gov.cn/suining-zhuzhan-theme/images/bg/snf_05.png\" width=\"177\" height=\"52\" border=\"0\" align=\"top\"></a></li>" +
                     " <li><a href=\"http://www.12377.cn/node_548446.htm\" target=\"_blank\"><img alt=\"\" src=\"http://www.suining.gov.cn/suining-zhuzhan-theme/images/bg/snf_09.png\" width=\"177\" height=\"52\" border=\"0\" align=\"top\"></a></li>" +
-                    " <li><a href=\"https://zfwzgl.www.gov.cn/exposure/jiucuo.html?site_code=5109030018&url=http%3A%2F%2Fsnssfw.suining.gov.cn%2F\" target=\"_blank\"><img alt=\"\" src=\"http://www.suining.gov.cn/suining-zhuzhan-theme/images/bg/snf_10.png\" width=\"102\" height=\"52\" border=\"0\" align=\"top\"></a> <!--a href=\"https://zfwzxx.www.gov.cn/check_web/errorInfo/jcInfo/d9697d5c-1568-4fed-be0f-b7825a899fbe-902709118\" target=\"_blank\"><img alt=\"\" src=\"http://www.suining.gov.cn/suining-zhuzhan-theme/images/bg/snf_10.png\" width=\"102\" height=\"52\" border=\"0\" align=\"top\"></a--> </li> <li class=\"dzjg\"> <script type=\"text/javascript\"></script> <a href=\"http://bszs.conac.cn/sitename?method=show&id=13A78F80FED7254EE053022819AC0B13\" target=\"_blank\"><img alt=\"\" src=\"http://www.suining.gov.cn/suining-zhuzhan-theme/images/bg/snf_12.png\" width=\"45\" height=\"52\" border=\"0\" align=\"top\"></a> </li>" +
-                "";
+                    " <li><a href=\"http://bszs.conac.cn/sitename?method=show&id=0B0039620EF30FDBE053022819AC4C5D\" target=\"_blank\"><img alt=\"\" src=\"http://www.suining.gov.cn/suining-zhuzhan-theme/images/bg/snf_10.png\" width=\"102\" height=\"52\" border=\"0\" align=\"top\"></a> <!--a href=\"https://zfwzxx.www.gov.cn/check_web/errorInfo/jcInfo/d9697d5c-1568-4fed-be0f-b7825a899fbe-902709118\" target=\"_blank\"><img alt=\"\" src=\"http://www.suining.gov.cn/suining-zhuzhan-theme/images/bg/snf_10.png\" width=\"102\" height=\"52\" border=\"0\" align=\"top\"></a--> </li> <li class=\"dzjg\"> <script type=\"text/javascript\"></script> <a href=\"http://bszs.conac.cn/sitename?method=show&id=13A78F80FED7254EE053022819AC0B13\" target=\"_blank\"><img alt=\"\" src=\"http://www.suining.gov.cn/suining-zhuzhan-theme/images/bg/snf_12.png\" width=\"45\" height=\"52\" border=\"0\" align=\"top\"></a> </li>" +
+                    "";
 
 
             }
@@ -745,7 +745,7 @@ app.controller("searchController",function ($scope,searchService) {
         $scope.searchMap.groupId=id;
         $scope.groupName=th.innerText;
         $scope.closeSelect();
-        // $scope.SNSearch();
+        $scope.SNSearch();
 
     }
     window.onload=function () {

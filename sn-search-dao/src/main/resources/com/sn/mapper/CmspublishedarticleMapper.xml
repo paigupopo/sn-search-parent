@@ -345,6 +345,12 @@
   </select>
 
   <select id="getTop" resultType="java.util.Map">
-    select top 10 'test' as name, 'baidu.com' as url from Articlecategory
+    select top 10 c.title as name,c.url
+    from AssetEntry a left join JournalArticle b on a.classpk= b.resourcePrimKey
+    left join CMSPublishedArticle c on b.resourcePrimKey = c.resourcePrimKey
+    where c.categoryid <![CDATA[ <> ]]> 14599 and c.categoryid <![CDATA[ <> ]]> 14598
+    and  datediff(day,c.displayDate,getDate()) <![CDATA[ <= ]]> 30
+    and b.status = 0
+    order by a.viewcount desc
   </select>
 </mapper>
